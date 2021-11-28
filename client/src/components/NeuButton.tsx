@@ -1,16 +1,21 @@
-import { useState } from "react";
+import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { CSSProperties, useEffect, useState } from "react";
 
 interface IProps {
-  text: string;
-  height: string;
-  width: string;
+  type: "light" | "colored";
+  className?: string;
+  text?: string;
+  icon?: IconDefinition;
+  style: CSSProperties;
   handleClick?: () => void;
 }
 
-const buttonClasses = "flex justify-center items-center text-gray-500 text-3xl cursor-pointer p-10 select-none ";
+const defaultButtonClasses = "flex justify-center items-center text-gray-500 text-3xl cursor-pointer select-none ";
 
-export const NeuButton = ({ text, height, width, handleClick }: IProps) => {
+export const NeuButton = ({ type, className, text, icon, style, handleClick }: IProps) => {
   const [isPressed, setIsPressed] = useState(false);
+  const [buttonClasses, setButtonClasses] = useState<string>(defaultButtonClasses);
 
   const handleButtonDown = (e: Event) => {
     setIsPressed(true);
@@ -20,10 +25,27 @@ export const NeuButton = ({ text, height, width, handleClick }: IProps) => {
     setIsPressed(false);
   };
 
+  useEffect(() => {
+    if (type === "light") {
+      setButtonClasses(
+        isPressed
+          ? defaultButtonClasses + className + " light-pressed-button-shadow"
+          : defaultButtonClasses + className + " light-button-shadow"
+      );
+    }
+    if (type === "colored") {
+      setButtonClasses(
+        isPressed
+          ? defaultButtonClasses + className + " colored-pressed-button-shadow"
+          : defaultButtonClasses + className + " colored-button-shadow"
+      );
+    }
+  }, [type, className, isPressed]);
+
   return (
     <button
-      className={isPressed ? buttonClasses + "button-pressed-neumorphic" : buttonClasses + "button-neumorphic"}
-      style={{ height, width }}
+      className={buttonClasses}
+      style={style}
       onMouseDown={(e: any) => handleButtonDown(e)}
       onMouseUp={(e: any) => handleButtonUp(e)}
       onMouseLeave={(e: any) => handleButtonUp(e)}
@@ -32,6 +54,7 @@ export const NeuButton = ({ text, height, width, handleClick }: IProps) => {
       onTouchCancel={(e: any) => handleButtonUp(e)}
       onClick={handleClick}
     >
+      {icon && <FontAwesomeIcon className="w-full h-full" icon={icon} />}
       {text}
     </button>
   );
