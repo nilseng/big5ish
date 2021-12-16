@@ -1,5 +1,6 @@
 import { faVolumeMute, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
+import { Link } from "react-router-dom";
 import { AppContext } from "../App";
 import { Logo } from "./Logo/Logo";
 import { NeuButton } from "./NeuButton";
@@ -24,9 +25,9 @@ export const Navbar = () => {
 
   return (
     <nav className="absolute top-0 w-screen flex items-center flex-wrap p-4">
-      <a href="/" className="flex items-center">
+      <Link to="/" className="flex items-center">
         <Logo height="2rem" width="2rem" />
-      </a>
+      </Link>
       <button
         className="inline-flex p-3 rounded lg:hidden text-gray-50 ml-auto hover:text-white outline-none"
         onClick={() => setIsMenuOpen(!isMenuOpen)}
@@ -44,7 +45,7 @@ export const Navbar = () => {
       <div className={`${isMenuOpen ? "" : "hidden"}   w-full lg:inline-flex lg:flex-grow lg:w-auto`}>
         <div className="lg:inline-flex lg:flex-row lg:ml-auto lg:w-auto w-full lg:items-center items-start  flex flex-col lg:h-auto">
           <div
-            className="text-sm lg:inline-flex lg:w-auto w-full px-6 py-2 rounded text-gray-50 font-light items-center justify-center hover:text-white"
+            className="text-sm lg:inline-flex lg:w-auto w-full lg:px-6 py-2 rounded text-gray-50 font-light items-center justify-center hover:text-white"
             onClick={() => setIsMenuOpen(false)}
           >
             {isMuted ? (
