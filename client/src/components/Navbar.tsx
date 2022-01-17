@@ -26,7 +26,7 @@ export const Navbar = () => {
   return (
     <nav className="absolute top-0 w-screen flex items-center flex-wrap p-4">
       <Link to="/" className="flex items-center">
-        <Logo height="2rem" width="2rem" />
+        <NeuButton type="colored" style={{padding: "1rem"}} componentIcon={<Logo height="2rem" width="2rem"/>} />
       </Link>
       <button
         className="inline-flex p-3 rounded lg:hidden text-gray-50 ml-auto hover:text-white outline-none"

@@ -6,7 +6,7 @@ interface IProps {
 
 export const Landing = ({ createRoom }: IProps) => {
   return (
-    <div className="flex flex-col justify-between items-center w-full h-1/2 md:w-1/2 md:h-1/2 bg-light rounded elevation m-4 pt-40 pb-4">
+    <div className="flex flex-col justify-center items-center w-full h-1/2 md:w-1/2 md:h-1/2 bg-light rounded elevation m-4 pb-4">
       <NeuButton
         type="light"
         className="text-gray-700"

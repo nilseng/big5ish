@@ -1,19 +1,20 @@
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CSSProperties, useEffect, useState } from "react";
+import { CSSProperties, ReactElement, useEffect, useState } from "react";
 
 interface IProps {
   type: "light" | "colored";
   className?: string;
   text?: string;
   icon?: IconDefinition;
+  componentIcon?: ReactElement;
   style: CSSProperties;
   handleClick?: () => void;
 }
 
 const defaultButtonClasses = "flex justify-center items-center text-gray-500 text-3xl cursor-pointer select-none ";
 
-export const NeuButton = ({ type, className, text, icon, style, handleClick }: IProps) => {
+export const NeuButton = ({ type, className, text, icon, componentIcon, style, handleClick }: IProps) => {
   const [isPressed, setIsPressed] = useState(false);
   const [buttonClasses, setButtonClasses] = useState<string>(defaultButtonClasses);
 
@@ -55,6 +56,7 @@ export const NeuButton = ({ type, className, text, icon, style, handleClick }: I
       onClick={handleClick}
     >
       {icon && <FontAwesomeIcon className="w-full h-full" icon={icon} />}
+      {componentIcon}
       {text}
     </button>
   );

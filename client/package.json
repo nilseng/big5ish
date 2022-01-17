@@ -21,8 +21,9 @@
     "web-vitals": "^1.1.2"
   },
   "scripts": {
+    "start:open": "HOST=teo.local react-scripts start",
     "start": "react-scripts start",
-    "build": "react-scripts craco build",
+    "build": "react-scripts build",
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
