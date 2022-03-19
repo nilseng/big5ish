@@ -26,7 +26,7 @@ export const Navbar = () => {
   return (
     <nav className="absolute top-0 w-screen flex items-center flex-wrap p-4">
       <Link to="/" className="flex items-center">
-        <NeuButton type="colored" style={{padding: "1rem"}} componentIcon={<Logo height="2rem" width="2rem"/>} />
+        <NeuButton type="colored" style={{ padding: "1rem" }} componentIcon={<Logo height="2rem" width="2rem" />} />
       </Link>
       <button
         className="inline-flex p-3 rounded lg:hidden text-gray-50 ml-auto hover:text-white outline-none"
@@ -53,7 +53,7 @@ export const Navbar = () => {
                 type="colored"
                 icon={faVolumeMute}
                 style={{ height: "2rem", width: "2rem", padding: "0.5rem" }}
-                handleClick={unmute}
+                action={unmute}
                 className="text-gray-700"
               />
             ) : (
@@ -61,7 +61,7 @@ export const Navbar = () => {
                 type="colored"
                 icon={faVolumeUp}
                 style={{ height: "2rem", width: "2rem", padding: "0.5rem" }}
-                handleClick={mute}
+                action={mute}
                 className="text-gray-700"
               />
             )}

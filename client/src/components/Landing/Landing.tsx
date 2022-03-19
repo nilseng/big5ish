@@ -12,7 +12,7 @@ export const Landing = ({ createRoom }: IProps) => {
         className="text-gray-700"
         text="start"
         style={{ height: "10rem", width: "10rem", padding: "2.5rem" }}
-        handleClick={createRoom}
+        action={createRoom}
       />
     </div>
   );

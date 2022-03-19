@@ -1,4 +1,5 @@
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { CSSProperties, ReactElement, useEffect, useState } from "react";
 
@@ -9,21 +10,34 @@ interface IProps {
   icon?: IconDefinition;
   componentIcon?: ReactElement;
   style: CSSProperties;
-  handleClick?: () => void;
+  action?: () => void;
+  asyncAction?: () => Promise<void>;
 }
 
 const defaultButtonClasses = "flex justify-center items-center text-gray-500 text-3xl cursor-pointer select-none ";
 
-export const NeuButton = ({ type, className, text, icon, componentIcon, style, handleClick }: IProps) => {
+export const NeuButton = ({ type, className, text, icon, componentIcon, style, action, asyncAction }: IProps) => {
   const [isPressed, setIsPressed] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
   const [buttonClasses, setButtonClasses] = useState<string>(defaultButtonClasses);
 
-  const handleButtonDown = (e: Event) => {
+  const handleButtonDown = () => {
     setIsPressed(true);
   };
 
-  const handleButtonUp = (e: Event) => {
+  const handleButtonUp = () => {
     setIsPressed(false);
+  };
+
+  const handleClick = async () => {
+    if (action) {
+      action();
+    }
+    if (asyncAction) {
+      setIsLoading(true);
+      await asyncAction();
+      setIsLoading(false);
+    }
   };
 
   useEffect(() => {
@@ -47,18 +61,24 @@ export const NeuButton = ({ type, className, text, icon, componentIcon, style, h
     <button
       className={buttonClasses}
       style={style}
-      onMouseDown={(e: any) => handleButtonDown(e)}
-      onMouseUp={(e: any) => handleButtonUp(e)}
-      onMouseLeave={(e: any) => handleButtonUp(e)}
-      onMouseOut={(e: any) => handleButtonUp(e)}
-      onTouchStart={(e: any) => handleButtonDown(e)}
-      onTouchEnd={(e: any) => handleButtonUp(e)}
-      onTouchCancel={(e: any) => handleButtonUp(e)}
+      onMouseDown={handleButtonDown}
+      onMouseUp={handleButtonUp}
+      onMouseLeave={handleButtonUp}
+      onMouseOut={handleButtonUp}
+      onTouchStart={handleButtonDown}
+      onTouchEnd={handleButtonUp}
+      onTouchCancel={handleButtonUp}
       onClick={handleClick}
     >
-      {icon && <FontAwesomeIcon className="w-full h-full" icon={icon} />}
-      {componentIcon}
-      {text}
+      {isLoading ? (
+        <FontAwesomeIcon className="animate-spin" icon={faSpinner} />
+      ) : (
+        <>
+          {icon && <FontAwesomeIcon className="w-full h-full" icon={icon} />}
+          {componentIcon}
+          {text}
+        </>
+      )}
     </button>
   );
 };
