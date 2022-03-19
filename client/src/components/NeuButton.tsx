@@ -50,6 +50,7 @@ export const NeuButton = ({ type, className, text, icon, componentIcon, style, h
       onMouseDown={(e: any) => handleButtonDown(e)}
       onMouseUp={(e: any) => handleButtonUp(e)}
       onMouseLeave={(e: any) => handleButtonUp(e)}
+      onMouseOut={(e: any) => handleButtonUp(e)}
       onTouchStart={(e: any) => handleButtonDown(e)}
       onTouchEnd={(e: any) => handleButtonUp(e)}
       onTouchCancel={(e: any) => handleButtonUp(e)}
