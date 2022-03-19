@@ -54,7 +54,6 @@ export const Navbar = () => {
                 icon={faVolumeMute}
                 style={{ height: "2rem", width: "2rem", padding: "0.5rem" }}
                 action={unmute}
-                className="text-gray-700"
               />
             ) : (
               <NeuButton
@@ -62,7 +61,6 @@ export const Navbar = () => {
                 icon={faVolumeUp}
                 style={{ height: "2rem", width: "2rem", padding: "0.5rem" }}
                 action={mute}
-                className="text-gray-700"
               />
             )}
           </div>

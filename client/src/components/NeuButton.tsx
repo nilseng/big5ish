@@ -74,7 +74,7 @@ export const NeuButton = ({ type, className, text, icon, componentIcon, style, a
         <FontAwesomeIcon className="animate-spin" icon={faSpinner} />
       ) : (
         <>
-          {icon && <FontAwesomeIcon className="w-full h-full" icon={icon} />}
+          {icon && <FontAwesomeIcon className="w-full h-full text-gray-200" icon={icon} />}
           {componentIcon}
           {text}
         </>
