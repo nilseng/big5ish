@@ -4,7 +4,7 @@
   "description": "",
   "main": "/server/dist/index.js",
   "scripts": {
-    "heroku-prebuild": "npm i && cd client && npm i && npm i --save-dev && npm run build && cd .. && cd server && npm i && tsc"
+    "heroku-prebuild": "npm i && cd client && npm i && npm i --save-dev && npm run build && cd .. && cd server && npm i && npm i -D && tsc"
   },
   "author": "Teodor Nilseng Danielsen",
   "license": "ISC",
