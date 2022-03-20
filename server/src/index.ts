@@ -3,9 +3,14 @@ import path from "path";
 import morgan from "morgan";
 import bodyParser from "body-parser";
 import sslRedirect from "heroku-ssl-redirect";
+import dotenv from "dotenv";
+dotenv.config();
+
+import { initializeCache } from "./cache/cache";
 
 const initializeApp = async () => {
   const app = express();
+  await initializeCache();
 
   app.use(sslRedirect());
 
