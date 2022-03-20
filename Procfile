@@ -1,1 +1,1 @@
-web cd server && node dist/index.js
+web cd server && node --es-module-specifier-resolution=node dist/index.js

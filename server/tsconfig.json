@@ -7,7 +7,9 @@
     "lib": ["esnext"],
     "esModuleInterop": true,
     "resolveJsonModule": true,
-    "target": "ES5"
+    "moduleResolution": "node",
+    "target": "ES2020",
+    "module": "ES2020"
   },
   "ts-node": {
     "maxOldSpaceSize": 8196

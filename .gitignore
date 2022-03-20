@@ -30,3 +30,4 @@ node_modules
 .env
 /client/.env
 /server/.env
+/server/dist
