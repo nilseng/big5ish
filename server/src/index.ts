@@ -1,12 +1,11 @@
-import express from "express";
-import path from "path";
-import morgan from "morgan";
 import bodyParser from "body-parser";
-import sslRedirect from "heroku-ssl-redirect";
 import dotenv from "dotenv";
-dotenv.config();
-
+import express from "express";
+import sslRedirect from "heroku-ssl-redirect";
+import morgan from "morgan";
+import path from "path";
 import { initializeCache } from "./cache/cache";
+dotenv.config();
 
 const initializeApp = async () => {
   const app = express();

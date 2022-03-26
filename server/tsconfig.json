@@ -1,18 +1,8 @@
 {
+  "extends": "@tsconfig/node16/tsconfig.json",
   "compilerOptions": {
-    "downlevelIteration": true,
-    "sourceMap": false,
-    "outDir": "dist",
-    "strict": true,
-    "lib": ["esnext"],
-    "esModuleInterop": true,
-    "resolveJsonModule": true,
-    "moduleResolution": "node",
-    "target": "ES2020",
-    "module": "ES2020",
-    "allowSyntheticDefaultImports": true
+    "outDir": "dist"
   },
-  "ts-node": {
-    "maxOldSpaceSize": 8196
-  }
+  "include": ["src"],
+  "exclude": ["node_modules"]
 }
