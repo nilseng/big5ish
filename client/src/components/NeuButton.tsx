@@ -14,7 +14,7 @@ interface IProps {
   asyncAction?: () => Promise<void>;
 }
 
-const defaultButtonClasses = "flex justify-center items-center text-gray-500 text-3xl cursor-pointer select-none ";
+const defaultButtonClasses = "flex justify-center items-center text-gray-500 cursor-pointer select-none ";
 
 export const NeuButton = ({ type, className, text, icon, componentIcon, style, action, asyncAction }: IProps) => {
   const [isPressed, setIsPressed] = useState(false);
