@@ -9,10 +9,12 @@ export const initializeCache = async (): Promise<RedisClientType<RedisModules, R
     .then(() => console.log("Server is connected to Redis cache."))
     .catch((e) => console.error("Could not connect to cache", e));
 
+  cache.on("error", (e) => console.error("REDIS:", e));
+
   //Capture app termination/restart events
   //To be called when process is restarted or terminated
   const disconnect = async (msg: string) => {
-    await cache.disconnect();
+    await cache.quit();
     console.log("Redis client disconnected through " + msg);
   };
 
