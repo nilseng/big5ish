@@ -12,7 +12,7 @@ export const EnterRoom = () => {
       <input
         className="rounded-full p-4"
         type="text"
-        placeholder="Room ID..."
+        placeholder="Game ID..."
         onChange={(e) => setRoomID(e.target.value)}
         value={roomID}
       />
