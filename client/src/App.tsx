@@ -1,9 +1,10 @@
+import { nanoid } from "nanoid";
 import { createContext, Dispatch, SetStateAction, useRef, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { nanoid } from "nanoid";
-
+import { EnterRoom } from "./components/EnterRoom";
 import { Landing } from "./components/Landing/Landing";
 import { Navbar } from "./components/Navbar";
+import { RegisterPlayer } from "./components/RegisterPlayer";
 import { Room } from "./components/Room";
 
 interface IAppContext {
@@ -20,6 +21,8 @@ export const paths = {
   player: "/player",
 };
 
+export const roomIDLength = 6;
+
 const App = () => {
   const navigate = useNavigate();
 
@@ -27,7 +30,7 @@ const App = () => {
   const [isMuted, setIsMuted] = useState(true);
 
   const initiateRoom = () => {
-    navigate(`${paths.room}/${nanoid(6)}`);
+    navigate(`${paths.room}/${nanoid(roomIDLength)}`);
   };
 
   return (
@@ -38,8 +41,8 @@ const App = () => {
           <Routes>
             <Route path="/" element={<Landing createRoom={initiateRoom} />} />
             <Route path={`${paths.room}/:roomId`} element={<Room />} />
-            <Route path={`${paths.play}`} element={<p>Enter room id</p>} />
-            <Route path={`${paths.player}/:roomId`} element={<p>Enter your name</p>} />
+            <Route path={`${paths.play}`} element={<EnterRoom />} />
+            <Route path={`${paths.player}/:roomId`} element={<RegisterPlayer />} />
           </Routes>
         </div>
       </div>
