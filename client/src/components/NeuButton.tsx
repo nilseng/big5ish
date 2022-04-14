@@ -6,6 +6,7 @@ import { CSSProperties, ReactElement, useEffect, useState } from "react";
 interface IProps {
   type: "light" | "colored";
   className?: string;
+  textClassName?: string;
   text?: string;
   icon?: IconDefinition;
   componentIcon?: ReactElement;
@@ -16,7 +17,17 @@ interface IProps {
 
 const defaultButtonClasses = "flex justify-center items-center text-gray-500 cursor-pointer select-none ";
 
-export const NeuButton = ({ type, className, text, icon, componentIcon, style, action, asyncAction }: IProps) => {
+export const NeuButton = ({
+  type,
+  className,
+  textClassName,
+  text,
+  icon,
+  componentIcon,
+  style,
+  action,
+  asyncAction,
+}: IProps) => {
   const [isPressed, setIsPressed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [buttonClasses, setButtonClasses] = useState<string>(defaultButtonClasses);
@@ -76,7 +87,7 @@ export const NeuButton = ({ type, className, text, icon, componentIcon, style, a
         <>
           {icon && <FontAwesomeIcon className="w-full h-full text-gray-200" icon={icon} />}
           {componentIcon}
-          {text}
+          <span className={textClassName}>{text}</span>
         </>
       )}
     </button>
