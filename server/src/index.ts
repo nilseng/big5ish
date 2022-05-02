@@ -7,7 +7,7 @@ import path from "path";
 import { initializeCache } from "./cache/cache";
 dotenv.config();
 
-const initializeApp = async () => {
+const runServer = async () => {
   const app = express();
   await initializeCache();
 
@@ -32,4 +32,4 @@ const initializeApp = async () => {
   );
 };
 
-initializeApp();
+runServer();
