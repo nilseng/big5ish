@@ -9,7 +9,7 @@ dotenv.config();
 
 const runServer = async () => {
   const app = express();
-  await initializeCache();
+  const cache = await initializeCache();
 
   app.use(sslRedirect());
 
@@ -27,9 +27,32 @@ const runServer = async () => {
   app.use(express.static(path.join(__dirname, "../../client/build")));
   app.use("/*", express.static(path.join(__dirname, "../../client/build", "index.html")));
 
-  app.listen({ port: process.env.PORT || 4000 }, () =>
+  const server = app.listen({ port: process.env.PORT || 4000 }, () =>
     console.log(`The server is now running on port ${process.env.PORT || 4000}`)
   );
+
+  //Capture app termination/restart events
+  //To be called when process is restarted or terminated
+  const disconnect = async () => {
+    await cache.quit();
+    server.close(() => {
+      process.exit(0);
+    });
+
+    setTimeout(() => {
+      console.error("Could not close connections in time, forcefully shutting down");
+      process.exit(1);
+    }, 10000);
+  };
+
+  //For app termination
+  process.on("SIGINT", async () => {
+    await disconnect();
+  });
+  //For Heroku app termination
+  process.on("SIGTERM", async () => {
+    await disconnect();
+  });
 };
 
 runServer();
