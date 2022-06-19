@@ -4,12 +4,13 @@ import express from "express";
 import sslRedirect from "heroku-ssl-redirect";
 import morgan from "morgan";
 import path from "path";
-import { initializeCache } from "./cache/cache";
+import { Cache } from "./cache/cache";
+import { createGqlMiddleware } from "./graphql/graphql";
 dotenv.config();
 
 const runServer = async () => {
   const app = express();
-  const cache = await initializeCache();
+  const cache = new Cache();
 
   app.use(sslRedirect());
 
@@ -24,12 +25,14 @@ const runServer = async () => {
 
   app.use(morgan("tiny"));
 
+  app.use("/graphql", createGqlMiddleware());
+
   app.use(express.static(path.join(__dirname, "../../client/build")));
   app.use("/*", express.static(path.join(__dirname, "../../client/build", "index.html")));
 
-  const server = app.listen({ port: process.env.PORT || 4000 }, () =>
-    console.log(`The server is now running on port ${process.env.PORT || 4000}`)
-  );
+  const server = app.listen({ port: process.env.PORT || 4000 }, () => {
+    console.info(`The server is listening on port ${process.env.PORT || 4000}.`);
+  });
 
   const disconnect = async () => {
     await cache?.quit().catch((e) => {

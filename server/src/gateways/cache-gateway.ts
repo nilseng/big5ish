@@ -1,11 +1,19 @@
-import { RedisClientType, RedisModules, RedisScripts } from "@node-redis/client";
+import { Cache } from "../cache/cache";
 
 export class CacheGateway {
-  constructor(private cache: RedisClientType<RedisModules, RedisScripts>) {
-    this.cache = cache;
+  #cache: Cache;
+
+  constructor() {
+    this.#cache = Cache.instance;
   }
 
   async set(key: string, field: string, value: unknown) {
-    this.cache.HSET(key, field, JSON.stringify(value));
+    const res = await this.#cache.client.set(key, JSON.stringify(value));
+    console.log(res);
+  }
+
+  async getAll() {
+    const res = await this.#cache.client.get("games");
+    console.log(res);
   }
 }
