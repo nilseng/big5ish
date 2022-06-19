@@ -31,10 +31,11 @@ const runServer = async () => {
     console.log(`The server is now running on port ${process.env.PORT || 4000}`)
   );
 
-  //Capture app termination/restart events
-  //To be called when process is restarted or terminated
   const disconnect = async () => {
-    await cache.quit();
+    await cache?.quit().catch((e) => {
+      console.error(e);
+      process.exit(1);
+    });
     server.close(() => {
       process.exit(0);
     });
@@ -45,12 +46,12 @@ const runServer = async () => {
     }, 10000);
   };
 
-  //For app termination
   process.on("SIGINT", async () => {
+    console.info("SIGINT");
     await disconnect();
   });
-  //For Heroku app termination
   process.on("SIGTERM", async () => {
+    console.info("SIGTERM");
     await disconnect();
   });
 };
