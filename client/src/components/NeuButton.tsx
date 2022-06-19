@@ -10,12 +10,13 @@ interface IProps {
   text?: string;
   icon?: IconDefinition;
   componentIcon?: ReactElement;
-  style: CSSProperties;
+  style?: CSSProperties;
   action?: () => void;
   asyncAction?: () => Promise<void>;
+  disabled?: boolean;
 }
 
-const defaultButtonClasses = "flex justify-center items-center text-gray-500 cursor-pointer select-none ";
+const defaultButtonClasses = "flex justify-center items-center text-gray-500 select-none ";
 
 export const NeuButton = ({
   type,
@@ -27,6 +28,7 @@ export const NeuButton = ({
   style,
   action,
   asyncAction,
+  disabled = false,
 }: IProps) => {
   const [isPressed, setIsPressed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
@@ -72,6 +74,7 @@ export const NeuButton = ({
     <button
       className={buttonClasses}
       style={style}
+      disabled={disabled}
       onMouseDown={handleButtonDown}
       onMouseUp={handleButtonUp}
       onMouseLeave={handleButtonUp}

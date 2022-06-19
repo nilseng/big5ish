@@ -1,11 +1,11 @@
 import { nanoid } from "nanoid";
 import { createContext, Dispatch, SetStateAction, useRef, useState } from "react";
 import { Route, Routes, useNavigate } from "react-router-dom";
-import { EnterRoom } from "./components/EnterRoom";
-import { Landing } from "./components/Landing/Landing";
+import { GameIdForm } from "./components/GameIdForm";
+import { Landing } from "./components/Landing";
 import { Navbar } from "./components/Navbar";
-import { RegisterPlayer } from "./components/RegisterPlayer";
-import { Room } from "./components/Room";
+import { NicknameForm } from "./components/NicknameForm";
+import { WaitingRoom } from "./components/WaitingRoom";
 
 interface IAppContext {
   isMuted?: boolean;
@@ -16,9 +16,9 @@ interface IAppContext {
 export const AppContext = createContext<IAppContext>({});
 
 export const paths = {
-  room: "/room",
-  play: "/play",
-  player: "/player",
+  waitingRoom: "/waiting-room",
+  gameIdForm: "/play",
+  nicknameForm: "/enter-nick-name",
 };
 
 export const roomIDLength = 6;
@@ -30,7 +30,7 @@ const App = () => {
   const [isMuted, setIsMuted] = useState(true);
 
   const initiateRoom = () => {
-    navigate(`${paths.room}/${nanoid(roomIDLength)}`);
+    navigate(`${paths.waitingRoom}/${nanoid(roomIDLength)}`);
   };
 
   return (
@@ -39,10 +39,10 @@ const App = () => {
         <Navbar />
         <div className="h-full w-screen flex content-center justify-center items-center">
           <Routes>
-            <Route path="/" element={<Landing createRoom={initiateRoom} />} />
-            <Route path={`${paths.room}/:roomId`} element={<Room />} />
-            <Route path={`${paths.play}`} element={<EnterRoom />} />
-            <Route path={`${paths.player}/:roomId`} element={<RegisterPlayer />} />
+            <Route path="/" element={<Landing start={initiateRoom} />} />
+            <Route path={`${paths.waitingRoom}/:roomId`} element={<WaitingRoom />} />
+            <Route path={`${paths.gameIdForm}`} element={<GameIdForm />} />
+            <Route path={`${paths.nicknameForm}/:roomId`} element={<NicknameForm />} />
           </Routes>
         </div>
       </div>

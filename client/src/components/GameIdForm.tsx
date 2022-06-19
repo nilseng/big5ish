@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { roomIDLength } from "../App";
+import { paths, roomIDLength } from "../App";
 import { NeuButton } from "./NeuButton";
 
-export const EnterRoom = () => {
+export const GameIdForm = () => {
   const navigate = useNavigate();
   const [roomID, setRoomID] = useState("");
 
@@ -20,9 +20,8 @@ export const EnterRoom = () => {
         <NeuButton
           className="text-light h-20 w-20 p-4 mt-4"
           textClassName="font-bold"
-          action={() => navigate(`/player/${roomID}`)}
+          action={() => navigate(`${paths.nicknameForm}/${roomID}`)}
           type="colored"
-          style={{}}
           text="Enter"
         />
       )}

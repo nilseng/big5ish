@@ -1,7 +1,7 @@
 import { useParams } from "react-router-dom";
 import { paths } from "../App";
 
-export const Room = () => {
+export const WaitingRoom = () => {
   const params = useParams();
 
   return (
@@ -13,7 +13,7 @@ export const Room = () => {
       <div className="flex flex-col items-center mt-20">
         <p className="text-gray-200 self-start">Go to</p>
         <p className="text-gray-50">
-          <code className="text-xl">big5ish.herokuapp.com{paths.play}</code>
+          <code className="text-xl">big5ish.herokuapp.com{paths.gameIdForm}</code>
         </p>
         <p className="text-gray-200 self-end">to join the game</p>
       </div>
