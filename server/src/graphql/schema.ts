@@ -16,10 +16,14 @@ export const gqlSchema = gql`
 
   extend type RootQuery {
     hello: String
-    getGames: String
+    getGames: Game
   }
 
   extend type RootMutation {
     createGame(id: ID!): String
+  }
+
+  type Game {
+    id: ID
   }
 `;

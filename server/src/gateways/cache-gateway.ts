@@ -7,13 +7,13 @@ export class CacheGateway {
     this.#cache = Cache.instance;
   }
 
-  async set(key: string, field: string, value: unknown) {
+  async set(key: string, value: unknown) {
     const res = await this.#cache.client.set(key, JSON.stringify(value));
-    console.log(res);
+    return res;
   }
 
   async getAll() {
     const res = await this.#cache.client.get("games");
-    console.log(res);
+    return res ? JSON.parse(res) : null;
   }
 }

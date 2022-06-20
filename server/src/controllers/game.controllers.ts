@@ -8,10 +8,11 @@ export class GameController {
   }
 
   async createGame(id: string) {
-    await this.#cache.set("games", id, { status: "created" });
+    await this.#cache.set("games", { id });
   }
 
   async getGames() {
-    await this.#cache.getAll();
+    const res = await this.#cache.getAll();
+    return res;
   }
 }
