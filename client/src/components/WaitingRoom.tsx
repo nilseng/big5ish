@@ -1,5 +1,5 @@
 import { useParams } from "react-router-dom";
-import { paths } from "../App";
+import { paths } from "../config";
 
 export const WaitingRoom = () => {
   const params = useParams();

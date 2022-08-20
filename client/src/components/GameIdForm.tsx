@@ -1,6 +1,6 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { paths, roomIDLength } from "../App";
+import { paths, roomIDLength } from "../config";
 import { NeuButton } from "./NeuButton";
 
 export const GameIdForm = () => {
