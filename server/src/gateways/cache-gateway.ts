@@ -7,13 +7,18 @@ export class CacheGateway {
     this.#cache = Cache.instance;
   }
 
-  async set(key: string, value: unknown) {
-    const res = await this.#cache.client.set(key, JSON.stringify(value));
+  async set(key: string, field: string, value: unknown) {
+    const res = await this.#cache.client.hSet(key, field, JSON.stringify(value));
     return res;
   }
 
   async getAll() {
-    const res = await this.#cache.client.get("games");
-    return res ? JSON.parse(res) : null;
+    const res = await this.#cache.client.hGetAll("rooms");
+    return res;
+  }
+
+  async get(key: string, field: string) {
+    const res = await this.#cache.client.hGet(key, field);
+    return res;
   }
 }

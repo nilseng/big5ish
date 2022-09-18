@@ -8,11 +8,16 @@ export class GameController {
   }
 
   async createGame(id: string) {
-    await this.#cache.set("games", { id });
+    await this.#cache.set("rooms", id, id);
   }
 
   async getGames() {
     const res = await this.#cache.getAll();
+    return res;
+  }
+
+  async getGame(id: string) {
+    const res = await this.#cache.get("rooms", id);
     return res;
   }
 }

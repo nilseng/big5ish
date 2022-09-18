@@ -17,6 +17,7 @@ export const gqlSchema = gql`
   extend type RootQuery {
     hello: String
     getGames: Game
+    getGame(id: ID!): String
   }
 
   extend type RootMutation {
