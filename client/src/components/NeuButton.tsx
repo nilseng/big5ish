@@ -68,6 +68,12 @@ export const NeuButton = ({
           : defaultButtonClasses + className + " colored-button-shadow"
       );
     }
+
+    return () => {
+      setIsPressed(false);
+      setIsLoading(false);
+      setButtonClasses(defaultButtonClasses);
+    };
   }, [type, className, isPressed]);
 
   return (
@@ -85,7 +91,7 @@ export const NeuButton = ({
       onClick={handleClick}
     >
       {isLoading ? (
-        <FontAwesomeIcon className="animate-spin" icon={faSpinner} />
+        <FontAwesomeIcon className="animate-spin text-gray-200" icon={faSpinner} />
       ) : (
         <>
           {icon && <FontAwesomeIcon className="w-full h-full text-gray-200" icon={icon} />}

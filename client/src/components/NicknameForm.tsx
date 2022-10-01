@@ -1,9 +1,19 @@
+import { gql, useMutation } from "@apollo/client";
 import React, { useState } from "react";
-import { useParams } from "react-router-dom";
+import { useNavigate, useParams } from "react-router-dom";
+import { paths } from "../config";
 import { NeuButton } from "./NeuButton";
 
+const addPlayerMutation = gql`
+  mutation addPlayer($gameId: ID!, $nickname: String!) {
+    addPlayer(gameId: $gameId, nickname: $nickname)
+  }
+`;
+
 export const NicknameForm = () => {
-  const params = useParams();
+  const { roomId } = useParams();
+  const navigate = useNavigate();
+  const [addPlayer, { error }] = useMutation(addPlayerMutation);
 
   const [nickname, setNickname] = useState("");
 
@@ -11,11 +21,18 @@ export const NicknameForm = () => {
     setNickname(e.target.value);
   };
 
+  const joinGame = async () => {
+    await addPlayer({ variables: { gameId: roomId, nickname } });
+    navigate(`${paths.waitingRoom}/${roomId}`);
+  };
+
+  if (error) return <p>Hell! Something got messed up...</p>;
+
   return (
     <div className="flex flex-col justify-center items-center">
       <p className="text-gray-200">game id</p>
       <h1 className="text-3xl text-gray-50 mb-8">
-        <code>{params.roomId}</code>
+        <code>{roomId}</code>
       </h1>
       <input
         className="rounded-full p-4"
@@ -31,6 +48,7 @@ export const NicknameForm = () => {
         type="colored"
         style={{}}
         text="Join game"
+        asyncAction={joinGame}
       />
     </div>
   );

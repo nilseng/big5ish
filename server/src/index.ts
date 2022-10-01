@@ -4,13 +4,11 @@ import express from "express";
 import sslRedirect from "heroku-ssl-redirect";
 import morgan from "morgan";
 import path from "path";
-import { Cache } from "./cache/cache";
 import { createGqlMiddleware } from "./graphql/graphql";
 dotenv.config();
 
 const runServer = async () => {
   const app = express();
-  const cache = new Cache();
 
   app.use(sslRedirect());
 
@@ -35,18 +33,14 @@ const runServer = async () => {
   });
 
   const disconnect = async () => {
-    await cache?.quit().catch((e) => {
-      console.error(e);
-      process.exit(1);
-    });
     server.close(() => {
       process.exit(0);
     });
 
     setTimeout(() => {
-      console.error("Could not close connections in time, forcefully shutting down");
+      console.error("Could not close connections within 3 sec, forcefully shutting down");
       process.exit(1);
-    }, 10000);
+    }, 3000);
   };
 
   process.on("SIGINT", async () => {

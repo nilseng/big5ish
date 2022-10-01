@@ -10,11 +10,8 @@ export const createGqlMiddleware = () => {
 
   const resolvers = {
     hello: () => "Hello, you fool",
-    createGame: async (args: { id: string }) => {
-      await gameController.createGame(args.id);
-    },
-    getGames: async () => await gameController.getGames(),
-    getGame: async (args: { id: string }) => await gameController.getGame(args.id),
+    createGame: (args: { id: string }) => gameController.createGame(args.id),
+    addPlayer: (args: { gameId: string; nickname: string }) => gameController.addPlayer(args),
   };
 
   return graphqlHTTP({

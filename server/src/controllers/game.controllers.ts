@@ -1,23 +1,20 @@
-import { CacheGateway } from "../gateways/cache-gateway";
+import { GameGateway } from "../gateways/game.gateway";
+import { addPlayer } from "../use-cases/addPlayer";
+import { createGame } from "../use-cases/createGame";
 
 export class GameController {
-  #cache: CacheGateway;
+  #gameGateway: GameGateway;
 
   constructor() {
-    this.#cache = new CacheGateway();
+    this.#gameGateway = new GameGateway();
   }
 
-  async createGame(id: string) {
-    await this.#cache.set("rooms", id, id);
+  createGame(id: string) {
+    createGame({ id, gameGateway: new GameGateway() });
+    return `Game with id=${id} created`;
   }
 
-  async getGames() {
-    const res = await this.#cache.getAll();
-    return res;
-  }
-
-  async getGame(id: string) {
-    const res = await this.#cache.get("rooms", id);
-    return res;
+  addPlayer({ gameId, nickname }: { gameId: string; nickname: string }) {
+    addPlayer({ gameId, nickname, gameGateway: new GameGateway() });
   }
 }

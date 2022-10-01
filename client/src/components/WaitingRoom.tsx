@@ -2,13 +2,13 @@ import { useParams } from "react-router-dom";
 import { paths } from "../config";
 
 export const WaitingRoom = () => {
-  const params = useParams();
+  const { roomId } = useParams();
 
   return (
     <div className="flex flex-col items-center">
       <p className="text-gray-200">game id</p>
       <h1 className="text-3xl text-gray-50">
-        <code>{params.roomId}</code>
+        <code>{roomId}</code>
       </h1>
       <div className="flex flex-col items-center mt-20">
         <p className="text-gray-200 self-start">Go to</p>

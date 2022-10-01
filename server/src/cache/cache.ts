@@ -1,35 +1,17 @@
-import { RedisClientType, RedisModules, RedisScripts } from "@node-redis/client";
-import { createClient } from "redis";
+import { Game } from "@big5ish/types";
+import { nanoid } from "nanoid";
 
-export class Cache {
-  #client: RedisClientType<RedisModules, RedisScripts>;
-  static instance: Cache;
+class Cache {
+  #games: Game[] = [];
 
-  constructor() {
-    this.#client = this.init();
-    this.connect();
+  createGame(id: string) {
+    this.#games.push({ id, players: [] });
   }
 
-  init() {
-    const cache = createClient({ url: process.env.REDIS_URL });
-    if (!Cache.instance) Cache.instance = this;
-    return cache;
-  }
-
-  connect() {
-    this.#client
-      .connect()
-      .then(() => console.info("Initial connection to Redis cache established."))
-      .catch(() => console.error("Could not connect to cache"));
-
-    this.#client.on("error", (e) => console.error("REDIS:", e));
-  }
-
-  async quit() {
-    await this.#client.quit();
-  }
-
-  get client() {
-    return this.#client;
+  addPlayer(gameId: string, nickname: string) {
+    const game = this.#games.find((g) => g.id === gameId);
+    game?.players.push({ id: nanoid(), nickname });
   }
 }
+
+export const cache = new Cache();

@@ -18,8 +18,8 @@ export const GameIdForm = () => {
       />
       {roomID?.length === roomIDLength && (
         <NeuButton
-          className="text-light h-20 w-20 p-4 mt-4"
-          textClassName="font-bold"
+          className="h-20 w-20 p-4 mt-4"
+          textClassName="font-bold text-light "
           action={() => navigate(`${paths.nicknameForm}/${roomID}`)}
           type="colored"
           text="Enter"
