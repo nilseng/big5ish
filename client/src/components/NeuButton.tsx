@@ -91,7 +91,7 @@ export const NeuButton = ({
       onClick={handleClick}
     >
       {isLoading ? (
-        <FontAwesomeIcon className="animate-spin text-gray-200" icon={faSpinner} />
+        <FontAwesomeIcon className={`animate-spin ${type === "light" ? "" : "text-gray-200"}`} icon={faSpinner} />
       ) : (
         <>
           {icon && <FontAwesomeIcon className="w-full h-full text-gray-200" icon={icon} />}

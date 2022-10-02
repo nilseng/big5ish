@@ -15,15 +15,13 @@ const createRoomMutation = gql`
 export const Landing = () => {
   const navigate = useNavigate();
 
-  const [createRoom, { loading, error }] = useMutation(createRoomMutation);
+  const [createRoom, { error }] = useMutation(createRoomMutation);
 
   const initiateRoom = async () => {
     const roomId = nanoid(roomIDLength);
     await createRoom({ variables: { id: roomId } });
     navigate(`${paths.waitingRoom}/${roomId}`);
   };
-
-  if (loading) return <p className="text-gray-50">Creating room...</p>;
 
   if (error) return <p className="text-xl font-bold text-gray-50">Shit! Something went wrong! :(</p>;
 
