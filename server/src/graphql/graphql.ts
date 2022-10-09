@@ -1,21 +1,29 @@
-import { graphqlHTTP } from "express-graphql";
-import { buildASTSchema } from "graphql";
+import { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
+import { ApolloServer } from "apollo-server-express";
+import { Server } from "http";
 import { GameController } from "../controllers/game.controllers";
 import { gqlSchema } from "./schema";
 
-const schema = buildASTSchema(gqlSchema);
-
-export const createGqlMiddleware = () => {
+export const createGQLServer = (httpServer: Server) => {
   const gameController = new GameController();
 
   const resolvers = {
-    hello: () => "Hello, you fool",
-    createGame: (args: { id: string }) => gameController.createGame(args.id),
-    addPlayer: (args: { gameId: string; nickname: string }) => gameController.addPlayer(args),
+    Mutation: {
+      createGame: (parent: unknown, args: { id: string }) => gameController.createGame(args.id),
+      addPlayer: (parent: unknown, args: { gameId: string; nickname: string }) => gameController.addPlayer(args),
+    },
+    Query: { games: () => gameController.getGames() },
   };
 
-  return graphqlHTTP({
-    schema,
-    rootValue: resolvers,
+  return new ApolloServer({
+    typeDefs: gqlSchema,
+    resolvers,
+    csrfPrevention: true,
+    cache: "bounded",
+    plugins: [
+      ApolloServerPluginDrainHttpServer({ httpServer }),
+      ApolloServerPluginLandingPageLocalDefault({ embed: true }),
+    ],
+    introspection: true,
   });
 };

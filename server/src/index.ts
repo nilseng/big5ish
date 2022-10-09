@@ -2,13 +2,15 @@ import bodyParser from "body-parser";
 import dotenv from "dotenv";
 import express from "express";
 import sslRedirect from "heroku-ssl-redirect";
+import http from "http";
 import morgan from "morgan";
 import path from "path";
-import { createGqlMiddleware } from "./graphql/graphql";
+import { createGQLServer } from "./graphql/graphql";
 dotenv.config();
 
 const runServer = async () => {
   const app = express();
+  const httpServer = http.createServer(app);
 
   app.use(sslRedirect());
 
@@ -23,34 +25,16 @@ const runServer = async () => {
 
   app.use(morgan("tiny"));
 
-  app.use("/graphql", createGqlMiddleware());
-
   app.use(express.static(path.join(__dirname, "../../client/build")));
   app.use("/*", express.static(path.join(__dirname, "../../client/build", "index.html")));
 
-  const server = app.listen({ port: process.env.PORT || 4000 }, () => {
-    console.info(`The server is listening on port ${process.env.PORT || 4000}.`);
-  });
+  const server = createGQLServer(httpServer);
+  await server.start();
 
-  const disconnect = async () => {
-    server.close(() => {
-      process.exit(0);
-    });
+  server.applyMiddleware({ app });
 
-    setTimeout(() => {
-      console.error("Could not close connections within 3 sec, forcefully shutting down");
-      process.exit(1);
-    }, 3000);
-  };
-
-  process.on("SIGINT", async () => {
-    console.info("SIGINT");
-    await disconnect();
-  });
-  process.on("SIGTERM", async () => {
-    console.info("SIGTERM");
-    await disconnect();
-  });
+  await new Promise<void>((resolve) => httpServer.listen({ port: process.env.PORT || 4000 }, resolve));
+  console.info(`🚀 Server ready at http://localhost:4000${server.graphqlPath}`);
 };
 
 runServer();

@@ -1,24 +1,21 @@
 import gql from "graphql-tag";
 
 export const gqlSchema = gql`
-  type RootMutation {
-    _empty: String
+  type Game {
+    id: ID!
+    players: [Player]
   }
 
-  type RootQuery {
-    _empty: String
+  type Player {
+    id: ID!
+    nickname: String
   }
 
-  schema {
-    query: RootQuery
-    mutation: RootMutation
+  type Query {
+    games: [Game]
   }
 
-  extend type RootQuery {
-    hello: String
-  }
-
-  extend type RootMutation {
+  type Mutation {
     createGame(id: ID!): String
     addPlayer(gameId: ID!, nickname: String): String
   }

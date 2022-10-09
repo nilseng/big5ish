@@ -12,6 +12,10 @@ class Cache {
     const game = this.#games.find((g) => g.id === gameId);
     game?.players.push({ id: nanoid(), nickname });
   }
+
+  getGames() {
+    return this.#games;
+  }
 }
 
 export const cache = new Cache();

@@ -14,4 +14,8 @@ export class GameGateway {
   addPlayer(gameId: string, nickname: string) {
     this.#cache.addPlayer(gameId, nickname);
   }
+
+  getGames() {
+    return this.#cache.getGames();
+  }
 }
