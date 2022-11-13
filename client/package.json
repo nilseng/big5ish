@@ -21,7 +21,8 @@
     "react-scripts": "5.0.0",
     "sass": "^1.43.5",
     "typescript": "^4.5.2",
-    "web-vitals": "^1.1.2"
+    "web-vitals": "^1.1.2",
+    "@big5ish/types": "file:../common/types"
   },
   "scripts": {
     "start:open": "HOST=teo.local react-scripts start",

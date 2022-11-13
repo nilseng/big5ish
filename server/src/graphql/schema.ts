@@ -13,6 +13,7 @@ export const gqlSchema = gql`
 
   type Query {
     games: [Game]
+    players(gameId: ID!): [Player]
   }
 
   type Mutation {

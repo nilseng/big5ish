@@ -9,10 +9,13 @@ export const createGQLServer = (httpServer: Server) => {
 
   const resolvers = {
     Mutation: {
-      createGame: (parent: unknown, args: { id: string }) => gameController.createGame(args.id),
-      addPlayer: (parent: unknown, args: { gameId: string; nickname: string }) => gameController.addPlayer(args),
+      createGame: (_: unknown, args: { id: string }) => gameController.createGame(args.id),
+      addPlayer: (_: unknown, args: { gameId: string; nickname: string }) => gameController.addPlayer(args),
     },
-    Query: { games: () => gameController.getGames() },
+    Query: {
+      games: () => gameController.getGames(),
+      players: (_: unknown, args: { gameId: string }) => gameController.getPlayers(args.gameId),
+    },
   };
 
   return new ApolloServer({

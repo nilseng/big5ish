@@ -18,4 +18,8 @@ export class GameGateway {
   getGames() {
     return this.#cache.getGames();
   }
+
+  getPlayers(gameId: string) {
+    return this.#cache.getPlayers(gameId);
+  }
 }

@@ -2,6 +2,7 @@ import { GameGateway } from "../gateways/game.gateway";
 import { addPlayer } from "../use-cases/addPlayer";
 import { createGame } from "../use-cases/createGame";
 import { getGames } from "../use-cases/getGames";
+import { getPlayers } from "../use-cases/getPlayers";
 
 export class GameController {
   #gameGateway: GameGateway;
@@ -21,5 +22,9 @@ export class GameController {
 
   getGames() {
     return getGames(this.#gameGateway);
+  }
+
+  getPlayers(gameId: string) {
+    return getPlayers({ gameId, gameGateway: this.#gameGateway });
   }
 }
