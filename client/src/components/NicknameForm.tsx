@@ -11,7 +11,7 @@ const addPlayerMutation = gql`
 `;
 
 export const NicknameForm = () => {
-  const { roomId } = useParams();
+  const { gameId } = useParams();
   const navigate = useNavigate();
   const [addPlayer, { error }] = useMutation(addPlayerMutation);
 
@@ -22,8 +22,8 @@ export const NicknameForm = () => {
   };
 
   const joinGame = async () => {
-    await addPlayer({ variables: { gameId: roomId, nickname } });
-    navigate(`${paths.waitingRoom}/${roomId}`);
+    await addPlayer({ variables: { gameId, nickname } });
+    navigate(`${paths.playerPage}/${gameId}`);
   };
 
   if (error) return <p>Hell! Something got messed up...</p>;
@@ -32,7 +32,7 @@ export const NicknameForm = () => {
     <div className="flex flex-col justify-center items-center">
       <p className="text-gray-200">game id</p>
       <h1 className="text-3xl text-gray-50 mb-8">
-        <code>{roomId}</code>
+        <code>{gameId}</code>
       </h1>
       <input
         className="rounded-full p-4"
