@@ -7,12 +7,16 @@ export class GameGateway {
     this.#cache = cache;
   }
 
+  addPlayer(gameId: string, nickname: string) {
+    this.#cache.addPlayer(gameId, nickname);
+  }
+
   createGame(id: string) {
     this.#cache.createGame(id);
   }
 
-  addPlayer(gameId: string, nickname: string) {
-    this.#cache.addPlayer(gameId, nickname);
+  getGame(gameId: string) {
+    return this.#cache.getGame(gameId);
   }
 
   getGames() {
@@ -21,5 +25,9 @@ export class GameGateway {
 
   getPlayers(gameId: string) {
     return this.#cache.getPlayers(gameId);
+  }
+
+  startGame(gameId: string) {
+    return this.#cache.startGame(gameId);
   }
 }

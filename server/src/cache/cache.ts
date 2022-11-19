@@ -1,4 +1,4 @@
-import { Game } from "@big5ish/types";
+import { Game, GameStatus } from "@big5ish/types";
 import { nanoid } from "nanoid";
 
 class Cache {
@@ -10,7 +10,7 @@ class Cache {
   }
 
   createGame(id: string) {
-    this.#games.push({ id, players: [] });
+    this.#games.push({ id, status: GameStatus.Created, players: [] });
   }
 
   getGame(id: string) {
@@ -23,6 +23,13 @@ class Cache {
 
   getPlayers(gameId: string) {
     return this.getGame(gameId)?.players;
+  }
+
+  startGame(gameId: string) {
+    const game = this.#games.find((g) => g.id === gameId);
+    if (!game) throw Error("Game not found - could not start game.");
+    game.status = GameStatus.Started;
+    return game;
   }
 }
 

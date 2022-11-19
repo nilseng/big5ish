@@ -11,8 +11,10 @@ export const createGQLServer = (httpServer: Server) => {
     Mutation: {
       createGame: (_: unknown, args: { id: string }) => gameController.createGame(args.id),
       addPlayer: (_: unknown, args: { gameId: string; nickname: string }) => gameController.addPlayer(args),
+      startGame: (_: never, args: { gameId: string }) => gameController.startGame(args.gameId),
     },
     Query: {
+      game: (_: never, args: { gameId: string }) => gameController.getGame(args.gameId),
       games: () => gameController.getGames(),
       players: (_: unknown, args: { gameId: string }) => gameController.getPlayers(args.gameId),
     },
