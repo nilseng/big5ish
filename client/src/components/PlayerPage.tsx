@@ -18,10 +18,11 @@ export const PlayerPage = () => {
 
   const { data, loading, error } = useQuery<{ game: Game }>(gameQuery, { variables: { gameId }, pollInterval: 500 });
 
+  if (loading) return <FontAwesomeIcon className={`animate-spin text-gray-200`} icon={faSpinner} />;
+
   if (error || !gameId || !data?.game) {
     return <p className="text-xl font-bold text-white">Oh, hell, something went wrong...</p>;
   }
-  if (loading) return <FontAwesomeIcon className={`animate-spin text-gray-200`} icon={faSpinner} />;
 
   return (
     <>
