@@ -1,7 +1,7 @@
 import { IconDefinition } from "@fortawesome/fontawesome-svg-core";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { CSSProperties, ReactElement, useEffect, useState } from "react";
+import { CSSProperties, ReactElement, useState } from "react";
 
 interface IProps {
   type: "light" | "colored";
@@ -12,7 +12,7 @@ interface IProps {
   componentIcon?: ReactElement;
   style?: CSSProperties;
   action?: () => void;
-  asyncAction?: () => Promise<void>;
+  asyncAction?: () => Promise<unknown>;
   disabled?: boolean;
 }
 
@@ -30,50 +30,29 @@ export const NeuButton = ({
   asyncAction,
   disabled = false,
 }: IProps) => {
-  const [isPressed, setIsPressed] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
-  const [buttonClasses, setButtonClasses] = useState<string>(defaultButtonClasses);
+  const [buttonClasses, setButtonClasses] = useState<string>(
+    defaultButtonClasses + className + ` ${type}-button-shadow`
+  );
 
   const handleButtonDown = () => {
-    setIsPressed(true);
+    setButtonClasses(defaultButtonClasses + className + ` ${type}-pressed-button-shadow`);
   };
 
   const handleButtonUp = () => {
-    setIsPressed(false);
+    setButtonClasses(defaultButtonClasses + className + ` ${type}-button-shadow`);
   };
 
   const handleClick = async () => {
-    if (action) {
-      action();
-    }
     if (asyncAction) {
       setIsLoading(true);
       await asyncAction();
       setIsLoading(false);
     }
+    if (action) {
+      action();
+    }
   };
-
-  useEffect(() => {
-    if (type === "light") {
-      setButtonClasses(
-        isPressed
-          ? defaultButtonClasses + className + " light-pressed-button-shadow"
-          : defaultButtonClasses + className + " light-button-shadow"
-      );
-    }
-    if (type === "colored") {
-      setButtonClasses(
-        isPressed
-          ? defaultButtonClasses + className + " colored-pressed-button-shadow"
-          : defaultButtonClasses + className + " colored-button-shadow"
-      );
-    }
-
-    return () => {
-      setIsLoading(false);
-      setButtonClasses(defaultButtonClasses);
-    };
-  }, [type, className, isPressed]);
 
   return (
     <button

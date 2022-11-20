@@ -23,7 +23,6 @@ export const NicknameForm = () => {
 
   const joinGame = async () => {
     await addPlayer({ variables: { gameId, nickname } });
-    navigate(`${paths.playerPage}/${gameId}`);
   };
 
   if (error) return <p>Hell! Something got messed up...</p>;
@@ -49,6 +48,7 @@ export const NicknameForm = () => {
         style={{}}
         text="Join game"
         asyncAction={joinGame}
+        action={() => navigate(`${paths.playerPage}/${gameId}`)}
       />
     </div>
   );

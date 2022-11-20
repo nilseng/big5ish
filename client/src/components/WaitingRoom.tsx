@@ -32,13 +32,6 @@ export const WaitingRoom = () => {
 
   const [startGame, { error: startGameError }] = useMutation(startGameMutation);
 
-  const startGameAndNavigate = async () => {
-    try {
-      await startGame({ variables: { gameId } });
-      navigate(`/game/${gameId}`);
-    } catch (_) {}
-  };
-
   if (data?.players && data.players.length > 1) stopPolling();
 
   return (
@@ -54,7 +47,8 @@ export const WaitingRoom = () => {
         text="PLAY"
         style={{ height: "10rem", width: "10rem", padding: "2.5rem" }}
         disabled={!data?.players?.length || data?.players?.length < 2}
-        asyncAction={startGameAndNavigate}
+        asyncAction={() => startGame({ variables: { gameId } })}
+        action={() => navigate(`/game/${gameId}`)}
       />
       {startGameError && <p className="color-red-500">Could not start game</p>}
       <div className="flex flex-col items-center mt-10">

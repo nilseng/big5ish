@@ -1,5 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import { nanoid } from "nanoid";
+import { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { paths } from "../config";
 import { NeuButton } from "./NeuButton";
@@ -13,14 +14,13 @@ const createRoomMutation = gql`
 `;
 
 export const Landing = () => {
+  const [gameId] = useState<string>(nanoid(roomIDLength));
   const navigate = useNavigate();
 
   const [createRoom, { error }] = useMutation(createRoomMutation);
 
   const initiateRoom = async () => {
-    const roomId = nanoid(roomIDLength);
-    await createRoom({ variables: { id: roomId } });
-    navigate(`${paths.waitingRoom}/${roomId}`);
+    await createRoom({ variables: { id: gameId } });
   };
 
   if (error) return <p className="text-xl font-bold text-gray-50">Shit! Something went wrong! :(</p>;
@@ -33,6 +33,7 @@ export const Landing = () => {
         text="START"
         style={{ height: "10rem", width: "10rem", padding: "2.5rem" }}
         asyncAction={initiateRoom}
+        action={() => navigate(`${paths.waitingRoom}/${gameId}`)}
       />
     </div>
   );
