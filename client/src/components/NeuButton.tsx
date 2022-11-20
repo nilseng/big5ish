@@ -70,7 +70,6 @@ export const NeuButton = ({
     }
 
     return () => {
-      setIsPressed(false);
       setIsLoading(false);
       setButtonClasses(defaultButtonClasses);
     };
