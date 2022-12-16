@@ -1,4 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
+import { Player } from "@big5ish/types";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { paths } from "../config";
@@ -6,14 +7,16 @@ import { NeuButton } from "./NeuButton";
 
 const addPlayerMutation = gql`
   mutation addPlayer($gameId: ID!, $nickname: String!) {
-    addPlayer(gameId: $gameId, nickname: $nickname)
+    player: addPlayer(gameId: $gameId, nickname: $nickname) {
+      id
+    }
   }
 `;
 
 export const NicknameForm = () => {
   const { gameId } = useParams();
   const navigate = useNavigate();
-  const [addPlayer, { error }] = useMutation(addPlayerMutation);
+  const [addPlayer, { error }] = useMutation<{ player: Player }>(addPlayerMutation);
 
   const [nickname, setNickname] = useState("");
 
@@ -22,7 +25,8 @@ export const NicknameForm = () => {
   };
 
   const joinGame = async () => {
-    await addPlayer({ variables: { gameId, nickname } });
+    const { data } = await addPlayer({ variables: { gameId, nickname } });
+    document.cookie = `playerId=${data?.player?.id}`;
   };
 
   if (error) return <p>Hell! Something got messed up...</p>;

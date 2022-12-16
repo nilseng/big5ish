@@ -6,7 +6,10 @@ class Cache {
 
   addPlayer(gameId: string, nickname: string) {
     const game = this.#games.find((g) => g.id === gameId);
-    game?.players.unshift({ id: nanoid(), nickname });
+    if (!game) throw new Error(`Game w id=${gameId} not found.`);
+    const player = { id: nanoid(), nickname };
+    game.players.unshift(player);
+    return player;
   }
 
   createGame(id: string) {

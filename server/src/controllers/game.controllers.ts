@@ -1,3 +1,4 @@
+import { Player } from "@big5ish/types";
 import { GameGateway } from "../gateways/game.gateway";
 import { addPlayer } from "../use-cases/addPlayer";
 import { createGame } from "../use-cases/createGame";
@@ -13,8 +14,8 @@ export class GameController {
     this.#gameGateway = new GameGateway();
   }
 
-  addPlayer({ gameId, nickname }: { gameId: string; nickname: string }) {
-    addPlayer({ gameId, nickname, gameGateway: this.#gameGateway });
+  addPlayer({ gameId, nickname }: { gameId: string; nickname: string }): Player {
+    return addPlayer({ gameId, nickname, gameGateway: this.#gameGateway });
   }
 
   createGame(id: string) {

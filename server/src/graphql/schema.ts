@@ -25,7 +25,7 @@ export const gqlSchema = gql`
 
   type Mutation {
     createGame(id: ID!): String
-    addPlayer(gameId: ID!, nickname: String): String
+    addPlayer(gameId: ID!, nickname: String): Player
     startGame(gameId: ID!): Game
   }
 `;
