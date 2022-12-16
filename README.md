@@ -10,5 +10,5 @@ Use cases:
 
 # Data
 
-Questions and answers: https://ipip.ori.org/
-Translations: https://github.com/Alheimsins/b5-johnson-120-ipip-neo-pi-r
+Questions and answers: https://ipip.ori.org/ (https://github.com/Alheimsins/b5-johnson-120-ipip-neo-pi-r)
+Results: https://github.com/Alheimsins/b5-result-text
