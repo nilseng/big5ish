@@ -21,4 +21,6 @@ Results: https://github.com/Alheimsins/b5-result-text
 - Answer questions about oneself and the other players
 - Categorize each player - the nervous one, nervs of steel, suspicous, naive etc.
 - Call out fakers
-- Summarize; who knows their friends best? Which individual players know each other? Who does not?
+- Summarize:
+  - Who knows their friends best? Which individual players know each other? Who does not?
+  - Is the group homogenous or diverse?
