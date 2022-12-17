@@ -10,6 +10,12 @@ Results: https://github.com/Alheimsins/b5-result-text
 - Compare the player's personality in each domain with a celeb.
 - Find the celeb with most similar overall personality profile
 
+## How well do you know yourself? - single player
+
+1. Guess score in each domain/facet
+2. Take test
+3. Show results with differences in expected and actual scores
+
 ## How well do you know your friends? - multi player
 
 - Answer questions about oneself and the other players
