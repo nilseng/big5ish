@@ -1,5 +1,6 @@
 import { createContext, Dispatch, SetStateAction, useRef, useState } from "react";
 import { Route, Routes } from "react-router-dom";
+import { DomainPresentation } from "./components/DomainPresentation";
 import { GameIdForm } from "./components/GameIdForm";
 import { Landing } from "./components/Landing";
 import { Navbar } from "./components/Navbar";
@@ -24,13 +25,14 @@ const App = () => {
     <AppContext.Provider value={{ isMuted, setIsMuted, audio }}>
       <div className="h-full w-screen">
         <Navbar />
-        <div className="h-full w-screen flex flex-col content-center justify-center items-center">
+        <div className="h-full w-screen flex flex-col content-center justify-center items-center text-white">
           <Routes>
             <Route path="/" element={<Landing />} />
             <Route path={`${paths.waitingRoom}/:gameId`} element={<WaitingRoom />} />
             <Route path={`${paths.gameIdForm}`} element={<GameIdForm />} />
             <Route path={`${paths.nicknameForm}/:gameId`} element={<NicknameForm />} />
             <Route path={`${paths.playerPage}/:gameId`} element={<PlayerPage />} />
+            <Route path={`${paths.gamePage}/:gameId`} element={<DomainPresentation />} />
           </Routes>
         </div>
       </div>

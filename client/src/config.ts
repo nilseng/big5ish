@@ -5,4 +5,5 @@ export const paths = {
   gameIdForm: "/play",
   nicknameForm: "/enter-nick-name",
   playerPage: "/player-page",
+  gamePage: "/game",
 };
