@@ -32,7 +32,7 @@ export const NicknameForm = () => {
   if (error) return <p>Hell! Something got messed up...</p>;
 
   return (
-    <div className="flex flex-col justify-center items-center">
+    <div className="flex flex-col justify-center items-center text-black">
       <p className="text-gray-200">game id</p>
       <h1 className="text-3xl text-gray-50 mb-8">
         <code>{gameId}</code>
