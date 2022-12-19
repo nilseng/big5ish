@@ -9,16 +9,17 @@ export const StepBar = ({ currentStep, stepCount }: { currentStep: number; stepC
           <div className="w-full h-1 bg-gray-200 rounded-full"></div>
         </div>
         <div className="absolute top-0 w-full flex justify-between">
-          {Array.from(Array(stepCount).keys()).map((_, i) =>
-            i === currentStep ? (
-              <span key={i} className="fa-layers text-2xl">
-                <FontAwesomeIcon icon={faCircle} className="fa-stack text-2xl text-white" />
-                <FontAwesomeIcon icon={faCheckCircle} className="fa-stack text-2xl text-green-400" />
-              </span>
-            ) : (
-              <div key={i} className="h-6 w-6 bg-gray-50 rounded-full"></div>
-            )
-          )}
+          {Array.from(Array(stepCount).keys()).map((_, i) => {
+            if (i < currentStep)
+              return (
+                <span key={i} className="fa-layers text-2xl">
+                  <FontAwesomeIcon icon={faCircle} className="fa-stack text-2xl text-white" />
+                  <FontAwesomeIcon icon={faCheckCircle} className="fa-stack text-2xl text-green-400" />
+                </span>
+              );
+            if (i === currentStep) return <div key={i} className="h-6 w-6 bg-blue-300 rounded-full"></div>;
+            return <div key={i} className="h-6 w-6 bg-gray-50 rounded-full"></div>;
+          })}
         </div>
       </div>
     </div>
