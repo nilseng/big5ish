@@ -56,7 +56,7 @@ export const WaitingRoom = () => {
         <p className="text-gray-50 my-4">
           <code className="text-xl">big5ish.herokuapp.com{paths.gameIdForm}</code>
         </p>
-        <p className="text-gray-200 self-end">to join the game</p>
+        <p className="text-gray-200 self-end">on your phone to join the game</p>
       </div>
       {gameId && <PlayerList gameId={gameId} />}
     </>
