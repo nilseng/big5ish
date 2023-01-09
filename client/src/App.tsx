@@ -1,7 +1,7 @@
 import { createContext, Dispatch, SetStateAction, useRef, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { DomainPresentation } from "./components/DomainPresentation";
 import { GameIdForm } from "./components/GameIdForm";
+import { GamePage } from "./components/GamePage";
 import { Landing } from "./components/Landing";
 import { Navbar } from "./components/Navbar";
 import { NicknameForm } from "./components/NicknameForm";
@@ -32,7 +32,7 @@ const App = () => {
             <Route path={`${paths.gameIdForm}`} element={<GameIdForm />} />
             <Route path={`${paths.nicknameForm}/:gameId`} element={<NicknameForm />} />
             <Route path={`${paths.playerPage}/:gameId`} element={<PlayerPage />} />
-            <Route path={`${paths.gamePage}/:gameId`} element={<DomainPresentation />} />
+            <Route path={`${paths.gamePage}/:gameId`} element={<GamePage />} />
           </Routes>
         </div>
       </div>
