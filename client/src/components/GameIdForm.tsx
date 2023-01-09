@@ -16,15 +16,14 @@ export const GameIdForm = () => {
         onChange={(e) => setRoomID(e.target.value)}
         value={roomID}
       />
-      {roomID?.length === roomIDLength && (
-        <NeuButton
-          className="h-20 w-20 p-4 mt-4"
-          textClassName="font-bold text-light "
-          action={() => navigate(`${paths.nicknameForm}/${roomID}`)}
-          type="colored"
-          text="Enter"
-        />
-      )}
+      <NeuButton
+        className="h-20 w-20 p-4 mt-4"
+        textClassName={`${roomID?.length === roomIDLength ? "text-light" : ""} font-bold`}
+        disabled={roomID?.length !== roomIDLength}
+        action={() => navigate(`${paths.nicknameForm}/${roomID}`)}
+        type="colored"
+        text="Enter"
+      />
     </div>
   );
 };
