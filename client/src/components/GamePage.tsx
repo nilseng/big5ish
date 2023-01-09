@@ -5,7 +5,7 @@ export const GamePage = () => {
     <DomainPresentation
       currentStep={0}
       stepCount={5}
-      domain={{ id: "neuroticism", name: "Neuroticism", emojis: "😡😬😱" }}
+      domain={{ domain: "N", title: "Neuroticism", emojis: "😡😬😱" }}
     />
   );
 };
