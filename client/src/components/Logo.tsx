@@ -1,5 +1,3 @@
-import "./Logo.scss";
-
 interface IProps {
   width?: string;
   height?: string;
@@ -9,7 +7,7 @@ interface IProps {
 export const Logo = ({ width, height, className }: IProps) => {
   return (
     <svg
-      className={className ? "logo" : "logo " + className}
+      className={`fill-light stroke-light ${className}`}
       height={height ?? "100%"}
       style={{
         fillRule: "nonzero",

@@ -1,13 +1,13 @@
 module.exports = {
-  purge: ['./src/**/*.{js,jsx,ts,tsx}', './public/index.html'],
-  content: ["./src/**/*.{js,jsx,ts,tsx}",],
+  purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
+  content: ["./src/**/*.{js,jsx,ts,tsx}"],
   theme: {
     extend: {
       colors: {
-        light: "var(--color-light)",
-        primary: "var(--color-primary)",
-      }
+        light: "#efeeee",
+        primary: "#17a2b8",
+      },
     },
   },
   plugins: [],
-}
+};

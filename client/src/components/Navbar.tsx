@@ -2,7 +2,7 @@ import { faVolumeMute, faVolumeUp } from "@fortawesome/free-solid-svg-icons";
 import { useContext, useState } from "react";
 import { Link } from "react-router-dom";
 import { AppContext } from "../App";
-import { Logo } from "./Logo/Logo";
+import { Logo } from "./Logo";
 import { NeuButton } from "./NeuButton";
 
 export const Navbar = () => {
