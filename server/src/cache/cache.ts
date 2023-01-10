@@ -1,13 +1,9 @@
-import { Game, GameStatus, Step } from "@big5ish/types";
-import { nanoid } from "nanoid";
+import { Game, GameStatus, Player, Step } from "@big5ish/types";
 
 class Cache {
   #games: Game[] = [];
 
-  addPlayer(gameId: string, nickname: string) {
-    const game = this.#games.find((g) => g.id === gameId);
-    if (!game) throw new Error(`Game w id=${gameId} not found.`);
-    const player = { id: nanoid(), nickname };
+  addPlayer(game: Game, player: Player) {
     game.players.unshift(player);
     return player;
   }
