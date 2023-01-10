@@ -25,14 +25,14 @@ export const WaitingRoomPage = () => {
   const { gameId } = useParams();
   const navigate = useNavigate();
 
-  const { data, stopPolling } = useQuery<{ players: Player[] }, { gameId: string | undefined }>(playersQuery, {
+  const { data, error } = useQuery<{ players: Player[] }, { gameId: string | undefined }>(playersQuery, {
     variables: { gameId },
     pollInterval: 500,
   });
 
   const [startGame, { error: startGameError }] = useMutation(startGameMutation);
 
-  if (data?.players && data.players.length > 1) stopPolling();
+  if (error) return <p>Something is terribly wrong here😭 Please try again🙏</p>;
 
   return (
     <>
