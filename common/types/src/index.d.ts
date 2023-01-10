@@ -3,19 +3,21 @@ const enum GameStatus {
   Started = "STARTED",
 }
 
-export interface Game {
+export interface GameBase {
   id: string;
   status: GameStatus;
   players: Player[];
 }
 
-export interface MultiplayerGame extends Game {
+export interface MultiplayerGame extends GameBase {
   steps: Step[];
 }
 
+export type Game = MultiplayerGame;
+
 export interface Step {
   type: "domainPresentation";
-  id: DomainId;
+  domain?: Domain;
 }
 
 export type DomainId = "A" | "C" | "E" | "N" | "O";
