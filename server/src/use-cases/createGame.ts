@@ -18,5 +18,5 @@ export const createGame = ({
 const getSteps = ({ language = "en" }: { language?: string }): Step[] => {
   const [A, C, E, N, O] = getDomains(language).sort((a, b) => (a.domain < b.domain ? -1 : 1));
   const sortedDomains = [N, E, O, A, C];
-  return sortedDomains.map((domain) => ({ type: "domainPresentation", domain }));
+  return sortedDomains.map((domain) => ({ type: "domainPresentation", domain, duration: 5000 }));
 };

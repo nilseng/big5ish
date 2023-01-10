@@ -21,6 +21,7 @@ export const gqlSchema = gql`
   type Step {
     type: String!
     domain: Domain
+    duration: Int
   }
 
   type Domain {

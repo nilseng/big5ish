@@ -1,4 +1,4 @@
-const enum GameStatus {
+export const enum GameStatus {
   Created = "CREATED",
   Started = "STARTED",
 }
@@ -20,6 +20,7 @@ export type Step = DomainPresentationStep;
 export interface DomainPresentationStep {
   type: "domainPresentation";
   domain: Domain;
+  duration: number;
 }
 
 export type DomainId = "A" | "C" | "E" | "N" | "O";
