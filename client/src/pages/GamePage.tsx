@@ -37,15 +37,15 @@ export const GamePage = () => {
 
   useEffect(() => {
     setTimeout(() => {
-      if (loading || !data) return;
+      if (loading || !data?.game) return;
       if (!hasDuration(currentStep, data.game) || isLastStep(currentStep, data.game)) return;
       setCurrentStep(currentStep + 1);
-    }, data?.game.steps[currentStep].duration ?? 0);
+    }, data?.game?.steps[currentStep].duration ?? 0);
   }, [data, loading, currentStep]);
 
   if (loading) return <p>Loading...</p>;
 
-  if (error || !data) return <p>The machinery is broken⚙️🤖</p>;
+  if (error || !data?.game) return <p>The machinery is broken⚙️🤖</p>;
 
   return (
     <DomainPresentation
