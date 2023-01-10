@@ -8,8 +8,8 @@ class Cache {
     return player;
   }
 
-  createGame({ id, steps }: { id: string; steps: Step[] }) {
-    this.#games.push({ id, status: GameStatus.Created, players: [], steps });
+  createGame({ id, steps, status }: { id: string; steps: Step[]; status: GameStatus }) {
+    this.#games.push({ id, status, players: [], steps });
   }
 
   getGame(id: string) {
