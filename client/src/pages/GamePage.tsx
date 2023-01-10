@@ -2,7 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import { Game } from "@big5ish/types";
 import { useEffect, useState } from "react";
 import { useParams } from "react-router-dom";
-import { DomainPresentation } from "./DomainPresentation";
+import { DomainPresentation } from "../components/DomainPresentation";
 
 const gameQuery = gql`
   query game($gameId: ID!) {

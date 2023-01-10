@@ -3,7 +3,7 @@ import { Game } from "@big5ish/types";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "react-router-dom";
-import { PlayerList } from "./PlayerList";
+import { PlayerList } from "../components/PlayerList";
 
 const gameQuery = gql`
   query game($gameId: ID!) {

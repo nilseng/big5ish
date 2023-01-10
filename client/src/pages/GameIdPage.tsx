@@ -1,9 +1,9 @@
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { NeuButton } from "../components/NeuButton";
 import { paths, roomIDLength } from "../config";
-import { NeuButton } from "./NeuButton";
 
-export const GameIdForm = () => {
+export const GameIdPage = () => {
   const navigate = useNavigate();
   const [roomID, setRoomID] = useState("");
 

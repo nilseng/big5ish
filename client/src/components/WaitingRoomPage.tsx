@@ -21,7 +21,7 @@ const startGameMutation = gql`
   }
 `;
 
-export const WaitingRoom = () => {
+export const WaitingRoomPage = () => {
   const { gameId } = useParams();
   const navigate = useNavigate();
 

@@ -1,13 +1,13 @@
 import { createContext, Dispatch, SetStateAction, useRef, useState } from "react";
 import { Route, Routes } from "react-router-dom";
-import { GameIdForm } from "./components/GameIdForm";
-import { GamePage } from "./components/GamePage";
-import { Landing } from "./components/Landing";
 import { Navbar } from "./components/Navbar";
-import { NicknameForm } from "./components/NicknameForm";
-import { PlayerPage } from "./components/PlayerPage";
-import { WaitingRoom } from "./components/WaitingRoom";
+import { WaitingRoomPage } from "./components/WaitingRoomPage";
 import { paths } from "./config";
+import { GameIdPage } from "./pages/GameIdPage";
+import { GamePage } from "./pages/GamePage";
+import { Landing } from "./pages/Landing";
+import { NicknamePage } from "./pages/NicknamePage";
+import { PlayerPage } from "./pages/PlayerPage";
 
 interface IAppContext {
   isMuted?: boolean;
@@ -28,9 +28,9 @@ const App = () => {
         <div className="h-full w-screen flex flex-col content-center justify-center items-center text-white">
           <Routes>
             <Route path="/" element={<Landing />} />
-            <Route path={`${paths.waitingRoom}/:gameId`} element={<WaitingRoom />} />
-            <Route path={`${paths.gameIdForm}`} element={<GameIdForm />} />
-            <Route path={`${paths.nicknameForm}/:gameId`} element={<NicknameForm />} />
+            <Route path={`${paths.waitingRoom}/:gameId`} element={<WaitingRoomPage />} />
+            <Route path={`${paths.gameIdForm}`} element={<GameIdPage />} />
+            <Route path={`${paths.nicknameForm}/:gameId`} element={<NicknamePage />} />
             <Route path={`${paths.playerPage}/:gameId`} element={<PlayerPage />} />
             <Route path={`${paths.gamePage}/:gameId`} element={<GamePage />} />
           </Routes>

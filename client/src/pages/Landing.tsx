@@ -2,8 +2,8 @@ import { gql, useMutation } from "@apollo/client";
 import { nanoid } from "nanoid";
 import { useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { NeuButton } from "../components/NeuButton";
 import { paths } from "../config";
-import { NeuButton } from "./NeuButton";
 
 export const roomIDLength = 6;
 

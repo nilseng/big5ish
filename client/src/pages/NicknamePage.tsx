@@ -2,8 +2,8 @@ import { gql, useMutation } from "@apollo/client";
 import { Player } from "@big5ish/types";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { NeuButton } from "../components/NeuButton";
 import { paths } from "../config";
-import { NeuButton } from "./NeuButton";
 
 const addPlayerMutation = gql`
   mutation addPlayer($gameId: ID!, $nickname: String!) {
@@ -13,7 +13,7 @@ const addPlayerMutation = gql`
   }
 `;
 
-export const NicknameForm = () => {
+export const NicknamePage = () => {
   const { gameId } = useParams();
   const navigate = useNavigate();
   const [addPlayer, { error }] = useMutation<{ player: Player }>(addPlayerMutation);
