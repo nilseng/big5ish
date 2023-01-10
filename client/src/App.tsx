@@ -1,13 +1,13 @@
 import { createContext, Dispatch, SetStateAction, useRef, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
-import { WaitingRoomPage } from "./components/WaitingRoomPage";
 import { paths } from "./config";
 import { GameIdPage } from "./pages/GameIdPage";
 import { GamePage } from "./pages/GamePage";
 import { Landing } from "./pages/Landing";
 import { NicknamePage } from "./pages/NicknamePage";
 import { PlayerPage } from "./pages/PlayerPage";
+import { WaitingRoomPage } from "./pages/WaitingRoomPage";
 
 interface IAppContext {
   isMuted?: boolean;
