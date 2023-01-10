@@ -31,4 +31,8 @@ export class GameGateway {
   startGame(gameId: string) {
     return this.#cache.startGame(gameId);
   }
+
+  setStep(gameId: string, step: number) {
+    return this.#cache.setStep(gameId, step);
+  }
 }

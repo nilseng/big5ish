@@ -35,9 +35,16 @@ class Cache {
   }
 
   startGame(gameId: string) {
-    const game = this.#games.find((g) => g.id === gameId);
+    const game = this.getGame(gameId);
     if (!game) throw Error("Game not found - could not start game.");
     game.status = GameStatus.Started;
+    return game;
+  }
+
+  setStep(gameId: string, step: number): Game {
+    const game = this.getGame(gameId);
+    if (!game) throw Error("Game not found - could not set step.");
+    game.currentStep = step;
     return game;
   }
 }
