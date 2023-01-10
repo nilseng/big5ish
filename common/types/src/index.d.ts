@@ -15,9 +15,11 @@ export interface MultiplayerGame extends GameBase {
 
 export type Game = MultiplayerGame;
 
-export interface Step {
+export type Step = DomainPresentationStep;
+
+export interface DomainPresentationStep {
   type: "domainPresentation";
-  domain?: Domain;
+  domain: Domain;
 }
 
 export type DomainId = "A" | "C" | "E" | "N" | "O";
