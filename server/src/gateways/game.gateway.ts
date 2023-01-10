@@ -1,4 +1,4 @@
-import { Player } from "@big5ish/types";
+import { Player, Step } from "@big5ish/types";
 import { cache } from "../cache/cache";
 
 export class GameGateway {
@@ -12,8 +12,8 @@ export class GameGateway {
     return this.#cache.addPlayer(gameId, nickname);
   }
 
-  createGame(id: string) {
-    this.#cache.createGame(id);
+  createGame({ id, steps }: { id: string; steps: Step[] }) {
+    this.#cache.createGame({ id, steps });
   }
 
   getGame(gameId: string) {

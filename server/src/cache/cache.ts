@@ -1,4 +1,4 @@
-import { Game, GameStatus } from "@big5ish/types";
+import { Game, GameStatus, Step } from "@big5ish/types";
 import { nanoid } from "nanoid";
 
 class Cache {
@@ -12,8 +12,8 @@ class Cache {
     return player;
   }
 
-  createGame(id: string) {
-    this.#games.push({ id, status: GameStatus.Created, players: [] });
+  createGame({ id, steps }: { id: string; steps: Step[] }) {
+    this.#games.push({ id, status: GameStatus.Created, players: [], steps });
   }
 
   getGame(id: string) {
