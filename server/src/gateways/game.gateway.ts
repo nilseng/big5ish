@@ -13,7 +13,7 @@ export class GameGateway {
   }
 
   createGame({ id, steps }: { id: string; steps: Step[] }) {
-    this.#cache.createGame({ id, steps, status: GameStatus.Created });
+    this.#cache.createGame({ id, steps, status: GameStatus.Created, currentStep: 0 });
   }
 
   getGame(gameId: string) {

@@ -5,6 +5,7 @@ export const gqlSchema = gql`
     id: ID!
     status: GameStatus
     players: [Player]
+    currentStep: Int
     steps: [Step]
   }
 

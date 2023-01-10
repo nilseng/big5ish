@@ -10,6 +10,7 @@ export interface GameBase {
 }
 
 export interface MultiplayerGame extends GameBase {
+  currentStep: number;
   steps: Step[];
 }
 
