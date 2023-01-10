@@ -1,9 +1,9 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Player } from "@big5ish/types";
 import { useNavigate, useParams } from "react-router-dom";
+import { NeuButton } from "../components/NeuButton";
+import { PlayerList } from "../components/PlayerList";
 import { paths } from "../config";
-import { NeuButton } from "./NeuButton";
-import { PlayerList } from "./PlayerList";
 
 const playersQuery = gql`
   query players($gameId: ID!) {
