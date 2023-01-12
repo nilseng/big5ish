@@ -6,7 +6,7 @@ export const StepBar = ({ currentStep, stepCount }: { currentStep: number; stepC
     <div className="w-full flex justify-center">
       <div className="relative w-9/12">
         <div className="absolute top-2.5 w-full px-3">
-          <div className="w-full h-1 bg-gradient-to-tl from-red-400 to-blue-500 rounded-full"></div>
+          <div className="w-full h-1 bg-gradient-to-bl from-red-400 to-blue-500 rounded-full"></div>
         </div>
         <div className="absolute top-0 w-full flex justify-between">
           {Array.from(Array(stepCount).keys()).map((_, i) => {
