@@ -27,7 +27,7 @@ export const LandingPage = () => {
 
   return (
     <div className="h-full w-full flex justify-center items-center p-4">
-      <div className="h-1/2 w-full sm:w-1/2 flex justify-center items-center bg-light rounded-3xl">
+      <div className="h-96 w-96 flex justify-center items-center bg-light rounded-3xl">
         <NeuButton
           type="light"
           textClassName="text-gray-700 font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-blue-500"
