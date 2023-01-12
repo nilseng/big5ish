@@ -2,6 +2,7 @@ import { gql, useQuery } from "@apollo/client";
 import { Game } from "@big5ish/types";
 import { useParams } from "react-router-dom";
 import { DomainPresentation } from "../components/DomainPresentation";
+import { useEmojis } from "../hooks/useEmojis";
 
 const gameQuery = gql`
   query game($gameId: ID!) {
@@ -25,6 +26,8 @@ export const GamePage = () => {
 
   const { data, loading, error } = useQuery<{ game: Game }>(gameQuery, { variables: { gameId }, pollInterval: 500 });
 
+  const emojis = useEmojis(data);
+
   if (loading) return <p>Loading...</p>;
 
   if (error || !data?.game) return <p>The machinery is broken⚙️🤖</p>;
@@ -33,7 +36,7 @@ export const GamePage = () => {
     <DomainPresentation
       currentStep={data.game.currentStep}
       stepCount={data.game.steps.length}
-      domain={{ ...data.game.steps[data.game.currentStep].domain, emojis: "😡😬😱" }}
+      domain={{ ...data.game.steps[data.game.currentStep].domain, emojis }}
     />
   );
 };
