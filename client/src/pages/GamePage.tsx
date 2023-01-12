@@ -1,5 +1,7 @@
 import { gql, useQuery } from "@apollo/client";
 import { Game } from "@big5ish/types";
+import { faSpinner } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "react-router-dom";
 import { DomainPresentation } from "../components/DomainPresentation";
 import { useEmojis } from "../hooks/useEmojis";
@@ -28,7 +30,7 @@ export const GamePage = () => {
 
   const emojis = useEmojis(data);
 
-  if (loading) return <p>Loading...</p>;
+  if (loading) return <FontAwesomeIcon className={`animate-spin text-gray-200`} icon={faSpinner} />;
 
   if (error || !data?.game) return <p>The machinery is broken⚙️🤖</p>;
 
