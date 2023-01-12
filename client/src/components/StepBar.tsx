@@ -4,7 +4,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 export const StepBar = ({ currentStep, stepCount }: { currentStep: number; stepCount: number }) => {
   return (
     <div className="w-full flex justify-center">
-      <div className="relative w-10/12">
+      <div className="relative w-9/12">
         <div className="absolute top-2.5 w-full px-3">
           <div className="w-full h-1 bg-white rounded-full"></div>
         </div>
