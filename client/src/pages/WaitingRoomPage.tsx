@@ -40,20 +40,22 @@ export const WaitingRoomPage = () => {
       <h1 className="text-3xl text-gray-50">
         <code>{gameId}</code>
       </h1>
-      <NeuButton
-        type="colored"
-        className="border-4 border-white mt-10"
-        textClassName="font-bold text-xl text-gray-50"
-        text="PLAY"
-        style={{ height: "10rem", width: "10rem", padding: "2.5rem" }}
-        disabled={!data?.players?.length || data?.players?.length < 2}
-        asyncAction={() => startGame({ variables: { gameId } })}
-        action={() => navigate(`/game/${gameId}`)}
-      />
+      <div className="pt-10">
+        <NeuButton
+          type="colored"
+          className="border-4 border-white"
+          textClassName="font-bold text-xl text-gray-50"
+          text="PLAY"
+          style={{ height: "10rem", width: "10rem", padding: "2.5rem" }}
+          disabled={!data?.players?.length || data?.players?.length < 2}
+          asyncAction={() => startGame({ variables: { gameId } })}
+          action={() => navigate(`/game/${gameId}`)}
+        />
+      </div>
       {startGameError && <p className="color-red-500">Could not start game</p>}
-      <div className="flex flex-col items-center mt-10">
+      <div className="flex flex-col items-center pt-10">
         <p className="text-gray-200 self-start">Go to</p>
-        <p className="text-gray-50 my-4">
+        <p className="text-gray-50 py-4">
           <code className="text-xl">big5ish.herokuapp.com{paths.gameIdForm}</code>
         </p>
         <p className="text-gray-200 self-end">on your phone to join the game</p>

@@ -8,7 +8,7 @@ export const GameIdPage = () => {
   const [roomID, setRoomID] = useState("");
 
   return (
-    <div className="flex flex-col justify-center items-center text-black">
+    <div className="h-full flex flex-col justify-center items-center text-black">
       <input
         className="rounded-full p-4"
         type="text"

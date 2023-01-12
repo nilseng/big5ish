@@ -11,13 +11,13 @@ export const DomainPresentation = ({
   domain: Pick<Domain, "domain" | "title" | "emojis">;
 }) => {
   return (
-    <>
+    <div className="w-full overflow-hidden">
       <StepBar currentStep={currentStep} stepCount={stepCount} />
-      <div className="flex flex-col items-center my-32">
+      <div className="w-full flex flex-col items-center my-32">
         <p>Next up...</p>
-        <h1 className="text-5xl mt-16 mb-32">{domain.title}</h1>
+        <h1 className="w-full text-center text-4xl sm:text-5xl mt-16 mb-32 truncate">{domain.title}</h1>
         <code className="text-4xl">{domain.emojis}</code>
       </div>
-    </>
+    </div>
   );
 };

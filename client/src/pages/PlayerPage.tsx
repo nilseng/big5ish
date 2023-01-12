@@ -25,7 +25,7 @@ export const PlayerPage = () => {
   }
 
   return (
-    <>
+    <div className="h-full flex flex-col items-center justify-center">
       {data.game.status === "CREATED" && (
         <>
           <p className="text-xl font-bold text-white">Waiting for the game to start...</p>
@@ -33,6 +33,6 @@ export const PlayerPage = () => {
         </>
       )}
       {data.game.status === "STARTED" && <p className="text-white">Game started!</p>}
-    </>
+    </div>
   );
 };
