@@ -13,7 +13,7 @@ const createRoomMutation = gql`
   }
 `;
 
-export const Landing = () => {
+export const LandingPage = () => {
   const [gameId] = useState<string>(nanoid(roomIDLength));
   const navigate = useNavigate();
 
@@ -26,15 +26,17 @@ export const Landing = () => {
   if (error) return <p className="text-xl font-bold text-gray-50">Shit! Something went wrong! :(</p>;
 
   return (
-    <div className="flex flex-col justify-center items-center w-full h-1/2 md:w-1/2 md:h-1/2 bg-light rounded-3xl m-4 pb-4">
-      <NeuButton
-        type="light"
-        textClassName="text-gray-700 font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-blue-500"
-        text="START"
-        style={{ height: "10rem", width: "10rem", padding: "2.5rem" }}
-        asyncAction={initiateRoom}
-        action={() => navigate(`${paths.waitingRoom}/${gameId}`)}
-      />
+    <div className="h-full w-full flex justify-center items-center p-4">
+      <div className="h-1/2 w-full sm:w-1/2 flex justify-center items-center bg-light rounded-3xl">
+        <NeuButton
+          type="light"
+          textClassName="text-gray-700 font-bold text-xl bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-blue-500"
+          text="START"
+          style={{ height: "10rem", width: "10rem", padding: "2.5rem" }}
+          asyncAction={initiateRoom}
+          action={() => navigate(`${paths.waitingRoom}/${gameId}`)}
+        />
+      </div>
     </div>
   );
 };
