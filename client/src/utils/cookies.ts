@@ -8,7 +8,6 @@ export const getCookie = (name: string) => {
 
 export const setCookie = ({ name, value }: { name: string; value: string | number }) => {
   if (getCookie(name)) deleteCookie(name);
-  console.log(`sets cookie ${name}=${value};`);
   document.cookie = `${name}=${value}`;
 };
 
