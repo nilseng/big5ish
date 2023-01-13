@@ -2,6 +2,7 @@ import { gql, useMutation } from "@apollo/client";
 import { Player } from "@big5ish/types";
 import React, { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { ErrorMsg } from "../components/ErrorMsg";
 import { NeuButton } from "../components/NeuButton";
 import { paths } from "../config";
 
@@ -29,7 +30,7 @@ export const NicknamePage = () => {
     document.cookie = `playerId=${data?.player?.id}`;
   };
 
-  if (error) return <p>Hell! Something got messed up...</p>;
+  if (error) return <ErrorMsg msg={"Oh, no, something went wrong🤖⚙️"} />;
 
   return (
     <div className="h-full flex flex-col justify-center items-center text-black">

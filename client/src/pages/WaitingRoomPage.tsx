@@ -1,6 +1,7 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Player } from "@big5ish/types";
 import { useNavigate, useParams } from "react-router-dom";
+import { ErrorMsg } from "../components/ErrorMsg";
 import { NeuButton } from "../components/NeuButton";
 import { PlayerList } from "../components/PlayerList";
 import { paths } from "../config";
@@ -32,7 +33,7 @@ export const WaitingRoomPage = () => {
 
   const [startGame, { error: startGameError }] = useMutation(startGameMutation);
 
-  if (error) return <p>Something is terribly wrong here😭 Please try again🙏</p>;
+  if (error) return <ErrorMsg msg={"Something is terribly wrong here😭 Please try again🙏"} />;
 
   return (
     <>
