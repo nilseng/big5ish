@@ -5,6 +5,7 @@ import { useNavigate, useParams } from "react-router-dom";
 import { ErrorMsg } from "../components/ErrorMsg";
 import { NeuButton } from "../components/NeuButton";
 import { paths } from "../config";
+import { setCookie } from "../utils/cookies";
 
 const addPlayerMutation = gql`
   mutation addPlayer($gameId: ID!, $nickname: String!) {
@@ -27,7 +28,9 @@ export const NicknamePage = () => {
 
   const joinGame = async () => {
     const { data } = await addPlayer({ variables: { gameId, nickname } });
-    if (data?.player?.id) document.cookie = `playerId=${data.player.id}`;
+    if (data?.player?.id) {
+      setCookie({ name: "playerId", value: data.player.id });
+    }
   };
 
   if (error) return <ErrorMsg msg={"Oh, no, something went wrong🤖⚙️"} />;
@@ -50,7 +53,6 @@ export const NicknamePage = () => {
         textClassName={`${nickname ? "text-light" : ""} font-bold`}
         disabled={!nickname}
         type="colored"
-        style={{}}
         text="Join game"
         asyncAction={joinGame}
         action={() => navigate(`${paths.playerPage}/${gameId}`)}
