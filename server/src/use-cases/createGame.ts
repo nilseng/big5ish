@@ -1,5 +1,5 @@
 import { getTemplate as getDomains } from "@alheimsins/b5-result-text";
-import { Step } from "@big5ish/types";
+import { DomainPresentationStep, Step, StepType } from "@big5ish/types";
 import { GameGateway } from "../gateways/game.gateway";
 
 export const createGame = ({
@@ -18,5 +18,17 @@ export const createGame = ({
 const getSteps = ({ language = "en" }: { language?: string }): Step[] => {
   const [A, C, E, N, O] = getDomains(language).sort((a, b) => (a.domain < b.domain ? -1 : 1));
   const sortedDomains = [N, E, O, A, C];
-  return sortedDomains.map((domain) => ({ type: "domainPresentation", domain, duration: 5000 }));
+  const domainSteps: DomainPresentationStep[] = sortedDomains.map((domain) => ({
+    type: StepType.DomainPresentation,
+    domain,
+    duration: 5000,
+  }));
+  const steps: Step[] = [];
+  domainSteps.forEach((step) => {
+    steps.push(step, {
+      type: StepType.PlayerRating,
+      statement: `How do you think the other players score on ${step.domain.title}?`,
+    });
+  });
+  return steps;
 };
