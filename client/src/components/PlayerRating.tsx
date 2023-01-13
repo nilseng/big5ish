@@ -1,6 +1,7 @@
 import { Game } from "@big5ish/types";
 import { faSpinner, faUserNinja } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { Fragment } from "react";
 import { useCurrentStep } from "../hooks/useCurrentStep";
 import { useOtherPLayers } from "../hooks/useOtherPlayers";
 import { ErrorMsg } from "./ErrorMsg";
@@ -15,28 +16,28 @@ export const PlayerRating = ({ view, game }: { view: "single" | "common"; game: 
     <>
       <h2 className="text-3xl text-center p-4">{currentStep?.statement}</h2>
       {view === "common" && (
-        <div className="flex flex-col justify-center items-center">
+        <div className="grid grid-cols-2 gap-6 place-items-center p-6">
           {game.players.map((player) => (
-            <div key={player.id} className="grid grid-cols-2 p-6">
-              <div className="flex flex-col items-center px-4">
+            <Fragment key={player.id}>
+              <div className="flex flex-col items-center justify-center px-4">
                 <FontAwesomeIcon icon={faUserNinja} size={"2x"} />
                 <p className="text-xs pt-2">{player.nickname}</p>
               </div>
               <FontAwesomeIcon className={`animate-spin text-gray-200 text-2xl`} icon={faSpinner} />
-            </div>
+            </Fragment>
           ))}
         </div>
       )}
       {view === "single" && otherPlayers && (
-        <div className="flex flex-col justify-center items-center">
+        <div className="grid grid-cols-3 gap-6 p-6">
           {otherPlayers.map((player) => (
-            <div key={player.id} className="grid grid-cols-2 p-6">
-              <div className="flex flex-col items-center px-4">
+            <Fragment key={player.id}>
+              <div className="flex flex-col items-center">
                 <FontAwesomeIcon icon={faUserNinja} size={"2x"} />
                 <p className="text-xs pt-2">{player.nickname}</p>
               </div>
-              <input id={`range-${player.id}`} type={"range"} min={1} max={5} step={1} />
-            </div>
+              <input className="col-span-2" id={`range-${player.id}`} type={"range"} min={1} max={5} step={1} />
+            </Fragment>
           ))}
         </div>
       )}
