@@ -1,5 +1,6 @@
-import { DomainId, Game } from "@big5ish/types";
+import { DomainId, Step } from "@big5ish/types";
 import { useEffect, useState } from "react";
+import { isDomainPresentationStep } from "../utils/typeGuards";
 
 const domainEmojisMap: { [key in DomainId]: string } = {
   A: "🤝😇🧎‍♀️",
@@ -9,12 +10,12 @@ const domainEmojisMap: { [key in DomainId]: string } = {
   O: "🤔🎨🕵️",
 };
 
-export const useEmojis = (data?: { game: Game }) => {
+export const useEmojis = (step?: Step) => {
   const [emojis, setEmojis] = useState<string>();
 
   useEffect(() => {
-    if (data) setEmojis(domainEmojisMap[data.game.steps[data.game.currentStep].domain.domain]);
-  }, [data]);
+    if (isDomainPresentationStep(step)) setEmojis(domainEmojisMap[step.domain.domain]);
+  }, [step]);
 
   return emojis;
 };
