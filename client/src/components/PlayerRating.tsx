@@ -36,7 +36,15 @@ export const PlayerRating = ({ view, game }: { view: "single" | "common"; game: 
                 <FontAwesomeIcon icon={faUserNinja} size={"2x"} />
                 <p className="text-xs pt-2">{player.nickname}</p>
               </div>
-              <input className="col-span-2" id={`range-${player.id}`} type={"range"} min={1} max={5} step={1} />
+              <input
+                className="col-span-2"
+                id={`range-${player.id}`}
+                type={"range"}
+                min={1}
+                max={5}
+                step={1}
+                defaultValue={3}
+              />
             </Fragment>
           ))}
         </div>
