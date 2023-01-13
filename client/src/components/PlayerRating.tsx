@@ -17,9 +17,10 @@ export const PlayerRating = ({ view, game }: { view: "single" | "common"; game: 
       {view === "common" && (
         <div className="flex flex-col justify-center items-center">
           {game.players.map((player) => (
-            <div key={player.id} className="flex items-center p-6">
+            <div key={player.id} className="grid grid-cols-2 p-6">
               <div className="flex flex-col items-center px-4">
-                <FontAwesomeIcon icon={faUserNinja} size={"2x"} /> <p className="text-xs pt-2">{player.nickname}</p>
+                <FontAwesomeIcon icon={faUserNinja} size={"2x"} />
+                <p className="text-xs pt-2">{player.nickname}</p>
               </div>
               <FontAwesomeIcon className={`animate-spin text-gray-200 text-2xl`} icon={faSpinner} />
             </div>
@@ -29,9 +30,10 @@ export const PlayerRating = ({ view, game }: { view: "single" | "common"; game: 
       {view === "single" && otherPlayers && (
         <div className="flex flex-col justify-center items-center">
           {otherPlayers.map((player) => (
-            <div key={player.id} className="flex items-center p-6">
+            <div key={player.id} className="grid grid-cols-2 p-6">
               <div className="flex flex-col items-center px-4">
-                <FontAwesomeIcon icon={faUserNinja} size={"2x"} /> <p className="text-xs pt-2">{player.nickname}</p>
+                <FontAwesomeIcon icon={faUserNinja} size={"2x"} />
+                <p className="text-xs pt-2">{player.nickname}</p>
               </div>
               <input id={`range-${player.id}`} type={"range"} min={1} max={5} step={1} />
             </div>
