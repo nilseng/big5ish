@@ -1,6 +1,6 @@
 export const enum GameStatus {
-  Created = "CREATED",
-  Started = "STARTED",
+  Created = "created",
+  Started = "started",
 }
 
 export interface GameBase {
@@ -16,12 +16,25 @@ export interface MultiplayerGame extends GameBase {
 
 export type Game = MultiplayerGame;
 
-export type Step = DomainPresentationStep;
+export const enum StepType {
+  DomainPresentation = "domainPresentation",
+  PlayerRating = "playerRating",
+}
 
-export interface DomainPresentationStep {
-  type: "domainPresentation";
-  domain: Domain;
+export type Step = DomainPresentationStep | PlayerRatingStep;
+
+export interface TimeBoundStep {
   duration: number;
+}
+
+export interface DomainPresentationStep extends TimeBoundStep {
+  type: StepType.DomainPresentation;
+  domain: Domain;
+}
+
+export interface PlayerRatingStep {
+  type: StepType.PlayerRating;
+  statement: string;
 }
 
 export type DomainId = "A" | "C" | "E" | "N" | "O";
