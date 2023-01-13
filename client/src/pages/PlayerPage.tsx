@@ -24,6 +24,7 @@ const gameQuery = gql`
           domain
           title
         }
+        statement
       }
       players {
         id
@@ -39,8 +40,8 @@ export const PlayerPage = () => {
   const { data, loading, error } = useQuery<{ game: Game }>(gameQuery, { variables: { gameId }, pollInterval: 500 });
   const currentStep = useCurrentStep(data);
   const stepCount = useMemo(
-    () => data?.game.steps.filter((step) => isDomainPresentationStep(step)).length ?? 0,
-    [data?.game.steps]
+    () => data?.game?.steps.filter((step) => isDomainPresentationStep(step)).length ?? 0,
+    [data?.game?.steps]
   );
   const emojis = useEmojis(currentStep);
 

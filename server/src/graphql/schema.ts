@@ -23,6 +23,7 @@ export const gqlSchema = gql`
     type: String!
     domain: Domain
     duration: Int
+    statement: String
   }
 
   type Domain {
