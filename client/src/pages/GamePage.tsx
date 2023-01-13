@@ -23,6 +23,10 @@ const gameQuery = gql`
           title
         }
       }
+      players {
+        id
+        nickname
+      }
     }
   }
 `;
@@ -47,5 +51,5 @@ export const GamePage = () => {
       />
     );
 
-  return <PlayerRating view="common" />;
+  return <PlayerRating view="common" game={data.game} />;
 };
