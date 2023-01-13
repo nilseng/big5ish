@@ -27,7 +27,7 @@ export const NicknamePage = () => {
 
   const joinGame = async () => {
     const { data } = await addPlayer({ variables: { gameId, nickname } });
-    document.cookie = `playerId=${data?.player?.id}`;
+    if (data?.player?.id) document.cookie = `playerId=${data.player.id}`;
   };
 
   if (error) return <ErrorMsg msg={"Oh, no, something went wrong🤖⚙️"} />;
