@@ -14,6 +14,7 @@ interface IProps {
   action?: () => void;
   asyncAction?: () => Promise<unknown>;
   disabled?: boolean;
+  ariaLabel?: string;
 }
 
 const defaultButtonClasses = "flex justify-center items-center text-gray-500 select-none ";
@@ -29,6 +30,7 @@ export const NeuButton = ({
   action,
   asyncAction,
   disabled = false,
+  ariaLabel,
 }: IProps) => {
   const [isLoading, setIsLoading] = useState(false);
   const [buttonClasses, setButtonClasses] = useState<string>(
@@ -58,6 +60,7 @@ export const NeuButton = ({
     <button
       className={buttonClasses}
       style={style}
+      aria-label={ariaLabel ?? text}
       disabled={disabled}
       onMouseDown={handleButtonDown}
       onMouseUp={handleButtonUp}
