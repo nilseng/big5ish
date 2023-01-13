@@ -10,8 +10,8 @@ export const gqlSchema = gql`
   }
 
   enum GameStatus {
-    CREATED
-    STARTED
+    created
+    started
   }
 
   type Player {
