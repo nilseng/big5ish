@@ -1,3 +1,5 @@
+const colors = require("tailwindcss/colors");
+
 module.exports = {
   purge: ["./src/**/*.{js,jsx,ts,tsx}", "./public/index.html"],
   content: ["./src/**/*.{js,jsx,ts,tsx}"],
@@ -6,6 +8,7 @@ module.exports = {
       colors: {
         light: "#efeeee",
         primary: "#17a2b8",
+        success: colors.emerald,
       },
     },
   },
