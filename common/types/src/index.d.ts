@@ -12,7 +12,7 @@ export interface GameBase {
 export interface MultiplayerGame extends GameBase {
   currentStep: number;
   steps: Step[];
-  playerRatings: {
+  playerRatings?: {
     [domainId in keyof DomainId]: {
       [ratedBy: string]: {
         [playerId: string]: {
