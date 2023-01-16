@@ -19,9 +19,9 @@ export const PlayerRating = ({ view, game }: { view: "single" | "common"; game: 
         <div className="grid grid-cols-2 gap-6 place-items-center p-6">
           {game.players.map((player) => (
             <Fragment key={player.id}>
-              <div className="flex flex-col items-center justify-center px-4">
+              <div className="flex flex-col items-center justify-center">
                 <FontAwesomeIcon icon={faUserNinja} size={"2x"} />
-                <p className="text-xs pt-2">{player.nickname}</p>
+                <p className="text-xs text-center pt-2">{player.nickname}</p>
               </div>
               <FontAwesomeIcon className={`animate-spin text-gray-200 text-2xl`} icon={faSpinner} />
             </Fragment>
