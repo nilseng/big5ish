@@ -13,8 +13,8 @@ export const PlayerRating = ({ view, game }: { view: "single" | "common"; game: 
   if (currentStep?.type !== "playerRating") return <ErrorMsg msg={"Troubles 😥⚙️"} />;
 
   return (
-    <>
-      <h2 className="text-3xl text-center p-4">{currentStep?.statement}</h2>
+    <div className="w-full max-w-md pb-6">
+      <h2 className="text-3xl text-center p-6">{currentStep?.statement}</h2>
       {view === "common" && (
         <div className="grid grid-cols-2 gap-6 place-items-center p-6">
           {game.players.map((player) => (
@@ -29,26 +29,31 @@ export const PlayerRating = ({ view, game }: { view: "single" | "common"; game: 
         </div>
       )}
       {view === "single" && otherPlayers && (
-        <div className="grid grid-cols-3 gap-6 p-6">
-          {otherPlayers.map((player) => (
-            <Fragment key={player.id}>
-              <div className="flex flex-col items-center">
-                <FontAwesomeIcon icon={faUserNinja} size={"2x"} />
-                <p className="text-xs pt-2">{player.nickname}</p>
-              </div>
-              <input
-                className="col-span-2"
-                id={`range-${player.id}`}
-                type={"range"}
-                min={1}
-                max={5}
-                step={1}
-                defaultValue={3}
-              />
-            </Fragment>
-          ))}
-        </div>
+        <>
+          <div className="grid grid-cols-3 gap-6 p-6">
+            {otherPlayers.map((player) => (
+              <Fragment key={player.id}>
+                <div className="flex flex-col items-center">
+                  <FontAwesomeIcon icon={faUserNinja} size={"2x"} />
+                  <p className="text-xs pt-2">{player.nickname}</p>
+                </div>
+                <input
+                  className="col-span-2"
+                  id={`range-${player.id}`}
+                  type={"range"}
+                  min={1}
+                  max={5}
+                  step={1}
+                  defaultValue={3}
+                />
+              </Fragment>
+            ))}
+          </div>
+          <div className="w-full p-6">
+            <button className="bg-success-400 float-right rounded-lg px-4 py-2">Ready</button>
+          </div>
+        </>
       )}
-    </>
+    </div>
   );
 };
