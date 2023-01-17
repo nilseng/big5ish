@@ -12,10 +12,10 @@ export interface GameBase {
 export interface MultiplayerGame extends GameBase {
   currentStep: number;
   steps: Step[];
-  playerRatings?: {
+  domainScoreGuesses?: {
     [domainId in keyof DomainId]: {
-      [ratedBy: string]: {
-        [playerId: string]: {
+      [playerId: string]: {
+        [guessedBy: string]: {
           score: number;
         };
       };
@@ -44,6 +44,7 @@ export interface DomainPresentationStep extends TimeBoundStep {
 export interface PlayerRatingStep {
   type: StepType.PlayerRating;
   statement: string;
+  domainId: DomainId;
 }
 
 export type DomainId = "A" | "C" | "E" | "N" | "O";
