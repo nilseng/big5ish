@@ -5,6 +5,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fragment, useEffect, useState } from "react";
 import { useCurrentStep } from "../hooks/useCurrentStep";
 import { useOtherPLayers } from "../hooks/useOtherPlayers";
+import { hasPlayerGuessedDomainScores } from "../utils/gameUtils";
 import { ErrorMsg } from "./ErrorMsg";
 
 const defaultScore = 3;
@@ -31,7 +32,9 @@ export const PlayerRating = ({ view, game }: { view: "single" | "common"; game: 
   const [guesses, setGuesses] = useState<{ [playerId: string]: number } | undefined>();
   useEffect(() => setGuesses(createDomainScoreGuessMap(otherPlayers)), [otherPlayers]);
 
-  const [guessDomainScores, { error }] = useMutation(guessDomainScoresMutation);
+  const [guessDomainScores, { error, loading }] = useMutation<{ guessDomainScores: { id: string } }>(
+    guessDomainScoresMutation
+  );
 
   if (error || currentStep?.type !== "playerRating") return <ErrorMsg msg={"Troubles 😥⚙️"} />;
 
@@ -75,6 +78,7 @@ export const PlayerRating = ({ view, game }: { view: "single" | "common"; game: 
                 <input
                   className="col-span-2"
                   id={`range-${player.id}`}
+                  disabled={hasPlayerGuessedDomainScores({ game, domainId: currentStep.domainId })}
                   type={"range"}
                   min={1}
                   max={5}
@@ -88,9 +92,16 @@ export const PlayerRating = ({ view, game }: { view: "single" | "common"; game: 
             ))}
           </div>
           <div className="w-full p-6">
-            <button className="bg-success-400 float-right rounded-lg px-4 py-2" onClick={() => guessScores()}>
-              Ready
-            </button>
+            {hasPlayerGuessedDomainScores({ game, domainId: currentStep.domainId }) || loading ? (
+              <FontAwesomeIcon className={`animate-spin text-gray-200 text-2xl float-right`} icon={faSpinner} />
+            ) : (
+              <button
+                className="bg-success-400 float-right rounded-lg font-bold px-4 py-2"
+                onClick={() => guessScores()}
+              >
+                Ready
+              </button>
+            )}
           </div>
         </>
       )}
