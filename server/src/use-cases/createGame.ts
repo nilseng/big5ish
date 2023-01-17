@@ -28,6 +28,7 @@ const getSteps = ({ language = "en" }: { language?: string }): Step[] => {
     steps.push(step, {
       type: StepType.PlayerRating,
       statement: `How do you think the other players score on ${step.domain.title}?`,
+      domainId: step.domain.domain,
     });
   });
   return steps;

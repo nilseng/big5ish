@@ -25,6 +25,7 @@ const gameQuery = gql`
           title
         }
         statement
+        domainId
       }
       players {
         id
