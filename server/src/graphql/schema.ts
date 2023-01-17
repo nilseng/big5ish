@@ -22,6 +22,7 @@ export const gqlSchema = gql`
   type Step {
     type: String!
     domain: Domain
+    domainId: ID
     duration: Int
     statement: String
   }
@@ -70,5 +71,17 @@ export const gqlSchema = gql`
     createGame(id: ID!): String
     addPlayer(gameId: ID!, nickname: String): Player
     startGame(gameId: ID!): Game
+    guessDomainScores(input: DomainScoreGuessInput): Game
+  }
+
+  input DomainScoreGuessInput {
+    domainId: DomainId!
+    guessedBy: ID!
+    guesses: [DomainScoreGuess]!
+  }
+
+  input DomainScoreGuess {
+    playerId: ID!
+    score: Int!
   }
 `;
