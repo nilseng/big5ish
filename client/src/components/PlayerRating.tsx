@@ -1,6 +1,6 @@
 import { gql, useMutation } from "@apollo/client";
 import { Game, Player } from "@big5ish/types";
-import { faSpinner, faUserNinja } from "@fortawesome/free-solid-svg-icons";
+import { faCheckCircle, faCircle, faSpinner, faUserNinja } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fragment, useEffect, useState } from "react";
 import { useCurrentStep } from "../hooks/useCurrentStep";
@@ -11,7 +11,7 @@ import { ErrorMsg } from "./ErrorMsg";
 const defaultScore = 3;
 
 const guessDomainScoresMutation = gql`
-  mutation guessDomainScores($input: [DomainScoreGuessInput]!) {
+  mutation guessDomainScores($input: DomainScoreGuessesInput!) {
     guessDomainScores(input: $input) {
       id
     }
@@ -42,13 +42,16 @@ export const PlayerRating = ({ view, game }: { view: "single" | "common"; game: 
     if (!guesses) throw Error("Guess object undefined.");
     await guessDomainScores({
       variables: {
-        input: Object.keys(guesses)?.map((playerId) => ({
-          guessedBy: getCurrentPlayerId(),
-          playerId,
-          scores: {
-            [currentStep.domainId]: guesses[playerId],
-          },
-        })),
+        input: {
+          gameId: game.id,
+          guesses: Object.keys(guesses)?.map((playerId) => ({
+            guessedBy: getCurrentPlayerId(),
+            playerId,
+            scores: {
+              [currentStep.domainId]: guesses[playerId],
+            },
+          })),
+        },
       },
     });
   };
@@ -64,7 +67,14 @@ export const PlayerRating = ({ view, game }: { view: "single" | "common"; game: 
                 <FontAwesomeIcon icon={faUserNinja} size={"2x"} />
                 <p className="text-xs text-center pt-2">{player.nickname}</p>
               </div>
-              <FontAwesomeIcon className={`animate-spin text-gray-200 text-2xl`} icon={faSpinner} />
+              {hasPlayerGuessedDomainScores({ game, domainId: currentStep.domainId, playerId: player.id }) ? (
+                <span className="fa-layers text-2xl">
+                  <FontAwesomeIcon icon={faCircle} className="fa-stack text-2xl text-white" />
+                  <FontAwesomeIcon icon={faCheckCircle} className="fa-stack text-2xl text-emerald-400" />
+                </span>
+              ) : (
+                <FontAwesomeIcon className={`animate-spin text-gray-200 text-2xl`} icon={faSpinner} />
+              )}
             </Fragment>
           ))}
         </div>

@@ -23,10 +23,22 @@ const gameQuery = gql`
           title
         }
         statement
+        domainId
       }
       players {
         id
         nickname
+      }
+      domainScoreGuesses {
+        playerId
+        guessedBy
+        scores {
+          A
+          C
+          E
+          N
+          O
+        }
       }
     }
   }
