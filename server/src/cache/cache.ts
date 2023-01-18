@@ -1,4 +1,4 @@
-import { Game, GameStatus, Player, Step } from "@big5ish/types";
+import { DomainId, Game, GameStatus, Player, Step } from "@big5ish/types";
 
 class Cache {
   #games: Game[] = [];
@@ -46,6 +46,22 @@ class Cache {
     if (!game) throw Error("Game not found - could not set step.");
     game.currentStep = step;
     return game;
+  }
+
+  guessDomainScores(input: {
+    gameId: string;
+    guesses: { guessedBy: string; playerId: string; scores: { [domainId in DomainId]: number } }[];
+  }) {
+    const game = this.getGame(input.gameId);
+    if (!game) throw Error("Game not found - could not set domain score guesses.");
+    if (!game.domainScoreGuesses) game.domainScoreGuesses = [];
+    for (const guess of input.guesses) {
+      const existingGuess = game.domainScoreGuesses?.find(
+        ({ guessedBy, playerId }) => guessedBy === guess.guessedBy && playerId === guess.playerId
+      );
+      if (existingGuess) existingGuess.scores = { ...existingGuess.scores, ...guess.scores };
+      else game.domainScoreGuesses.push({ playerId: guess.playerId, guessedBy: guess.guessedBy, scores: guess.scores });
+    }
   }
 }
 

@@ -1,4 +1,4 @@
-import { Game, GameStatus, Player, Step } from "@big5ish/types";
+import { DomainId, Game, GameStatus, Player, Step } from "@big5ish/types";
 import { cache } from "../cache/cache";
 
 export class GameGateway {
@@ -34,5 +34,12 @@ export class GameGateway {
 
   setStep(gameId: string, step: number) {
     return this.#cache.setStep(gameId, step);
+  }
+
+  guessDomainScores(input: {
+    gameId: string;
+    guesses: { guessedBy: string; playerId: string; scores: { [domainId in DomainId]: number } }[];
+  }) {
+    return this.#cache.guessDomainScores(input);
   }
 }

@@ -7,11 +7,26 @@ export const gqlSchema = gql`
     players: [Player]
     currentStep: Int
     steps: [Step]
+    domainScoreGuesses: [DomainScoreGuess]
   }
 
   enum GameStatus {
     created
     started
+  }
+
+  type DomainScoreGuess {
+    playerId: ID!
+    guessedBy: ID!
+    scores: DomainScores
+  }
+
+  type DomainScores {
+    A: Int
+    C: Int
+    E: Int
+    N: Int
+    O: Int
   }
 
   type Player {
@@ -71,16 +86,21 @@ export const gqlSchema = gql`
     createGame(id: ID!): String
     addPlayer(gameId: ID!, nickname: String): Player
     startGame(gameId: ID!): Game
-    guessDomainScores(input: [DomainScoreGuessInput]!): Game
+    guessDomainScores(input: DomainScoreGuessesInput!): Game
+  }
+
+  input DomainScoreGuessesInput {
+    gameId: ID!
+    guesses: [DomainScoreGuessInput]!
   }
 
   input DomainScoreGuessInput {
     guessedBy: ID!
     playerId: ID!
-    scores: DomainScores!
+    scores: DomainScoresInput!
   }
 
-  input DomainScores {
+  input DomainScoresInput {
     A: Int
     C: Int
     E: Int

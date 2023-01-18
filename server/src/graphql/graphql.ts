@@ -15,8 +15,13 @@ export const createGQLServer = (httpServer: Server) => {
       startGame: (_: never, args: { gameId: string }) => gameController.startGame(args.gameId),
       guessDomainScores: (
         _: never,
-        args: { input: { domain: DomainId; guessedBy: string; guesses: { playerId: string; score: number }[] } }
-      ) => console.log(args),
+        args: {
+          input: {
+            gameId: string;
+            guesses: { guessedBy: string; playerId: string; scores: { [domainId in DomainId]: number } }[];
+          };
+        }
+      ) => gameController.guessDomainScores(args.input),
     },
     Query: {
       game: (_: never, args: { gameId: string }) => gameController.getGame(args.gameId),

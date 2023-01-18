@@ -1,10 +1,11 @@
-import { Player } from "@big5ish/types";
+import { DomainId, Player } from "@big5ish/types";
 import { GameGateway } from "../gateways/game.gateway";
 import { addPlayer } from "../use-cases/addPlayer";
 import { createGame } from "../use-cases/createGame";
 import { getGame } from "../use-cases/getGame";
 import { getGames } from "../use-cases/getGames";
 import { getPlayers } from "../use-cases/getPlayers";
+import { guessDomainScores } from "../use-cases/guessDomainScores";
 import { startGame } from "../use-cases/startGame";
 
 export class GameController {
@@ -37,5 +38,12 @@ export class GameController {
 
   startGame(gameId: string) {
     return startGame({ gameId, gameGateway: this.#gameGateway });
+  }
+
+  guessDomainScores(input: {
+    gameId: string;
+    guesses: { guessedBy: string; playerId: string; scores: { [domainId in DomainId]: number } }[];
+  }) {
+    return guessDomainScores({ input, gameGateway: this.#gameGateway });
   }
 }
