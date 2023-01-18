@@ -6,13 +6,13 @@ export const getCurrentPlayerId = () => {
   return playerId;
 };
 
-/** Assumes that if the current player has guessed the score of one other player, he has also guessed
- * the scores of the other players.
+/** Assumes that if the current player has guessed the score of one other player for the given domain, he has also guessed
+ * the scores of the other players for the domain.
  */
 export const hasPlayerGuessedDomainScores = ({ game, domainId }: { game: Game; domainId: DomainId }) => {
-  const domainGuesses = game.domainScoreGuesses?.[domainId];
-  if (!domainGuesses) return false;
   const playerId = getCurrentPlayerId();
-  const firstPlayerGuesses = Object.values(domainGuesses)[0][playerId];
-  return !!firstPlayerGuesses;
+  const domainGuess = game.domainScoreGuesses?.find(
+    ({ guessedBy, scores }) => guessedBy === playerId && scores[domainId]
+  );
+  return !!domainGuess;
 };

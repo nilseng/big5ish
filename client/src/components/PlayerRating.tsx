@@ -5,13 +5,13 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fragment, useEffect, useState } from "react";
 import { useCurrentStep } from "../hooks/useCurrentStep";
 import { useOtherPLayers } from "../hooks/useOtherPlayers";
-import { hasPlayerGuessedDomainScores } from "../utils/gameUtils";
+import { getCurrentPlayerId, hasPlayerGuessedDomainScores } from "../utils/gameUtils";
 import { ErrorMsg } from "./ErrorMsg";
 
 const defaultScore = 3;
 
 const guessDomainScoresMutation = gql`
-  mutation guessDomainScores($input: DomainScoreGuessInput!) {
+  mutation guessDomainScores($input: [DomainScoreGuessInput]!) {
     guessDomainScores(input: $input) {
       id
     }
@@ -39,13 +39,16 @@ export const PlayerRating = ({ view, game }: { view: "single" | "common"; game: 
   if (error || currentStep?.type !== "playerRating") return <ErrorMsg msg={"Troubles 😥⚙️"} />;
 
   const guessScores = async () => {
+    if (!guesses) throw Error("Guess object undefined.");
     await guessDomainScores({
       variables: {
-        input: {
-          domainId: currentStep.domainId,
-          guessedBy: localStorage.getItem("playerId"),
-          guesses: Object.keys(guesses!).map((playerId) => ({ playerId, score: guesses![playerId] })),
-        },
+        input: Object.keys(guesses)?.map((playerId) => ({
+          guessedBy: getCurrentPlayerId(),
+          playerId,
+          scores: {
+            [currentStep.domainId]: guesses[playerId],
+          },
+        })),
       },
     });
   };

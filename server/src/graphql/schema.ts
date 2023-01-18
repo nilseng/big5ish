@@ -71,17 +71,20 @@ export const gqlSchema = gql`
     createGame(id: ID!): String
     addPlayer(gameId: ID!, nickname: String): Player
     startGame(gameId: ID!): Game
-    guessDomainScores(input: DomainScoreGuessInput): Game
+    guessDomainScores(input: [DomainScoreGuessInput]!): Game
   }
 
   input DomainScoreGuessInput {
-    domainId: DomainId!
     guessedBy: ID!
-    guesses: [DomainScoreGuess]!
+    playerId: ID!
+    scores: DomainScores!
   }
 
-  input DomainScoreGuess {
-    playerId: ID!
-    score: Int!
+  input DomainScores {
+    A: Int
+    C: Int
+    E: Int
+    N: Int
+    O: Int
   }
 `;

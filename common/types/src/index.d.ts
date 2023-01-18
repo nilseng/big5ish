@@ -13,14 +13,10 @@ export interface MultiplayerGame extends GameBase {
   currentStep: number;
   steps: Step[];
   domainScoreGuesses?: {
-    [domainId in DomainId]?: {
-      [playerId: string]: {
-        [guessedBy: string]: {
-          score: number;
-        };
-      };
-    };
-  };
+    playerId: string;
+    guessedBy: string;
+    scores: { [domainId in DomainId]: number };
+  }[];
 }
 
 export type Game = MultiplayerGame;
