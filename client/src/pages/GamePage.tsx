@@ -4,8 +4,8 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "react-router-dom";
 import { DomainPresentation } from "../components/DomainPresentation";
+import { DomainScoreGuessStep } from "../components/DomainScoreGuessStep";
 import { ErrorMsg } from "../components/ErrorMsg";
-import { PlayerRating } from "../components/PlayerRating";
 import { useCurrentStep } from "../hooks/useCurrentStep";
 import { useEmojis } from "../hooks/useEmojis";
 import { isDomainPresentationStep } from "../utils/typeGuards";
@@ -64,5 +64,5 @@ export const GamePage = () => {
       />
     );
 
-  return <PlayerRating view="common" game={data.game} />;
+  return <DomainScoreGuessStep view="common" game={data.game} />;
 };

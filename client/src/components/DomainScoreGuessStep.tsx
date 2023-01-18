@@ -26,7 +26,7 @@ const createDomainScoreGuessMap = (players?: Player[]) => {
   return guesses;
 };
 
-export const PlayerRating = ({ view, game }: { view: "single" | "common"; game: Game }) => {
+export const DomainScoreGuessStep = ({ view, game }: { view: "single" | "common"; game: Game }) => {
   const otherPlayers = useOtherPLayers(game);
   const currentStep = useCurrentStep({ game: game });
   const [guesses, setGuesses] = useState<{ [playerId: string]: number } | undefined>();

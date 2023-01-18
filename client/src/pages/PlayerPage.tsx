@@ -5,9 +5,9 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { DomainPresentation } from "../components/DomainPresentation";
+import { DomainScoreGuessStep } from "../components/DomainScoreGuessStep";
 import { ErrorMsg } from "../components/ErrorMsg";
 import { PlayerList } from "../components/PlayerList";
-import { PlayerRating } from "../components/PlayerRating";
 import { useCurrentStep } from "../hooks/useCurrentStep";
 import { useEmojis } from "../hooks/useEmojis";
 import { isDomainPresentationStep } from "../utils/typeGuards";
@@ -82,5 +82,5 @@ export const PlayerPage = () => {
     );
   }
 
-  return <PlayerRating view="single" game={data.game} />;
+  return <DomainScoreGuessStep view="single" game={data.game} />;
 };
