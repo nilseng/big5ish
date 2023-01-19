@@ -67,12 +67,19 @@ export const gqlSchema = gql`
     nickname: String
   }
 
+  enum StepType {
+    domainPresentation
+    domainScoreGuess
+    question
+  }
+
   type Step {
-    type: String!
+    type: StepType!
     domain: Domain
     domainId: ID
     duration: Int
     statement: String
+    question: Question
   }
 
   type Domain {
@@ -107,5 +114,26 @@ export const gqlSchema = gql`
     facet: Int
     title: String
     text: String
+  }
+
+  type Question {
+    id: ID!
+    text: String
+    keyed: Keyed
+    domain: DomainId
+    facet: Int
+    num: Int
+    choices: [Choice]
+  }
+
+  type Choice {
+    text: String
+    score: Int
+    color: Int
+  }
+
+  enum Keyed {
+    plus
+    minus
   }
 `;
