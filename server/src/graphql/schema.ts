@@ -71,6 +71,7 @@ export const gqlSchema = gql`
     domainPresentation
     domainScoreGuess
     question
+    summary
   }
 
   type Step {

@@ -25,9 +25,10 @@ export const enum StepType {
   DomainPresentation = "domainPresentation",
   DomainScoreGuess = "domainScoreGuess",
   QuestionStep = "question",
+  SummaryStep = "summary",
 }
 
-export type Step = DomainPresentationStep | DomainScoreGuessStep | QuestionStep;
+export type Step = DomainPresentationStep | DomainScoreGuessStep | QuestionStep | SummaryStep;
 
 export interface TimeBoundStep {
   duration: number;
@@ -47,6 +48,10 @@ export interface DomainScoreGuessStep {
 export interface QuestionStep {
   type: StepType.QuestionStep;
   question: Question;
+}
+
+export interface SummaryStep {
+  type: StepType.SummaryStep;
 }
 
 export type DomainId = "A" | "C" | "E" | "N" | "O";
