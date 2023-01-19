@@ -22,6 +22,7 @@ export const createGQLServer = (httpServer: Server) => {
           };
         }
       ) => gameController.guessDomainScores(args.input),
+      setNextStep: (_: never, { gameId }: { gameId: string }) => gameController.setNextStep(gameId),
     },
     Query: {
       game: (_: never, args: { gameId: string }) => gameController.getGame(args.gameId),

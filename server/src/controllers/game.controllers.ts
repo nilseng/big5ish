@@ -6,6 +6,7 @@ import { getGame } from "../use-cases/getGame";
 import { getGames } from "../use-cases/getGames";
 import { getPlayers } from "../use-cases/getPlayers";
 import { guessDomainScores } from "../use-cases/guessDomainScores";
+import { setNextStep } from "../use-cases/setNextStep";
 import { startGame } from "../use-cases/startGame";
 
 export class GameController {
@@ -45,5 +46,9 @@ export class GameController {
     guesses: { guessedBy: string; playerId: string; scores: { [domainId in DomainId]: number } }[];
   }) {
     return guessDomainScores({ input, gameGateway: this.#gameGateway });
+  }
+
+  setNextStep(gameId: string) {
+    return setNextStep({ gameId, gameGateway: this.#gameGateway });
   }
 }
