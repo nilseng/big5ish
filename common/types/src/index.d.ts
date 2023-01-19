@@ -24,9 +24,10 @@ export type Game = MultiplayerGame;
 export const enum StepType {
   DomainPresentation = "domainPresentation",
   DomainScoreGuess = "domainScoreGuess",
+  QuestionStep = "question",
 }
 
-export type Step = DomainPresentationStep | DomainScoreGuessStep;
+export type Step = DomainPresentationStep | DomainScoreGuessStep | QuestionStep;
 
 export interface TimeBoundStep {
   duration: number;
@@ -41,6 +42,11 @@ export interface DomainScoreGuessStep {
   type: StepType.DomainScoreGuess;
   statement: string;
   domainId: DomainId;
+}
+
+export interface QuestionStep {
+  type: StepType.QuestionStep;
+  question: Question;
 }
 
 export type DomainId = "A" | "C" | "E" | "N" | "O";
@@ -64,6 +70,22 @@ export interface Facet {
   facet: number;
   title: string;
   text: string;
+}
+
+export interface Question {
+  id: string;
+  text: string;
+  keyed: "plus" | "minus";
+  domain: DomainId;
+  facet: number;
+  num: number;
+  choices: Choice[];
+}
+
+export interface Choice {
+  text: string;
+  score: number;
+  color: number;
 }
 
 export interface Player {
