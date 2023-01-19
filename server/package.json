@@ -16,6 +16,7 @@
     "typescript": "^4.6.3"
   },
   "dependencies": {
+    "@alheimsins/b5-johnson-120-ipip-neo-pi-r": "^6.0.5",
     "@alheimsins/b5-result-text": "^5.0.5",
     "@big5ish/types": "file:../common/types",
     "@tsconfig/node16": "^1.0.2",
