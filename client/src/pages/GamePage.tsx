@@ -13,6 +13,7 @@ import { isDomainPresentationStep } from "../utils/typeGuards";
 const gameQuery = gql`
   query game($gameId: ID!) {
     game(gameId: $gameId) {
+      id
       status
       currentStep
       steps {
