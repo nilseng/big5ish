@@ -1,6 +1,39 @@
 import gql from "graphql-tag";
 
 export const gqlSchema = gql`
+  type Query {
+    game(gameId: ID!): Game
+    games: [Game]
+    players(gameId: ID!): [Player]
+  }
+
+  type Mutation {
+    createGame(id: ID!): String
+    addPlayer(gameId: ID!, nickname: String): Player
+    startGame(gameId: ID!): Game
+    guessDomainScores(input: DomainScoreGuessesInput!): Game
+    setNextStep(gameId: ID!): Game
+  }
+
+  input DomainScoreGuessesInput {
+    gameId: ID!
+    guesses: [DomainScoreGuessInput]!
+  }
+
+  input DomainScoreGuessInput {
+    guessedBy: ID!
+    playerId: ID!
+    scores: DomainScoresInput!
+  }
+
+  input DomainScoresInput {
+    A: Int
+    C: Int
+    E: Int
+    N: Int
+    O: Int
+  }
+
   type Game {
     id: ID!
     status: GameStatus
@@ -74,37 +107,5 @@ export const gqlSchema = gql`
     facet: Int
     title: String
     text: String
-  }
-
-  type Query {
-    game(gameId: ID!): Game
-    games: [Game]
-    players(gameId: ID!): [Player]
-  }
-
-  type Mutation {
-    createGame(id: ID!): String
-    addPlayer(gameId: ID!, nickname: String): Player
-    startGame(gameId: ID!): Game
-    guessDomainScores(input: DomainScoreGuessesInput!): Game
-  }
-
-  input DomainScoreGuessesInput {
-    gameId: ID!
-    guesses: [DomainScoreGuessInput]!
-  }
-
-  input DomainScoreGuessInput {
-    guessedBy: ID!
-    playerId: ID!
-    scores: DomainScoresInput!
-  }
-
-  input DomainScoresInput {
-    A: Int
-    C: Int
-    E: Int
-    N: Int
-    O: Int
   }
 `;
