@@ -6,10 +6,11 @@ import { useParams } from "react-router-dom";
 import { DomainPresentationStep } from "../components/DomainPresentationStep";
 import { DomainScoreGuessStep } from "../components/DomainScoreGuessStep";
 import { ErrorMsg } from "../components/ErrorMsg";
+import { QuestionStep } from "../components/QuestionStep";
 import { useCurrentStep } from "../hooks/useCurrentStep";
 import { useEmojis } from "../hooks/useEmojis";
 import { getCurrentDomainPresentationStep } from "../utils/gameUtils";
-import { isDomainPresentationStep } from "../utils/typeGuards";
+import { isDomainPresentationStep, isDomainScoreGuessStep } from "../utils/typeGuards";
 
 const gameQuery = gql`
   query game($gameId: ID!) {
@@ -26,6 +27,10 @@ const gameQuery = gql`
         }
         statement
         domainId
+        question {
+          id
+          text
+        }
       }
       players {
         id
@@ -66,5 +71,7 @@ export const GamePage = () => {
       />
     );
 
-  return <DomainScoreGuessStep view="common" game={data.game} />;
+  if (isDomainScoreGuessStep(currentStep)) return <DomainScoreGuessStep view="common" game={data.game} />;
+
+  return <QuestionStep game={data.game} view={"common"} />;
 };
