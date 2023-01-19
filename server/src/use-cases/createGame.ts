@@ -43,5 +43,6 @@ const getSteps = ({ language = "en" }: { language?: string }): Step[] => {
         )
     );
   });
+  steps.push({ type: StepType.SummaryStep });
   return steps;
 };
