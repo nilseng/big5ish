@@ -7,10 +7,11 @@ import { DomainPresentationStep } from "../components/DomainPresentationStep";
 import { DomainScoreGuessStep } from "../components/DomainScoreGuessStep";
 import { ErrorMsg } from "../components/ErrorMsg";
 import { QuestionStep } from "../components/QuestionStep";
+import { SummaryStep } from "../components/SummaryStep";
 import { useCurrentStep } from "../hooks/useCurrentStep";
 import { useEmojis } from "../hooks/useEmojis";
 import { getCurrentDomainPresentationStep } from "../utils/gameUtils";
-import { isDomainPresentationStep, isDomainScoreGuessStep } from "../utils/typeGuards";
+import { isDomainPresentationStep, isDomainScoreGuessStep, isQuestionStep } from "../utils/typeGuards";
 
 const gameQuery = gql`
   query game($gameId: ID!) {
@@ -73,5 +74,7 @@ export const GamePage = () => {
 
   if (isDomainScoreGuessStep(currentStep)) return <DomainScoreGuessStep view="common" game={data.game} />;
 
-  return <QuestionStep game={data.game} view={"common"} />;
+  if (isQuestionStep(currentStep)) return <QuestionStep game={data.game} view={"common"} />;
+
+  return <SummaryStep />;
 };
