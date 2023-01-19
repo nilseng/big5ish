@@ -4,7 +4,7 @@ import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useMemo } from "react";
 import { useParams } from "react-router-dom";
-import { DomainPresentation } from "../components/DomainPresentation";
+import { DomainPresentationStep } from "../components/DomainPresentationStep";
 import { DomainScoreGuessStep } from "../components/DomainScoreGuessStep";
 import { ErrorMsg } from "../components/ErrorMsg";
 import { PlayerList } from "../components/PlayerList";
@@ -74,7 +74,7 @@ export const PlayerPage = () => {
 
   if (isDomainPresentationStep(currentStep)) {
     return (
-      <DomainPresentation
+      <DomainPresentationStep
         currentStep={data.game.currentStep}
         stepCount={stepCount}
         domain={{ ...currentStep.domain, emojis }}

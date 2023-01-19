@@ -1,7 +1,7 @@
 import { Domain } from "@big5ish/types";
 import { StepBar } from "./StepBar";
 
-export const DomainPresentation = ({
+export const DomainPresentationStep = ({
   currentStep,
   stepCount,
   domain,

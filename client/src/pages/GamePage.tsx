@@ -3,7 +3,7 @@ import { Game } from "@big5ish/types";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useParams } from "react-router-dom";
-import { DomainPresentation } from "../components/DomainPresentation";
+import { DomainPresentationStep } from "../components/DomainPresentationStep";
 import { DomainScoreGuessStep } from "../components/DomainScoreGuessStep";
 import { ErrorMsg } from "../components/ErrorMsg";
 import { useCurrentStep } from "../hooks/useCurrentStep";
@@ -58,7 +58,7 @@ export const GamePage = () => {
 
   if (isDomainPresentationStep(currentStep))
     return (
-      <DomainPresentation
+      <DomainPresentationStep
         currentStep={data.game.currentStep}
         stepCount={data.game.steps.filter((step) => isDomainPresentationStep(step)).length}
         domain={{ ...currentStep.domain, emojis }}
