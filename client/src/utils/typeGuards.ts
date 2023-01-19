@@ -4,6 +4,6 @@ export const isDomainPresentationStep = (step?: Step): step is DomainPresentatio
   return step?.type === "domainPresentation";
 };
 
-export const isPlayerRatingStep = (step?: Step): step is DomainPresentationStep => {
-  return step?.type === "playerRating";
+export const isDomainScoreGuessStep = (step?: Step): step is DomainPresentationStep => {
+  return step?.type === "domainScoreGuess";
 };

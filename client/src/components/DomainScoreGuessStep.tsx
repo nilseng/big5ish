@@ -36,7 +36,7 @@ export const DomainScoreGuessStep = ({ view, game }: { view: "single" | "common"
     guessDomainScoresMutation
   );
 
-  if (error || currentStep?.type !== "playerRating") return <ErrorMsg msg={"Troubles 😥⚙️"} />;
+  if (error || currentStep?.type !== "domainScoreGuess") return <ErrorMsg msg={"Troubles 😥⚙️"} />;
 
   const guessScores = async () => {
     if (!guesses) throw Error("Guess object undefined.");

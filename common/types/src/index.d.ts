@@ -23,10 +23,10 @@ export type Game = MultiplayerGame;
 
 export const enum StepType {
   DomainPresentation = "domainPresentation",
-  PlayerRating = "playerRating",
+  DomainScoreGuess = "domainScoreGuess",
 }
 
-export type Step = DomainPresentationStep | PlayerRatingStep;
+export type Step = DomainPresentationStep | DomainScoreGuessStep;
 
 export interface TimeBoundStep {
   duration: number;
@@ -37,8 +37,8 @@ export interface DomainPresentationStep extends TimeBoundStep {
   domain: Domain;
 }
 
-export interface PlayerRatingStep {
-  type: StepType.PlayerRating;
+export interface DomainScoreGuessStep {
+  type: StepType.DomainScoreGuess;
   statement: string;
   domainId: DomainId;
 }

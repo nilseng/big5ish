@@ -26,7 +26,7 @@ const getSteps = ({ language = "en" }: { language?: string }): Step[] => {
   const steps: Step[] = [];
   domainSteps.forEach((step) => {
     steps.push(step, {
-      type: StepType.PlayerRating,
+      type: StepType.DomainScoreGuess,
       statement: `How do you think the other players score on ${step.domain.title}?`,
       domainId: step.domain.domain,
     });
