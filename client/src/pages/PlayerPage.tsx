@@ -10,6 +10,7 @@ import { ErrorMsg } from "../components/ErrorMsg";
 import { PlayerList } from "../components/PlayerList";
 import { useCurrentStep } from "../hooks/useCurrentStep";
 import { useEmojis } from "../hooks/useEmojis";
+import { getCurrentDomainPresentationStep } from "../utils/gameUtils";
 import { isDomainPresentationStep } from "../utils/typeGuards";
 
 const gameQuery = gql`
@@ -75,7 +76,7 @@ export const PlayerPage = () => {
   if (isDomainPresentationStep(currentStep)) {
     return (
       <DomainPresentationStep
-        currentStep={data.game.currentStep}
+        currentStep={getCurrentDomainPresentationStep(data.game)}
         stepCount={stepCount}
         domain={{ ...currentStep.domain, emojis }}
       />

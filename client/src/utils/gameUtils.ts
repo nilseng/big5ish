@@ -1,4 +1,5 @@
 import { DomainId, Game } from "@big5ish/types";
+import { isDomainPresentationStep } from "./typeGuards";
 
 export const getCurrentPlayerId = () => {
   const playerId = localStorage.getItem("playerId");
@@ -23,4 +24,10 @@ export const hasPlayerGuessedDomainScores = ({
     return guess.guessedBy === guessedBy && guess.scores[domainId];
   });
   return !!domainGuess;
+};
+
+export const getCurrentDomainPresentationStep = (game: Game) => {
+  return (
+    game.currentStep - game.steps.slice(0, game.currentStep).filter((step) => !isDomainPresentationStep(step)).length
+  );
 };
