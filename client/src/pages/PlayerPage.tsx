@@ -62,13 +62,18 @@ const gameQuery = gql`
 export const PlayerPage = () => {
   const { gameId } = useParams();
 
-  const { data, loading, error } = useQuery<{ game: Game }>(gameQuery, { variables: { gameId }, pollInterval: 500 });
+  const { data, loading, error, stopPolling } = useQuery<{ game: Game }>(gameQuery, {
+    variables: { gameId },
+    pollInterval: 500,
+  });
   const currentStep = useCurrentStep(data);
   const stepCount = useMemo(
     () => data?.game?.steps.filter((step) => isDomainPresentationStep(step)).length ?? 0,
     [data?.game?.steps]
   );
   const emojis = useEmojis(currentStep);
+
+  if (currentStep?.type === "summary") stopPolling();
 
   if (loading) return <FontAwesomeIcon className={`animate-spin text-gray-200`} icon={faSpinner} />;
 
