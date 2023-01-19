@@ -1,5 +1,6 @@
+import { getItems } from "@alheimsins/b5-johnson-120-ipip-neo-pi-r";
 import { getTemplate as getDomains } from "@alheimsins/b5-result-text";
-import { DomainPresentationStep, Step, StepType } from "@big5ish/types";
+import { DomainPresentationStep, QuestionStep, Step, StepType } from "@big5ish/types";
 import { GameGateway } from "../gateways/game.gateway";
 
 export const createGame = ({
@@ -17,6 +18,7 @@ export const createGame = ({
 
 const getSteps = ({ language = "en" }: { language?: string }): Step[] => {
   const [A, C, E, N, O] = getDomains(language).sort((a, b) => (a.domain < b.domain ? -1 : 1));
+  const questions = getItems();
   const sortedDomains = [N, E, O, A, C];
   const domainSteps: DomainPresentationStep[] = sortedDomains.map((domain) => ({
     type: StepType.DomainPresentation,
@@ -30,6 +32,16 @@ const getSteps = ({ language = "en" }: { language?: string }): Step[] => {
       statement: `How do you think the other players score on ${step.domain.title}?`,
       domainId: step.domain.domain,
     });
+    steps.push(
+      ...questions
+        .filter((q) => q.domain === step.domain.domain)
+        .map(
+          (q): QuestionStep => ({
+            type: StepType.QuestionStep,
+            question: q,
+          })
+        )
+    );
   });
   return steps;
 };
