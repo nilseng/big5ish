@@ -17,6 +17,7 @@ export interface MultiplayerGame extends GameBase {
     guessedBy: string;
     scores: { [domainId in DomainId]: number };
   }[];
+  answers: Answer[];
 }
 
 export type Game = MultiplayerGame;
@@ -91,6 +92,12 @@ export interface Choice {
   text: string;
   score: number;
   color: number;
+}
+
+export interface Answer {
+  questionId: string;
+  playerId: string;
+  score: number;
 }
 
 export interface Player {
