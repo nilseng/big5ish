@@ -1,10 +1,19 @@
 import { gql, useMutation } from "@apollo/client";
 import { Game } from "@big5ish/types";
-import { faUserNinja } from "@fortawesome/free-solid-svg-icons";
+import { faSpinner, faUserNinja } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fragment, useState } from "react";
 import { useCurrentStep } from "../hooks/useCurrentStep";
+import { getAnswer, getCurrentPlayerId } from "../utils/gameUtils";
 import { ErrorMsg } from "./ErrorMsg";
+
+const answerQuestionMutation = gql`
+  mutation answerQuestion($input: AnswerInput!) {
+    answerQuestion(input: $input) {
+      id
+    }
+  }
+`;
 
 const setNextStepMutation = gql`
   mutation setNextStep($gameId: ID!) {
@@ -18,6 +27,7 @@ export const QuestionStep = ({ game, view }: { game: Game; view: "common" | "sin
   const currentStep = useCurrentStep({ game });
   const [selectedScore, setSelectedScore] = useState(3);
 
+  const [answerQuestion] = useMutation(answerQuestionMutation);
   const [setNextStep] = useMutation(setNextStepMutation);
 
   if (currentStep?.type !== "question") return <ErrorMsg msg={"Troubles 😥⚙️"} />;
@@ -34,7 +44,11 @@ export const QuestionStep = ({ game, view }: { game: Game; view: "common" | "sin
                   <FontAwesomeIcon icon={faUserNinja} size={"2x"} />
                   <p className="text-xs text-center pt-2">{player.nickname}</p>
                 </div>
-                <p className="col-span-2">Score PH</p>
+                <div className="col-span-2">
+                  {getAnswer({ game, playerId: player.id, questionId: currentStep.question.id })?.score ?? (
+                    <FontAwesomeIcon className={`animate-spin text-gray-200 text-2xl`} icon={faSpinner} />
+                  )}
+                </div>
               </Fragment>
             ))}
           </div>
@@ -48,7 +62,9 @@ export const QuestionStep = ({ game, view }: { game: Game; view: "common" | "sin
       )}
       {view === "single" && (
         <>
-          <fieldset>
+          <fieldset
+            disabled={!!getAnswer({ game, playerId: getCurrentPlayerId(), questionId: currentStep.question.id })}
+          >
             <div className="grid grid-cols-4 gap-6 p-6">
               {currentStep.question.choices.map((choice) => (
                 <Fragment key={choice.score}>
@@ -67,12 +83,27 @@ export const QuestionStep = ({ game, view }: { game: Game; view: "common" | "sin
             </div>
           </fieldset>
           <div className="w-full p-6">
-            <button
-              className="bg-success-400 float-right rounded-lg font-bold px-4 py-2"
-              onClick={() => console.log("Selected score", selectedScore)}
-            >
-              Next
-            </button>
+            {getAnswer({ game, playerId: getCurrentPlayerId(), questionId: currentStep.question.id }) ? (
+              <FontAwesomeIcon className={`animate-spin text-gray-200 text-2xl float-right`} icon={faSpinner} />
+            ) : (
+              <button
+                className="bg-success-400 float-right rounded-lg font-bold px-4 py-2"
+                onClick={() =>
+                  answerQuestion({
+                    variables: {
+                      input: {
+                        gameId: game.id,
+                        playerId: getCurrentPlayerId(),
+                        questionId: currentStep.question.id,
+                        score: selectedScore,
+                      },
+                    },
+                  })
+                }
+              >
+                Submit
+              </button>
+            )}
           </div>
         </>
       )}
