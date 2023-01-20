@@ -31,3 +31,7 @@ export const getCurrentDomainPresentationStep = (game: Game) => {
     game.currentStep - game.steps.slice(0, game.currentStep).filter((step) => !isDomainPresentationStep(step)).length
   );
 };
+
+export const getAnswer = ({ game, playerId, questionId }: { game: Game; playerId: string; questionId: string }) => {
+  return game.answers.find((a) => a.playerId === playerId && a.questionId === questionId);
+};
