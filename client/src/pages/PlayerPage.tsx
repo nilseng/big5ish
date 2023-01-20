@@ -44,6 +44,11 @@ const gameQuery = gql`
         id
         nickname
       }
+      answers {
+        playerId
+        questionId
+        score
+      }
       domainScoreGuesses {
         playerId
         guessedBy

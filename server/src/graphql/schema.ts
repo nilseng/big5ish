@@ -48,6 +48,7 @@ export const gqlSchema = gql`
     players: [Player]
     currentStep: Int
     steps: [Step]
+    answers: [Answer]
     domainScoreGuesses: [DomainScoreGuess]
   }
 
@@ -133,6 +134,12 @@ export const gqlSchema = gql`
     facet: Int
     num: Int
     choices: [Choice]
+  }
+
+  type Answer {
+    playerId: ID!
+    questionId: ID!
+    score: Int
   }
 
   type Choice {
