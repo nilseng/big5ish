@@ -13,7 +13,7 @@ export class GameGateway {
   }
 
   createGame({ id, steps }: { id: string; steps: Step[] }) {
-    this.#cache.createGame({ id, steps, status: GameStatus.Created, currentStep: 0 });
+    this.#cache.createGame({ id, steps, status: GameStatus.Created, currentStep: 0, answers: [] });
   }
 
   getGame(gameId: string) {
@@ -36,10 +36,27 @@ export class GameGateway {
     return this.#cache.setStep(gameId, step);
   }
 
-  guessDomainScores(input: {
+  guessDomainScores({
+    gameId,
+    guesses,
+  }: {
     gameId: string;
     guesses: { guessedBy: string; playerId: string; scores: { [domainId in DomainId]: number } }[];
   }) {
-    return this.#cache.guessDomainScores(input);
+    return this.#cache.guessDomainScores({ gameId, guesses });
+  }
+
+  answerQuestion({
+    gameId,
+    playerId,
+    questionId,
+    score,
+  }: {
+    gameId: string;
+    playerId: string;
+    questionId: string;
+    score: number;
+  }) {
+    return this.#cache.answerQuestion({ gameId, playerId, questionId, score });
   }
 }

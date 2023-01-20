@@ -1,4 +1,4 @@
-import { DomainId, Game, GameStatus, Player, Step } from "@big5ish/types";
+import { Answer, DomainId, Game, GameStatus, Player, Step } from "@big5ish/types";
 
 class Cache {
   #games: Game[] = [];
@@ -13,13 +13,15 @@ class Cache {
     steps,
     status,
     currentStep,
+    answers,
   }: {
     id: string;
     steps: Step[];
     status: GameStatus;
     currentStep: number;
+    answers: Answer[];
   }) {
-    this.#games.push({ id, status, players: [], steps, currentStep });
+    this.#games.push({ id, status, players: [], steps, currentStep, answers });
   }
 
   getGame(id: string) {
@@ -62,6 +64,23 @@ class Cache {
       if (existingGuess) existingGuess.scores = { ...existingGuess.scores, ...guess.scores };
       else game.domainScoreGuesses.push({ playerId: guess.playerId, guessedBy: guess.guessedBy, scores: guess.scores });
     }
+  }
+
+  answerQuestion({
+    gameId,
+    playerId,
+    questionId,
+    score,
+  }: {
+    gameId: string;
+    playerId: string;
+    questionId: string;
+    score: number;
+  }) {
+    const game = this.getGame(gameId);
+    if (!game) throw Error("Game not found - could not answer question.");
+    game.answers.push({ playerId, questionId, score });
+    return game;
   }
 }
 

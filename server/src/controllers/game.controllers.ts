@@ -1,6 +1,7 @@
 import { DomainId, Player } from "@big5ish/types";
 import { GameGateway } from "../gateways/game.gateway";
 import { addPlayer } from "../use-cases/addPlayer";
+import { answerQuestion } from "../use-cases/answerQuestion";
 import { createGame } from "../use-cases/createGame";
 import { getGame } from "../use-cases/getGame";
 import { getGames } from "../use-cases/getGames";
@@ -50,5 +51,9 @@ export class GameController {
 
   setNextStep(gameId: string) {
     return setNextStep({ gameId, gameGateway: this.#gameGateway });
+  }
+
+  answerQuestion(input: { gameId: string; playerId: string; questionId: string; score: number }) {
+    return answerQuestion({ ...input, gameGateway: this.#gameGateway });
   }
 }

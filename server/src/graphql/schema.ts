@@ -8,11 +8,19 @@ export const gqlSchema = gql`
   }
 
   type Mutation {
-    createGame(id: ID!): String
     addPlayer(gameId: ID!, nickname: String): Player
+    answerQuestion(input: AnswerInput!): Game
+    createGame(id: ID!): String
     startGame(gameId: ID!): Game
     guessDomainScores(input: DomainScoreGuessesInput!): Game
     setNextStep(gameId: ID!): Game
+  }
+
+  input AnswerInput {
+    gameId: ID!
+    playerId: ID!
+    questionId: ID!
+    score: Int!
   }
 
   input DomainScoreGuessesInput {
