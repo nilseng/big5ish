@@ -97,6 +97,8 @@ export interface Choice {
 export interface Answer {
   questionId: string;
   playerId: string;
+  domainId: DomainId;
+  facet: number;
   score: number;
 }
 

@@ -50,13 +50,17 @@ export class GameGateway {
     gameId,
     playerId,
     questionId,
+    domainId,
+    facet,
     score,
   }: {
     gameId: string;
     playerId: string;
     questionId: string;
+    domainId: DomainId;
+    facet: number;
     score: number;
   }) {
-    return this.#cache.answerQuestion({ gameId, playerId, questionId, score });
+    return this.#cache.answerQuestion({ gameId, playerId, questionId, domainId, facet, score });
   }
 }

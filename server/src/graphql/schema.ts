@@ -20,6 +20,8 @@ export const gqlSchema = gql`
     gameId: ID!
     playerId: ID!
     questionId: ID!
+    domainId: DomainId!
+    facet: Int!
     score: Int!
   }
 
@@ -139,6 +141,8 @@ export const gqlSchema = gql`
   type Answer {
     playerId: ID!
     questionId: ID!
+    domainId: DomainId
+    facet: Int
     score: Int
   }
 

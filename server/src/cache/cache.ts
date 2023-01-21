@@ -70,16 +70,20 @@ class Cache {
     gameId,
     playerId,
     questionId,
+    domainId,
+    facet,
     score,
   }: {
     gameId: string;
     playerId: string;
     questionId: string;
+    domainId: DomainId;
+    facet: number;
     score: number;
   }) {
     const game = this.getGame(gameId);
     if (!game) throw Error("Game not found - could not answer question.");
-    game.answers.push({ playerId, questionId, score });
+    game.answers.push({ playerId, questionId, domainId, facet, score });
     return game;
   }
 }

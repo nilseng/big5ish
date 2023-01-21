@@ -53,7 +53,14 @@ export class GameController {
     return setNextStep({ gameId, gameGateway: this.#gameGateway });
   }
 
-  answerQuestion(input: { gameId: string; playerId: string; questionId: string; score: number }) {
+  answerQuestion(input: {
+    gameId: string;
+    playerId: string;
+    questionId: string;
+    domainId: DomainId;
+    facet: number;
+    score: number;
+  }) {
     return answerQuestion({ ...input, gameGateway: this.#gameGateway });
   }
 }

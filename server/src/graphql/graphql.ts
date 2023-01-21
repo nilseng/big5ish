@@ -25,7 +25,16 @@ export const createGQLServer = (httpServer: Server) => {
       setNextStep: (_: never, { gameId }: { gameId: string }) => gameController.setNextStep(gameId),
       answerQuestion: (
         _: never,
-        args: { input: { gameId: string; playerId: string; questionId: string; score: number } }
+        args: {
+          input: {
+            gameId: string;
+            playerId: string;
+            questionId: string;
+            domainId: DomainId;
+            facet: number;
+            score: number;
+          };
+        }
       ) => gameController.answerQuestion(args.input),
     },
     Query: {

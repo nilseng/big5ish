@@ -30,6 +30,8 @@ const gameQuery = gql`
         domainId
         question {
           id
+          domain
+          facet
           text
         }
       }
@@ -40,6 +42,8 @@ const gameQuery = gql`
       answers {
         playerId
         questionId
+        domainId
+        facet
         score
       }
       domainScoreGuesses {
@@ -86,5 +90,5 @@ export const GamePage = () => {
 
   if (isQuestionStep(currentStep)) return <QuestionStep game={data.game} view={"common"} />;
 
-  return <SummaryStep />;
+  return <SummaryStep game={data.game} />;
 };
