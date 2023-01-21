@@ -46,5 +46,5 @@ declare module "@alheimsins/b5-result-text" {
 
   export function getDomain(options: { domain: string; language: string }): Domain;
 
-  export function getFacet(options: { domain: string; language: string; facet }): Facet;
+  export function getFacet(options: { domain: string; language: string; facet: number }): Facet;
 }
