@@ -16,11 +16,17 @@ Results: https://github.com/Alheimsins/b5-result-text
 2. Take test
 3. Show results with differences in expected and actual scores
 
-## How well do you know your friends? - multi player
+## Team test: How well do you know your friends/colleagues? - multi player
 
-- Answer questions about oneself and the other players
+- Guess how the players score in the various dimensions (and facets)
+- Answer questions about oneself
 - Categorize each player - the nervous one, nervs of steel, suspicous, naive etc.
-- Call out fakers
 - Summarize:
   - Who knows their friends best? Which individual players know each other? Who does not?
   - Is the group homogenous or diverse?
+
+## Team game: How well do you know your friends? - multi player
+
+- Guess how the players score in the various dimensions (and facets)
+- Guess how the players score on each question
+- The winner guesses closest to the actual results
