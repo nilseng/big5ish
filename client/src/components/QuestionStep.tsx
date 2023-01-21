@@ -95,6 +95,8 @@ export const QuestionStep = ({ game, view }: { game: Game; view: "common" | "sin
                         gameId: game.id,
                         playerId: getCurrentPlayerId(),
                         questionId: currentStep.question.id,
+                        domainId: currentStep.question.domain,
+                        facet: currentStep.question.facet,
                         score: selectedScore,
                       },
                     },
