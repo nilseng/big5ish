@@ -1,4 +1,5 @@
-import { DomainId, Game } from "@big5ish/types";
+import { getTemplate } from "@alheimsins/b5-result-text";
+import { Answer, DomainId, Game } from "@big5ish/types";
 import { isDomainPresentationStep } from "./typeGuards";
 
 export const domains: { [domainId in DomainId]: domainId } = {
@@ -45,20 +46,52 @@ export const getAnswer = ({ game, playerId, questionId }: { game: Game; playerId
 };
 
 interface GameResults {
-  [playerId: string]: {
-    [domainId in DomainId]?: { avgScore?: number; facets?: { id: number; avgScore: number } };
-  };
+  [playerId: string]: SingleResults;
 }
+interface SingleResults {
+  [domainId: string]: { avgScore?: number; facets?: { [id: number]: number } };
+}
+
 export const calculateResults = (game: Game): GameResults => {
   const results: GameResults = {};
+  results.group = calculateSingleResults({ game });
   game.players.forEach((player) => {
-    results[player.id] = {};
-    Object.values(domains).forEach((d) => {
-      results[player.id]![d] = {};
-      const domainAnswers = game.answers.filter((a) => a.playerId === player.id && a.domainId === d);
-      results[player.id]![d]!.avgScore =
-        domainAnswers.map((a) => a.score).reduce((sum, curr) => sum + curr, 0) / domainAnswers.length;
+    results[player.id] = calculateSingleResults({ game, playerId: player.id });
+  });
+  return results;
+};
+
+const calculateSingleResults = ({ game, playerId }: { game: Game; playerId?: string }) => {
+  const results: SingleResults = {};
+  getTemplate().forEach((d) => {
+    results[d.domain] = {};
+    const domainAnswers = getAnswers({ game, playerId, domainId: d.domain });
+    results[d.domain].avgScore = getAverageScore(domainAnswers);
+    results[d.domain].facets = {};
+    d.facets.forEach((f) => {
+      const facetAnswers = getAnswers({ game, playerId, domainId: d.domain, facet: f.facet });
+      results[d.domain]!.facets![f.facet] = getAverageScore(facetAnswers);
     });
   });
   return results;
+};
+
+const getAnswers = ({
+  game,
+  playerId,
+  domainId,
+  facet,
+}: {
+  game: Game;
+  playerId?: string;
+  domainId: DomainId;
+  facet?: number;
+}) => {
+  return game.answers.filter(
+    (a) => (!playerId || a.playerId === playerId) && a.domainId === domainId && (!facet || a.facet === facet)
+  );
+};
+
+const getAverageScore = (answers: Answer[]): number => {
+  return answers.map((a) => a.score).reduce((sum, curr) => sum + curr, 0) / answers.length;
 };
