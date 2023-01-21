@@ -1,6 +1,14 @@
 import { DomainId, Game } from "@big5ish/types";
 import { isDomainPresentationStep } from "./typeGuards";
 
+export const domains: { [domainId in DomainId]: domainId } = {
+  A: "A",
+  C: "C",
+  E: "E",
+  N: "N",
+  O: "O",
+};
+
 export const getCurrentPlayerId = () => {
   const playerId = localStorage.getItem("playerId");
   if (!playerId) throw Error("Player id not found.");
@@ -34,4 +42,23 @@ export const getCurrentDomainPresentationStep = (game: Game) => {
 
 export const getAnswer = ({ game, playerId, questionId }: { game: Game; playerId: string; questionId: string }) => {
   return game.answers.find((a) => a.playerId === playerId && a.questionId === questionId);
+};
+
+interface GameResults {
+  [playerId: string]: {
+    [domainId in DomainId]?: { avgScore?: number; facets?: { id: number; avgScore: number } };
+  };
+}
+export const calculateResults = (game: Game): GameResults => {
+  const results: GameResults = {};
+  game.players.forEach((player) => {
+    results[player.id] = {};
+    Object.values(domains).forEach((d) => {
+      results[player.id]![d] = {};
+      const domainAnswers = game.answers.filter((a) => a.playerId === player.id && a.domainId === d);
+      results[player.id]![d]!.avgScore =
+        domainAnswers.map((a) => a.score).reduce((sum, curr) => sum + curr, 0) / domainAnswers.length;
+    });
+  });
+  return results;
 };
