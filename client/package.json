@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@alheimsins/b5-result-text": "^5.0.5",
     "@apollo/client": "^3.7.0",
+    "@big5ish/types": "file:../common/types",
     "@fortawesome/fontawesome-svg-core": "^1.2.36",
     "@fortawesome/free-solid-svg-icons": "^5.15.4",
     "@fortawesome/react-fontawesome": "^0.1.16",
@@ -21,8 +23,7 @@
     "react-scripts": "5.0.0",
     "sass": "^1.43.5",
     "typescript": "^4.5.2",
-    "web-vitals": "^1.1.2",
-    "@big5ish/types": "file:../common/types"
+    "web-vitals": "^1.1.2"
   },
   "scripts": {
     "start:open": "HOST=teo.local react-scripts start",
