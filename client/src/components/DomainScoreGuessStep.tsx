@@ -27,6 +27,7 @@ const setNextStepMutation = gql`
 `;
 
 const createDomainScoreGuessMap = (players?: Player[]) => {
+  if (!players) return null;
   const guesses: { [playerId: string]: number } = {};
   players?.forEach((p) => {
     guesses[p.id] = defaultScore;
@@ -37,8 +38,10 @@ const createDomainScoreGuessMap = (players?: Player[]) => {
 export const DomainScoreGuessStep = ({ view, game }: { view: "single" | "common"; game: Game }) => {
   const otherPlayers = useOtherPLayers(game);
   const currentStep = useCurrentStep({ game });
-  const [guesses, setGuesses] = useState<{ [playerId: string]: number } | undefined>();
-  useEffect(() => setGuesses(createDomainScoreGuessMap(otherPlayers)), [otherPlayers]);
+  const [guesses, setGuesses] = useState<{ [playerId: string]: number } | null>();
+  useEffect(() => {
+    if (!guesses) setGuesses(createDomainScoreGuessMap(otherPlayers));
+  }, [otherPlayers, guesses]);
 
   const [guessDomainScores, { error: guessError, loading: loadingGuessMutation }] = useMutation<{
     guessDomainScores: { id: string };
