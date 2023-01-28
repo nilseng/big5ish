@@ -1,9 +1,8 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Player } from "@big5ish/types";
-import { faClone } from "@fortawesome/free-solid-svg-icons";
-import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { CopyButton } from "../components/CopyButton";
 import { ErrorMsg } from "../components/ErrorMsg";
 import { NeuButton } from "../components/NeuButton";
 import { PlayerList } from "../components/PlayerList";
@@ -37,13 +36,14 @@ export const WaitingRoomPage = () => {
 
   const [startGame, { error: startGameError }] = useMutation(startGameMutation);
 
-  if (error) return <ErrorMsg msg={"Something is terribly wrong here😭 Please try again🙏"} />;
+  if (error || !gameId) return <ErrorMsg msg={"Something is terribly wrong here😭 Please try again🙏"} />;
 
   return (
     <>
       <p className="text-gray-200">game id</p>
-      <h1 className="text-3xl text-gray-50">
-        <code>{gameId}</code>
+      <h1 className="text-3xl text-gray-50 flex items-center">
+        <code className="mr-2">{gameId}</code>
+        <CopyButton text={gameId} className="text-gray-200 text-base align-middle" />
       </h1>
       <div className="pt-10">
         <NeuButton
@@ -62,11 +62,7 @@ export const WaitingRoomPage = () => {
         <p className="text-gray-200 self-start">Go to</p>
         <p className="text-gray-50 py-4">
           <code className="text-xl mr-2">{playUrl}</code>
-          <FontAwesomeIcon
-            className="cursor-pointer"
-            icon={faClone}
-            onClick={() => navigator.clipboard.writeText(playUrl)}
-          />
+          <CopyButton text={playUrl} />
         </p>
         <p className="text-gray-200 self-end">on your phone to join the game</p>
       </div>
