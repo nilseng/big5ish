@@ -1,5 +1,5 @@
-import { getTemplate } from "@alheimsins/b5-result-text";
-import { Answer, DomainId, Game } from "@big5ish/types";
+import { getTemplate as getDomains } from "@alheimsins/b5-result-text";
+import { Answer, Domain, DomainId, Game } from "@big5ish/types";
 import { isDomainPresentationStep } from "./typeGuards";
 
 export const domains: { [domainId in DomainId]: domainId } = {
@@ -49,7 +49,12 @@ interface GameResults {
   [playerId: string]: SingleResults;
 }
 interface SingleResults {
-  [domainId: string]: { avgScore?: number; facets?: { [id: number]: number } };
+  [domainId: string]: DomainResults;
+}
+
+interface DomainResults {
+  avgScore?: number;
+  facets?: { [id: number]: number };
 }
 
 export const calculateResults = (game: Game): GameResults => {
@@ -63,15 +68,28 @@ export const calculateResults = (game: Game): GameResults => {
 
 const calculateSingleResults = ({ game, playerId }: { game: Game; playerId?: string }) => {
   const results: SingleResults = {};
-  getTemplate().forEach((d) => {
-    results[d.domain] = {};
-    const domainAnswers = getAnswers({ game, playerId, domainId: d.domain });
-    results[d.domain].avgScore = getAverageScore(domainAnswers);
-    results[d.domain].facets = {};
-    d.facets.forEach((f) => {
-      const facetAnswers = getAnswers({ game, playerId, domainId: d.domain, facet: f.facet });
-      results[d.domain]!.facets![f.facet] = getAverageScore(facetAnswers);
-    });
+  getDomains().forEach((d) => {
+    results[d.domain] = calculateDomainResults({ game, playerId, domain: d });
+  });
+  return results;
+};
+
+export const calculateDomainResults = ({
+  game,
+  playerId,
+  domain,
+}: {
+  game: Game;
+  playerId?: string;
+  domain: Domain;
+}) => {
+  const results: DomainResults = {};
+  const domainAnswers = getAnswers({ game, playerId, domainId: domain.domain });
+  results.avgScore = getAverageScore(domainAnswers);
+  results.facets = {};
+  domain.facets.forEach((f) => {
+    const facetAnswers = getAnswers({ game, playerId, domainId: domain.domain, facet: f.facet });
+    results.facets![f.facet] = getAverageScore(facetAnswers);
   });
   return results;
 };
