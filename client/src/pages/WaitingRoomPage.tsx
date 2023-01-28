@@ -1,5 +1,8 @@
 import { gql, useMutation, useQuery } from "@apollo/client";
 import { Player } from "@big5ish/types";
+import { faClone } from "@fortawesome/free-solid-svg-icons";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
 import { ErrorMsg } from "../components/ErrorMsg";
 import { NeuButton } from "../components/NeuButton";
@@ -25,6 +28,7 @@ const startGameMutation = gql`
 export const WaitingRoomPage = () => {
   const { gameId } = useParams();
   const navigate = useNavigate();
+  const [playUrl] = useState(`${window.location.host}${paths.gameIdForm}`);
 
   const { data, error } = useQuery<{ players: Player[] }, { gameId: string | undefined }>(playersQuery, {
     variables: { gameId },
@@ -57,7 +61,12 @@ export const WaitingRoomPage = () => {
       <div className="flex flex-col items-center pt-10">
         <p className="text-gray-200 self-start">Go to</p>
         <p className="text-gray-50 py-4">
-          <code className="text-xl">big5ish.herokuapp.com{paths.gameIdForm}</code>
+          <code className="text-xl mr-2">{playUrl}</code>
+          <FontAwesomeIcon
+            className="cursor-pointer"
+            icon={faClone}
+            onClick={() => navigator.clipboard.writeText(playUrl)}
+          />
         </p>
         <p className="text-gray-200 self-end">on your phone to join the game</p>
       </div>
