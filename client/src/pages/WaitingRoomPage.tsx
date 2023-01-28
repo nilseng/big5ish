@@ -43,7 +43,7 @@ export const WaitingRoomPage = () => {
       <p className="text-gray-200">game id</p>
       <h1 className="text-3xl text-gray-50 flex items-center">
         <code className="mr-2">{gameId}</code>
-        <CopyButton text={gameId} className="text-gray-200 text-base align-middle" />
+        <CopyButton text={gameId} className="text-base align-middle" />
       </h1>
       <div className="pt-10">
         <NeuButton
