@@ -1,9 +1,8 @@
 import { getDomain, getFacet } from "@alheimsins/b5-result-text";
 import { Game } from "@big5ish/types";
 import { useMemo } from "react";
+import { language } from "../config";
 import { calculateResults, domains } from "../utils/gameUtils";
-
-const language = "no";
 
 export const SummaryStep = ({ game }: { game: Game }) => {
   const gameResults = useMemo(() => calculateResults(game), [game]);

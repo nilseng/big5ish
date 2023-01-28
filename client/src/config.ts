@@ -7,3 +7,5 @@ export const paths = {
   playerPage: "/player-page",
   gamePage: "/game",
 };
+
+export const language = "no";
