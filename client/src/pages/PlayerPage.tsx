@@ -6,6 +6,7 @@ import { useMemo } from "react";
 import { useParams } from "react-router-dom";
 import { DomainPresentationStep } from "../components/DomainPresentationStep";
 import { DomainScoreGuessStep } from "../components/DomainScoreGuessStep";
+import { DomainSummaryStep } from "../components/DomainSummaryStep";
 import { ErrorMsg } from "../components/ErrorMsg";
 import { PlayerList } from "../components/PlayerList";
 import { QuestionStep } from "../components/QuestionStep";
@@ -13,7 +14,12 @@ import { SummaryStep } from "../components/SummaryStep";
 import { useCurrentStep } from "../hooks/useCurrentStep";
 import { useEmojis } from "../hooks/useEmojis";
 import { getCurrentDomainPresentationStep } from "../utils/gameUtils";
-import { isDomainPresentationStep, isDomainScoreGuessStep, isQuestionStep } from "../utils/typeGuards";
+import {
+  isDomainPresentationStep,
+  isDomainScoreGuessStep,
+  isDomainSummaryStep,
+  isQuestionStep,
+} from "../utils/typeGuards";
 
 const gameQuery = gql`
   query game($gameId: ID!) {
@@ -27,6 +33,9 @@ const gameQuery = gql`
         domain {
           domain
           title
+          facets {
+            facet
+          }
         }
         statement
         domainId
@@ -111,6 +120,8 @@ export const PlayerPage = () => {
   if (isDomainScoreGuessStep(currentStep)) return <DomainScoreGuessStep view="single" game={data.game} />;
 
   if (isQuestionStep(currentStep)) return <QuestionStep game={data.game} view={"single"} />;
+
+  if (isDomainSummaryStep(currentStep)) return <DomainSummaryStep game={data.game} currentStep={currentStep} />;
 
   return <SummaryStep game={data.game} />;
 };
