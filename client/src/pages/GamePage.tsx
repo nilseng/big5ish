@@ -97,9 +97,11 @@ export const GamePage = () => {
 
   if (isDomainScoreGuessStep(currentStep)) return <DomainScoreGuessStep view="common" game={data.game} />;
 
-  if (isQuestionStep(currentStep)) return <QuestionStep game={data.game} view={"common"} />;
+  if (isQuestionStep(currentStep)) return <QuestionStep game={data.game} view="common" />;
 
-  if (isDomainSummaryStep(currentStep)) return <DomainSummaryStep game={data.game} currentStep={currentStep} />;
+  if (isDomainSummaryStep(currentStep)) {
+    return <DomainSummaryStep game={data.game} view="common" currentStep={currentStep} />;
+  }
 
   return <SummaryStep game={data.game} />;
 };
