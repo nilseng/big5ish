@@ -82,6 +82,7 @@ export const gqlSchema = gql`
     domainPresentation
     domainScoreGuess
     question
+    domainSummary
     summary
   }
 
