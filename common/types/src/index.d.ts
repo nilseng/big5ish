@@ -30,7 +30,7 @@ export const enum StepType {
   SummaryStep = "summary",
 }
 
-export type Step = DomainPresentationStep | DomainScoreGuessStep | QuestionStep | SummaryStep;
+export type Step = DomainPresentationStep | DomainScoreGuessStep | QuestionStep | DomainSummaryStep | SummaryStep;
 
 export interface TimeBoundStep {
   duration: number;
