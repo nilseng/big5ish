@@ -1,8 +1,8 @@
 import { gql, useMutation } from "@apollo/client";
-import { Game } from "@big5ish/types";
+import { Game, QuestionStep as IQuestionStep } from "@big5ish/types";
 import { faSpinner, faUserNinja } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Fragment, useState } from "react";
+import { Fragment, useEffect, useState } from "react";
 import { useCurrentStep } from "../hooks/useCurrentStep";
 import { getAnswer, getCurrentPlayerId } from "../utils/gameUtils";
 import { ErrorMsg } from "./ErrorMsg";
@@ -24,8 +24,10 @@ const setNextStepMutation = gql`
 `;
 
 export const QuestionStep = ({ game, view }: { game: Game; view: "common" | "single" }) => {
-  const currentStep = useCurrentStep({ game });
-  const [selectedScore, setSelectedScore] = useState(3);
+  const currentStep = useCurrentStep({ game }) as IQuestionStep | undefined;
+  const [selectedScore, setSelectedScore] = useState<number>();
+
+  useEffect(() => setSelectedScore(undefined), [currentStep?.question.id]);
 
   const [answerQuestion] = useMutation(answerQuestionMutation);
   const [setNextStep] = useMutation(setNextStepMutation);
@@ -87,7 +89,10 @@ export const QuestionStep = ({ game, view }: { game: Game; view: "common" | "sin
               <FontAwesomeIcon className={`animate-spin text-gray-200 text-2xl float-right`} icon={faSpinner} />
             ) : (
               <button
-                className="bg-success-400 float-right rounded-lg font-bold px-4 py-2"
+                className={`${
+                  selectedScore ? "bg-success-400" : "bg-success-300"
+                } float-right rounded-lg font-bold px-4 py-2`}
+                disabled={!selectedScore}
                 onClick={() =>
                   answerQuestion({
                     variables: {
