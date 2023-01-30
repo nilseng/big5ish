@@ -4,7 +4,7 @@ import { faSpinner, faUserNinja } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { Fragment, useEffect, useState } from "react";
 import { useCurrentStep } from "../hooks/useCurrentStep";
-import { getAnswer, getCurrentPlayerId } from "../utils/gameUtils";
+import { getAnswer, getAnswerColor, getCurrentPlayerId } from "../utils/gameUtils";
 import { ErrorMsg } from "./ErrorMsg";
 
 const answerQuestionMutation = gql`
@@ -47,7 +47,7 @@ export const QuestionStep = ({ game, view }: { game: Game; view: "common" | "sin
                   <p className="text-xs text-center pt-2">{player.nickname}</p>
                 </div>
                 <div className="col-span-2">
-                  {getAnswer({ game, playerId: player.id, questionId: currentStep.question.id })?.score ?? (
+                  {getAnswerColor({ game, playerId: player.id, question: currentStep.question }) ?? (
                     <FontAwesomeIcon className={`animate-spin text-gray-200 text-2xl`} icon={faSpinner} />
                   )}
                 </div>

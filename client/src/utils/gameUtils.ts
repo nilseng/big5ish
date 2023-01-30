@@ -1,5 +1,5 @@
 import { getTemplate as getDomains } from "@alheimsins/b5-result-text";
-import { Answer, Domain, DomainId, Game } from "@big5ish/types";
+import { Answer, Domain, DomainId, Game, Question } from "@big5ish/types";
 import { isDomainPresentationStep } from "./typeGuards";
 
 export const domains: { [domainId in DomainId]: domainId } = {
@@ -43,6 +43,13 @@ export const getCurrentDomainPresentationStep = (game: Game) => {
 
 export const getAnswer = ({ game, playerId, questionId }: { game: Game; playerId: string; questionId: string }) => {
   return game.answers.find((a) => a.playerId === playerId && a.questionId === questionId);
+};
+
+/** Color is the absolute value the player has answered. Equals the inverted score if question.keyed=minus. */
+export const getAnswerColor = ({ game, playerId, question }: { game: Game; playerId: string; question: Question }) => {
+  const answer = getAnswer({ game, playerId, questionId: question.id });
+  if (!answer) return undefined;
+  return question.keyed === "plus" ? answer.score : 5 + 1 - answer.score;
 };
 
 interface GameResults {

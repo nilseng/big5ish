@@ -42,6 +42,7 @@ const gameQuery = gql`
           domain
           facet
           text
+          keyed
         }
       }
       players {
