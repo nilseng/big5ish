@@ -5,6 +5,7 @@ import { useMemo, useState } from "react";
 import { language } from "../config";
 import { useOtherPLayers } from "../hooks/useOtherPlayers";
 import { calculateDomainResults } from "../utils/gameUtils";
+import { ProgressBar } from "./ProgressBar";
 
 const setNextStepMutation = gql`
   mutation setNextStep($gameId: ID!) {
@@ -46,7 +47,7 @@ export const DomainSummaryStep = ({
   const [setNextStep] = useMutation(setNextStepMutation);
 
   return (
-    <div className="w-full max-w-md pb-6">
+    <div className="w-full max-w-md p-6">
       <h2 className="text-3xl text-center p-6">{currentStep.domain.title} Results</h2>
       <div className="w-full flex justify-center">
         {game.players.map((player) => (
@@ -61,36 +62,56 @@ export const DomainSummaryStep = ({
       </div>
       {selectedPlayerId && (
         <>
-          <p className="text-xl font-bold py-4">
-            {currentStep.domain.title}: {selectedPlayerResults?.avgScore?.toFixed(2)}
-          </p>
-          {Object.keys(selectedPlayerResults?.facets ?? {}).map((f) => (
-            <p key={f}>
-              {getFacet({ domain: currentStep.domain.domain, language, facet: +f }).title}:{" "}
-              {selectedPlayerResults?.facets?.[+f]?.toFixed(2)}
+          <div className="py-4">
+            <p className="text-xl font-bold pb-2">
+              {currentStep.domain.title} {selectedPlayerResults?.avgScore?.toFixed(1)}
             </p>
+            <ProgressBar value={selectedPlayerResults?.avgScore} max={5} className="h-4" />
+          </div>
+          {Object.keys(selectedPlayerResults?.facets ?? {}).map((f) => (
+            <div key={f} className="pb-2">
+              <p>
+                {getFacet({ domain: currentStep.domain.domain, language, facet: +f }).title}{" "}
+                {selectedPlayerResults?.facets?.[+f].toFixed(1)}
+              </p>
+              <ProgressBar value={selectedPlayerResults?.facets?.[+f]} max={5} />
+            </div>
           ))}
           <p className="text-xl font-bold py-4">Guesses</p>
           {otherPlayers?.map((player) => (
-            <p key={player.id}>
-              {player.nickname}:{" "}
-              {game.domainScoreGuesses
-                ?.find((g) => g.guessedBy === player.id && g.playerId === selectedPlayerId)
-                ?.scores[currentStep.domain.domain]?.toFixed(2)}
-            </p>
+            <div key={player.id} className="w-full pb-2">
+              <span>
+                {player.nickname}{" "}
+                {
+                  game.domainScoreGuesses?.find((g) => g.guessedBy === player.id && g.playerId === selectedPlayerId)
+                    ?.scores[currentStep.domain.domain]
+                }
+              </span>
+              <ProgressBar
+                value={
+                  game.domainScoreGuesses?.find((g) => g.guessedBy === player.id && g.playerId === selectedPlayerId)
+                    ?.scores[currentStep.domain.domain]
+                }
+                max={5}
+              />
+            </div>
           ))}
         </>
       )}
       {!selectedPlayerId && (
         <>
-          <p className="text-xl font-bold py-4">
-            {currentStep.domain.title}: {groupResults.avgScore?.toFixed(2)}
-          </p>
-          {Object.keys(groupResults.facets ?? {}).map((f) => (
-            <p key={f}>
-              {getFacet({ domain: currentStep.domain.domain, language, facet: +f }).title}:{" "}
-              {groupResults?.facets?.[+f]?.toFixed(2)}
+          <div className="text-xl font-bold py-4">
+            <p>
+              {currentStep.domain.title}: {groupResults.avgScore?.toFixed(1)}
             </p>
+            <ProgressBar value={groupResults.avgScore} max={5} />
+          </div>
+          {Object.keys(groupResults.facets ?? {}).map((f) => (
+            <div key={f} className="pb-2">
+              {getFacet({ domain: currentStep.domain.domain, language, facet: +f }).title}:{" "}
+              {groupResults?.facets?.[+f]?.toFixed(1)}
+              <ProgressBar value={groupResults?.facets?.[+f]} max={5} />
+            </div>
           ))}
         </>
       )}
