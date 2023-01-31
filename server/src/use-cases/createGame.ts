@@ -24,7 +24,7 @@ export const createGame = ({
   return gameGateway.createGame({ id, steps });
 };
 
-const getSteps = ({ language = "en" }: { language?: string }): Step[] => {
+const getSteps = ({ language = "no" }: { language?: string }): Step[] => {
   const [A, C, E, N, O] = getDomains(language).sort((a, b) => (a.domain < b.domain ? -1 : 1));
   const sortedDomains = [N, E, O, A, C];
   const domainSteps: DomainPresentationStep[] = createDomainSteps(sortedDomains);
@@ -57,7 +57,7 @@ const createDomainScoreGuessStep = (domain: Domain): DomainScoreGuessStep => {
 };
 
 const createQuestionSteps = (domain: Domain): QuestionStep[] => {
-  return getItems()
+  return getItems("no")
     .filter((q) => q.domain === domain.domain)
     .map(
       (q): QuestionStep => ({
