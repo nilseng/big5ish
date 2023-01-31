@@ -35,11 +35,11 @@ export const QuestionStep = ({ game, view }: { game: Game; view: "common" | "sin
   if (currentStep?.type !== "question") return <ErrorMsg msg={"Troubles 😥⚙️"} />;
 
   return (
-    <div className="w-full max-w-md pb-6">
+    <div className="w-full max-w-md p-6">
       <h2 className="text-3xl text-center p-6">{currentStep.question.text}</h2>
       {view === "common" && (
         <>
-          <div className="grid grid-cols-3 gap-6 place-items-center p-6">
+          <div className="grid grid-cols-3 gap-6 place-items-center py-6">
             {game.players.map((player) => (
               <Fragment key={player.id}>
                 <div className="flex flex-col items-center justify-center">
