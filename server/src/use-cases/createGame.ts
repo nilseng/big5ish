@@ -14,7 +14,7 @@ import { GameGateway } from "../gateways/game.gateway";
 export const createGame = ({
   id,
   gameGateway,
-  language = "en",
+  language = "no",
 }: {
   id: string;
   language?: string;
