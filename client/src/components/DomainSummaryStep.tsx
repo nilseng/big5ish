@@ -49,11 +49,23 @@ export const DomainSummaryStep = ({
   return (
     <div className="w-full max-w-md p-6">
       <h2 className="text-3xl text-center p-6">{currentStep.domain.title} Results</h2>
-      <div className="w-full flex justify-center">
+      <div className="relative w-full flex justify-center flex-wrap p-2">
+        <div className="absolute top-0 w-full h-full pointer-events-none bg-white opacity-5 rounded-xl"></div>
+        <button
+          key={"group"}
+          className={`${
+            !selectedPlayerId ? "bg-gray-50 bg-opacity-20 font-bold" : ""
+          } border border-white rounded-lg text-xs px-2 py-1 m-2`}
+          onClick={() => setSelectedPlayerId(undefined)}
+        >
+          All
+        </button>
         {game.players.map((player) => (
           <button
             key={player.id}
-            className={`${selectedPlayerId === player.id ? "bg-gray-50 bg-opacity-10" : ""} rounded-lg px-4 py-2 mx-2`}
+            className={`${
+              selectedPlayerId === player.id ? "bg-gray-50 bg-opacity-10 font-bold" : ""
+            } border border-white rounded-lg text-xs px-2 py-1 m-2`}
             onClick={() => setSelectedPlayerId((id) => (id === player.id ? undefined : player.id))}
           >
             {player.nickname}
