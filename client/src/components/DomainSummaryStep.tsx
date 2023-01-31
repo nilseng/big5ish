@@ -114,14 +114,14 @@ export const DomainSummaryStep = ({
         <>
           <div className="text-xl font-bold py-4">
             <p>
-              {currentStep.domain.title}: {groupResults.avgScore?.toFixed(1)}
+              {currentStep.domain.title} {groupResults.avgScore?.toFixed(1)}
             </p>
             <ProgressBar value={groupResults.avgScore} max={5} />
           </div>
           {Object.keys(groupResults.facets ?? {}).map((f) => (
             <div key={f} className="pb-2">
-              {getFacet({ domain: currentStep.domain.domain, language, facet: +f }).title}:{" "}
-              {groupResults?.facets?.[+f]?.toFixed(1)}
+              {getFacet({ domain: currentStep.domain.domain, language, facet: +f }).title}{" "}
+              {groupResults?.facets?.[+f]?.toFixed(1) ?? "unknown"}
               <ProgressBar value={groupResults?.facets?.[+f]} max={5} />
             </div>
           ))}
