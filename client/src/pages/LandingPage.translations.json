@@ -1,0 +1,10 @@
+{
+  "no": {
+    "errorMsg": "Ånei! Noe gikk galt! 😭",
+    "start": "START"
+  },
+  "en": {
+    "errorMsg": "Oh, no! Something went wrong! 😭",
+    "start": "START"
+  }
+}
