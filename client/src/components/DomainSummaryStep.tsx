@@ -1,10 +1,12 @@
 import { getFacet } from "@alheimsins/b5-result-text";
 import { gql, useMutation } from "@apollo/client";
 import { DomainSummaryStep as Step, Game } from "@big5ish/types";
-import { useMemo, useState } from "react";
+import { useContext, useMemo, useState } from "react";
+import { LocaleContext } from "../App";
 import { language } from "../config";
 import { useOtherPLayers } from "../hooks/useOtherPlayers";
 import { calculateDomainResults } from "../utils/gameUtils";
+import translations from "./DomainSummaryStep.translations.json";
 import { ProgressBar } from "./ProgressBar";
 
 const setNextStepMutation = gql`
@@ -24,6 +26,8 @@ export const DomainSummaryStep = ({
   view: "common" | "single";
   currentStep: Step;
 }) => {
+  const { locale } = useContext(LocaleContext);
+
   const [selectedPlayerId, setSelectedPlayerId] = useState<string>();
 
   const otherPlayers = useOtherPLayers(game, selectedPlayerId);
@@ -58,7 +62,7 @@ export const DomainSummaryStep = ({
           } border border-white rounded-lg text-xs px-2 py-1 m-2`}
           onClick={() => setSelectedPlayerId(undefined)}
         >
-          All
+          {translations[locale].All}
         </button>
         {game.players.map((player) => (
           <button
@@ -89,7 +93,7 @@ export const DomainSummaryStep = ({
               <ProgressBar value={selectedPlayerResults?.facets?.[+f]} max={5} />
             </div>
           ))}
-          <p className="text-xl font-bold py-4">Guesses</p>
+          <p className="text-xl font-bold py-4">{translations[locale].Guesses}</p>
           {otherPlayers?.map((player) => (
             <div key={player.id} className="w-full pb-2">
               <span>
@@ -132,7 +136,7 @@ export const DomainSummaryStep = ({
           className="bg-success-400 float-right rounded-lg font-bold px-4 py-2"
           onClick={() => setNextStep({ variables: { gameId: game.id } })}
         >
-          Next
+          {translations[locale].Next}
         </button>
       )}
     </div>
