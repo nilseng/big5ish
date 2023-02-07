@@ -38,6 +38,7 @@ export const NeuButton = ({
   );
 
   const handleButtonDown = () => {
+    if (disabled) return;
     setButtonClasses(defaultButtonClasses + className + ` ${type}-pressed-button-shadow`);
   };
 
