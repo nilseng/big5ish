@@ -43,8 +43,7 @@ export interface DomainPresentationStep extends TimeBoundStep {
 
 export interface DomainScoreGuessStep {
   type: StepType.DomainScoreGuess;
-  statement: string;
-  domainId: DomainId;
+  domain: Domain;
 }
 
 export interface QuestionStep {

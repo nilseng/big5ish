@@ -99,9 +99,7 @@ export const gqlSchema = gql`
   type Step {
     type: StepType!
     domain: Domain
-    domainId: ID
     duration: Int
-    statement: String
     question: Question
   }
 

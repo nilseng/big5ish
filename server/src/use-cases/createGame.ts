@@ -51,8 +51,7 @@ const createDomainSteps = (domains: Domain[]): DomainPresentationStep[] => {
 const createDomainScoreGuessStep = (domain: Domain): DomainScoreGuessStep => {
   return {
     type: StepType.DomainScoreGuess,
-    statement: `How do you think the other players score on ${domain.title}?`,
-    domainId: domain.domain,
+    domain,
   };
 };
 

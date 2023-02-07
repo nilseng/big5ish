@@ -31,12 +31,11 @@ const gameQuery = gql`
         domain {
           domain
           title
+          description
           facets {
             facet
           }
         }
-        statement
-        domainId
         question {
           id
           domain
