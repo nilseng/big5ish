@@ -112,3 +112,5 @@ export interface Player {
   id: string;
   nickname: string;
 }
+
+export type LocaleId = "no" | "en";

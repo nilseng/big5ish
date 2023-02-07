@@ -1,3 +1,4 @@
+import { LocaleId } from "@big5ish/types";
 import { createContext, Dispatch, SetStateAction, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
@@ -9,15 +10,15 @@ import { NicknamePage } from "./pages/NicknamePage";
 import { PlayerPage } from "./pages/PlayerPage";
 import { WaitingRoomPage } from "./pages/WaitingRoomPage";
 
-const defaultLocale = "no";
+const defaultLocale: LocaleId = "no";
 
-export const LocaleContext = createContext<{ locale: string; setLocale: Dispatch<SetStateAction<string>> }>({
+export const LocaleContext = createContext<{ locale: LocaleId; setLocale: Dispatch<SetStateAction<LocaleId>> }>({
   locale: defaultLocale,
   setLocale: () => {},
 });
 
 const App = () => {
-  const [locale, setLocale] = useState(defaultLocale);
+  const [locale, setLocale] = useState<LocaleId>(defaultLocale);
   const [localeContext] = useState({ locale, setLocale });
 
   return (
