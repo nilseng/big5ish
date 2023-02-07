@@ -1,8 +1,10 @@
 {
   "no": {
-    "Next": "Neste"
+    "Next": "Neste",
+    "HowDoTheOthersScore": "Hvordan tror du de andre scorer på "
   },
   "en": {
-    "Next": "Next"
+    "Next": "Next",
+    "HowDoTheOthersScore": "How do you think the others score on "
   }
 }
