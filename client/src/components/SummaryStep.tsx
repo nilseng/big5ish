@@ -2,19 +2,22 @@ import { getDomain, getFacet } from "@alheimsins/b5-result-text";
 import { Game } from "@big5ish/types";
 import { faUsers } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
+import { LocaleContext } from "../App";
 import { language } from "../config";
 import { calculateResults, domains } from "../utils/gameUtils";
 import { ProgressBar } from "./ProgressBar";
+import translations from "./SummaryStep.translations.json";
 
 export const SummaryStep = ({ game }: { game: Game }) => {
+  const { locale } = useContext(LocaleContext);
   const gameResults = useMemo(() => calculateResults(game), [game]);
   return (
     <>
-      <h2 className="text-3xl text-center p-6">Result Summary</h2>
+      <h2 className="text-3xl text-center p-6">{translations[locale].ResultSummary}</h2>
       <div key={"group"}>
         <h3 className="text-2xl pt-6">
-          Group
+          {translations[locale].Group}
           <FontAwesomeIcon icon={faUsers} className="ml-2" />
         </h3>
         {Object.values(domains).map((domainId) => (
