@@ -2,10 +2,12 @@ import { gql, useMutation } from "@apollo/client";
 import { Game, QuestionStep as IQuestionStep } from "@big5ish/types";
 import { faSpinner, faUserNinja } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
+import { LocaleContext } from "../App";
 import { useCurrentStep } from "../hooks/useCurrentStep";
 import { getAnswer, getAnswerColor, getCurrentPlayerId } from "../utils/gameUtils";
 import { ErrorMsg } from "./ErrorMsg";
+import translations from "./QuestionStep.translations.json";
 
 const answerQuestionMutation = gql`
   mutation answerQuestion($input: AnswerInput!) {
@@ -24,6 +26,8 @@ const setNextStepMutation = gql`
 `;
 
 export const QuestionStep = ({ game, view }: { game: Game; view: "common" | "single" }) => {
+  const { locale } = useContext(LocaleContext);
+
   const currentStep = useCurrentStep({ game }) as IQuestionStep | undefined;
   const [selectedScore, setSelectedScore] = useState<number>();
 
@@ -58,7 +62,7 @@ export const QuestionStep = ({ game, view }: { game: Game; view: "common" | "sin
             className="bg-success-400 float-right rounded-lg font-bold px-4 py-2"
             onClick={() => setNextStep({ variables: { gameId: game.id } })}
           >
-            Next
+            {translations[locale].Next}
           </button>
         </>
       )}
@@ -108,7 +112,7 @@ export const QuestionStep = ({ game, view }: { game: Game; view: "common" | "sin
                   })
                 }
               >
-                Submit
+                {translations[locale].Submit}
               </button>
             )}
           </div>
