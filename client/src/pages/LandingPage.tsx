@@ -23,7 +23,7 @@ export const LandingPage = () => {
     await createRoom({ variables: { id: gameId } });
   };
 
-  if (error) return <p className="text-xl font-bold text-gray-50">Shit! Something went wrong! 😭</p>;
+  if (error) return <p className="text-xl font-bold text-gray-50">Oh, no! Something went wrong! 😭</p>;
 
   return (
     <div className="h-full w-full flex justify-center items-center p-4">
