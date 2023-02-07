@@ -1,0 +1,16 @@
+{
+  "no": {
+    "gameId": "spill-id",
+    "PLAY": "SPILL",
+    "startGameError": "Kunne ikke starte spillet",
+    "goTo": "Gå til",
+    "toJoin": "på mobilen din for å bli med"
+  },
+  "en": {
+    "gameId": "game id",
+    "PLAY": "PLAY",
+    "startGameError": "Could not start game",
+    "goTo": "Go to",
+    "toJoin": "on your phone to join the game"
+  }
+}
