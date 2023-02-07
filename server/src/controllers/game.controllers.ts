@@ -1,4 +1,4 @@
-import { DomainId, Player } from "@big5ish/types";
+import { DomainId, LocaleId, Player } from "@big5ish/types";
 import { GameGateway } from "../gateways/game.gateway";
 import { addPlayer } from "../use-cases/addPlayer";
 import { answerQuestion } from "../use-cases/answerQuestion";
@@ -21,9 +21,8 @@ export class GameController {
     return addPlayer({ gameId, nickname, gameGateway: this.#gameGateway });
   }
 
-  createGame(id: string) {
-    createGame({ id, gameGateway: this.#gameGateway });
-    return `Game with id=${id} created`;
+  createGame({ gameId, localeId }: { gameId: string; localeId: LocaleId }) {
+    return createGame({ id: gameId, language: localeId, gameGateway: this.#gameGateway });
   }
 
   getGame(gameId: string) {

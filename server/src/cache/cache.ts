@@ -21,7 +21,9 @@ class Cache {
     currentStep: number;
     answers: Answer[];
   }) {
-    this.#games.push({ id, status, players: [], steps, currentStep, answers });
+    const game = { id, status, players: [], steps, currentStep, answers };
+    this.#games.push(game);
+    return game;
   }
 
   getGame(id: string) {

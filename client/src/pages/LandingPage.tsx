@@ -11,8 +11,10 @@ export const roomIDLength = 6;
 const boldGradientTextClass = "font-bold bg-clip-text text-transparent bg-gradient-to-r from-red-400 to-blue-500";
 
 const createRoomMutation = gql`
-  mutation createGame($id: ID!) {
-    createGame(id: $id)
+  mutation createGame($input: CreateGameInput!) {
+    createGame(input: $input) {
+      id
+    }
   }
 `;
 
@@ -25,7 +27,7 @@ export const LandingPage = () => {
   const [createRoom, { error }] = useMutation(createRoomMutation);
 
   const initiateRoom = async () => {
-    await createRoom({ variables: { id: gameId } });
+    await createRoom({ variables: { input: { gameId, localeId: locale } } });
   };
 
   if (error) return <p className="text-xl font-bold text-gray-50">{translations[locale].errorMsg}</p>;

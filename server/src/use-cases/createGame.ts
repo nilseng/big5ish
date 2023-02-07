@@ -33,7 +33,7 @@ const getSteps = ({ language = "no" }: { language?: string }): Step[] => {
     const domain = domainStep.domain;
     steps.push(domainStep);
     steps.push(createDomainScoreGuessStep(domain));
-    steps.push(...createQuestionSteps(domain));
+    steps.push(...createQuestionSteps(domain, language));
     steps.push(createDomainSummaryStep(domain));
   });
   steps.push({ type: StepType.SummaryStep });
@@ -56,8 +56,8 @@ const createDomainScoreGuessStep = (domain: Domain): DomainScoreGuessStep => {
   };
 };
 
-const createQuestionSteps = (domain: Domain): QuestionStep[] => {
-  return getItems("no")
+const createQuestionSteps = (domain: Domain, language: string): QuestionStep[] => {
+  return getItems(language)
     .filter((q) => q.domain === domain.domain)
     .map(
       (q): QuestionStep => ({

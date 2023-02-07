@@ -1,4 +1,4 @@
-import { DomainId } from "@big5ish/types";
+import { DomainId, LocaleId } from "@big5ish/types";
 import { ApolloServerPluginDrainHttpServer, ApolloServerPluginLandingPageLocalDefault } from "apollo-server-core";
 import { ApolloServer } from "apollo-server-express";
 import { Server } from "http";
@@ -10,7 +10,8 @@ export const createGQLServer = (httpServer: Server) => {
 
   const resolvers = {
     Mutation: {
-      createGame: (_: unknown, args: { id: string }) => gameController.createGame(args.id),
+      createGame: (_: unknown, args: { input: { gameId: string; localeId: LocaleId } }) =>
+        gameController.createGame(args.input),
       addPlayer: (_: unknown, args: { gameId: string; nickname: string }) => gameController.addPlayer(args),
       startGame: (_: never, args: { gameId: string }) => gameController.startGame(args.gameId),
       guessDomainScores: (
