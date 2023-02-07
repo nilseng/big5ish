@@ -1,5 +1,5 @@
 import { LocaleId } from "@big5ish/types";
-import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
+import { createContext, useCallback, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { paths } from "./config";
@@ -12,15 +12,19 @@ import { WaitingRoomPage } from "./pages/WaitingRoomPage";
 
 const defaultLocale: LocaleId = "no";
 
-export const LocaleContext = createContext<{ locale: LocaleId; setLocale: Dispatch<SetStateAction<LocaleId>> }>({
+export const LocaleContext = createContext<{ locale: LocaleId; selectLocale: (localeId: LocaleId) => void }>({
   locale: defaultLocale,
-  setLocale: () => {},
+  selectLocale: () => {},
 });
 
 const App = () => {
-  const [locale, setLocale] = useState<LocaleId>(defaultLocale);
-  const [localeContext, setLocaleContext] = useState({ locale, setLocale });
-  useEffect(() => setLocaleContext({ locale, setLocale }), [locale]);
+  const [locale, setLocale] = useState<LocaleId>((localStorage.getItem("localeId") as LocaleId) ?? defaultLocale);
+  const selectLocale = useCallback((locale: LocaleId) => {
+    setLocale(locale);
+    localStorage.setItem("localeId", locale);
+  }, []);
+  const [localeContext, setLocaleContext] = useState({ locale, selectLocale });
+  useEffect(() => setLocaleContext({ locale, selectLocale }), [locale, selectLocale]);
 
   return (
     <LocaleContext.Provider value={localeContext}>

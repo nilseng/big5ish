@@ -22,7 +22,7 @@ export const LandingPage = () => {
   const [gameId] = useState<string>(nanoid(roomIDLength));
   const navigate = useNavigate();
 
-  const { locale, setLocale } = useContext(LocaleContext);
+  const { locale, selectLocale } = useContext(LocaleContext);
 
   const [createRoom, { error }] = useMutation(createRoomMutation);
 
@@ -47,12 +47,12 @@ export const LandingPage = () => {
           {locale === "no" ? (
             <p className={`${boldGradientTextClass}`}>Nor</p>
           ) : (
-            <NeuButton type="light" text="Nor" className="h-16 w-16" action={() => setLocale("no")} />
+            <NeuButton type="light" text="Nor" className="h-16 w-16" action={() => selectLocale("no")} />
           )}
           {locale === "en" ? (
             <p className={`${boldGradientTextClass}`}>Eng</p>
           ) : (
-            <NeuButton type="light" text="Eng" className="h-16 w-16" action={() => setLocale("en")} />
+            <NeuButton type="light" text="Eng" className="h-16 w-16" action={() => selectLocale("en")} />
           )}
         </div>
       </div>
