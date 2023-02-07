@@ -1,5 +1,5 @@
 import { LocaleId } from "@big5ish/types";
-import { createContext, Dispatch, SetStateAction, useState } from "react";
+import { createContext, Dispatch, SetStateAction, useEffect, useState } from "react";
 import { Route, Routes } from "react-router-dom";
 import { Navbar } from "./components/Navbar";
 import { paths } from "./config";
@@ -19,7 +19,8 @@ export const LocaleContext = createContext<{ locale: LocaleId; setLocale: Dispat
 
 const App = () => {
   const [locale, setLocale] = useState<LocaleId>(defaultLocale);
-  const [localeContext] = useState({ locale, setLocale });
+  const [localeContext, setLocaleContext] = useState({ locale, setLocale });
+  useEffect(() => setLocaleContext({ locale, setLocale }), [locale]);
 
   return (
     <LocaleContext.Provider value={localeContext}>
