@@ -37,7 +37,7 @@ export const LandingPage = () => {
       <div className="h-96 w-96 flex flex-col justify-center items-center bg-light rounded-3xl">
         <NeuButton
           type="light"
-          textClassName={`text-gray-700 text-xl ${boldGradientTextClass}`}
+          textClassName={`text-xl ${boldGradientTextClass}`}
           text={translations[locale].start}
           style={{ height: "10rem", width: "10rem", padding: "2.5rem" }}
           asyncAction={initiateRoom}
