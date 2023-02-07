@@ -3,7 +3,6 @@ import { gql, useMutation } from "@apollo/client";
 import { DomainSummaryStep as Step, Game } from "@big5ish/types";
 import { useContext, useMemo, useState } from "react";
 import { LocaleContext } from "../App";
-import { language } from "../config";
 import { useOtherPLayers } from "../hooks/useOtherPlayers";
 import { calculateDomainResults } from "../utils/gameUtils";
 import translations from "./DomainSummaryStep.translations.json";
@@ -87,7 +86,7 @@ export const DomainSummaryStep = ({
           {Object.keys(selectedPlayerResults?.facets ?? {}).map((f) => (
             <div key={f} className="pb-2">
               <p>
-                {getFacet({ domain: currentStep.domain.domain, language, facet: +f }).title}{" "}
+                {getFacet({ domain: currentStep.domain.domain, language: locale, facet: +f }).title}{" "}
                 {selectedPlayerResults?.facets?.[+f].toFixed(1)}
               </p>
               <ProgressBar value={selectedPlayerResults?.facets?.[+f]} max={5} />
@@ -124,7 +123,7 @@ export const DomainSummaryStep = ({
           </div>
           {Object.keys(groupResults.facets ?? {}).map((f) => (
             <div key={f} className="pb-2">
-              {getFacet({ domain: currentStep.domain.domain, language, facet: +f }).title}{" "}
+              {getFacet({ domain: currentStep.domain.domain, language: locale, facet: +f }).title}{" "}
               {groupResults?.facets?.[+f]?.toFixed(1) ?? "unknown"}
               <ProgressBar value={groupResults?.facets?.[+f]} max={5} />
             </div>
