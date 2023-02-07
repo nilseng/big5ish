@@ -2,10 +2,12 @@ import { gql, useMutation } from "@apollo/client";
 import { Game, Player } from "@big5ish/types";
 import { faCheckCircle, faCircle, faSpinner, faUserNinja } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { Fragment, useEffect, useState } from "react";
+import { Fragment, useContext, useEffect, useState } from "react";
+import { LocaleContext } from "../App";
 import { useCurrentStep } from "../hooks/useCurrentStep";
 import { useOtherPLayers } from "../hooks/useOtherPlayers";
 import { getCurrentPlayerId, hasPlayerGuessedDomainScores } from "../utils/gameUtils";
+import translations from "./DomainScoreGuessStep.translations.json";
 import { ErrorMsg } from "./ErrorMsg";
 
 const defaultScore = 3;
@@ -36,6 +38,8 @@ const createDomainScoreGuessMap = (players?: Player[]) => {
 };
 
 export const DomainScoreGuessStep = ({ view, game }: { view: "single" | "common"; game: Game }) => {
+  const { locale } = useContext(LocaleContext);
+
   const otherPlayers = useOtherPLayers(game);
   const currentStep = useCurrentStep({ game });
   const [guesses, setGuesses] = useState<{ [playerId: string]: number } | null>();
@@ -101,7 +105,7 @@ export const DomainScoreGuessStep = ({ view, game }: { view: "single" | "common"
                 className="bg-success-400 float-right rounded-lg font-bold px-4 py-2"
                 onClick={() => setNextStep({ variables: { gameId: game.id } })}
               >
-                Next
+                {translations[locale].Next}
               </button>
             )}
           </div>
