@@ -1,0 +1,10 @@
+{
+  "no": {
+    "Players": "Deltagere",
+    "NoOneHasJoinedYet": "Ingen har blitt med ennå. Minimum to deltagere trengs..."
+  },
+  "en": {
+    "Players": "Players",
+    "NoOneHasJoinedYet": "No one has joined yet. At least two players required..."
+  }
+}
