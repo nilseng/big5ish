@@ -6,6 +6,7 @@ import { Fragment, useContext, useEffect, useState } from "react";
 import { LocaleContext } from "../App";
 import { useCurrentStep } from "../hooks/useCurrentStep";
 import { getAnswer, getAnswerColor, getCurrentPlayerId } from "../utils/gameUtils";
+import { CircleVisual } from "./CircleVisual";
 import { ErrorMsg } from "./ErrorMsg";
 import translations from "./QuestionStep.translations.json";
 
@@ -51,7 +52,14 @@ export const QuestionStep = ({ game, view }: { game: Game; view: "common" | "sin
                   <p className="text-xs text-center pt-2">{player.nickname}</p>
                 </div>
                 <div className="col-span-2">
-                  {getAnswerColor({ game, playerId: player.id, question: currentStep.question }) ?? (
+                  {getAnswerColor({ game, playerId: player.id, question: currentStep.question }) ? (
+                    <div className="w-16 h-16">
+                      <CircleVisual
+                        value={getAnswerColor({ game, playerId: player.id, question: currentStep.question })}
+                        max={5}
+                      />
+                    </div>
+                  ) : (
                     <FontAwesomeIcon className={`animate-spin text-gray-200 text-2xl`} icon={faSpinner} />
                   )}
                 </div>
