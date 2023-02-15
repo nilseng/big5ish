@@ -155,13 +155,16 @@ export const DomainScoreGuessStep = ({ view, game }: { view: "single" | "common"
             </div>
             <div className="w-full p-6">
               {hasPlayerGuessedDomainScores({ game, domainId: currentStep.domain.domain }) || loadingGuessMutation ? (
-                <FontAwesomeIcon className={`animate-spin text-gray-200 text-2xl float-right`} icon={faSpinner} />
+                <div className="flex w-full justify-end items-center">
+                  <p className="text-sm text-gray-200 pr-4">{translations[locale].AnswerReceivedWaiting}</p>
+                  <FontAwesomeIcon className={`animate-spin text-gray-200 text-2xl`} icon={faSpinner} />
+                </div>
               ) : (
                 <button
                   className="bg-success-400 float-right rounded-lg font-bold px-4 py-2"
                   onClick={() => guessScores()}
                 >
-                  Ready
+                  {translations[locale].Submit}
                 </button>
               )}
             </div>

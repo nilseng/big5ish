@@ -1,10 +1,14 @@
 {
   "no": {
     "Next": "Neste",
-    "HowDoTheOthersScore": "Hvordan tror du de andre scorer på "
+    "HowDoTheOthersScore": "Hvordan tror du de andre scorer på ",
+    "Submit": "Svar",
+    "AnswerReceivedWaiting": "Klar 👍 Venter på de andre..."
   },
   "en": {
     "Next": "Next",
-    "HowDoTheOthersScore": "How do you think the others score on "
+    "HowDoTheOthersScore": "How do you think the others score on ",
+    "Submit": "Submit",
+    "AnswerReceivedWaiting": "Ready 👍 Waiting for the others..."
   }
 }
