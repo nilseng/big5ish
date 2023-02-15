@@ -47,11 +47,11 @@ export const gqlSchema = gql`
   }
 
   input DomainScoresInput {
-    A: Int
-    C: Int
-    E: Int
-    N: Int
-    O: Int
+    A: Float
+    C: Float
+    E: Float
+    N: Float
+    O: Float
   }
 
   type Game {
@@ -76,11 +76,11 @@ export const gqlSchema = gql`
   }
 
   type DomainScores {
-    A: Int
-    C: Int
-    E: Int
-    N: Int
-    O: Int
+    A: Float
+    C: Float
+    E: Float
+    N: Float
+    O: Float
   }
 
   type Player {

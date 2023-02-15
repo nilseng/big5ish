@@ -144,7 +144,7 @@ export const DomainScoreGuessStep = ({ view, game }: { view: "single" | "common"
                     type={"range"}
                     min={1}
                     max={5}
-                    step={1}
+                    step={0.1}
                     value={guesses?.[player.id] ?? defaultScore}
                     onChange={(e) => {
                       setGuesses((g) => ({ ...g, [player.id]: +e.target.value }));
