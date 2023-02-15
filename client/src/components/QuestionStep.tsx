@@ -55,7 +55,7 @@ export const QuestionStep = ({ game, view }: { game: Game; view: "common" | "sin
                   {getAnswerColor({ game, playerId: player.id, question: currentStep.question }) ? (
                     <div className="w-16 h-16">
                       <CircleVisual
-                        value={getAnswerColor({ game, playerId: player.id, question: currentStep.question })}
+                        value={getAnswerColor({ game, playerId: player.id, question: currentStep.question })!}
                         max={5}
                       />
                     </div>
