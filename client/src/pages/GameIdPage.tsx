@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
+import { LocaleContext } from "../App";
 import { NeuButton } from "../components/NeuButton";
 import { paths, roomIDLength } from "../config";
+import translations from "./GameIdPage.translations.json";
 
 export const GameIdPage = () => {
+  const { locale } = useContext(LocaleContext);
+
   const navigate = useNavigate();
   const [roomID, setRoomID] = useState("");
 
@@ -12,7 +16,7 @@ export const GameIdPage = () => {
       <input
         className="rounded-full p-4"
         type="text"
-        placeholder="Game ID..."
+        placeholder={translations[locale]["gameId..."]}
         onChange={(e) => setRoomID(e.target.value)}
         value={roomID}
       />
@@ -22,7 +26,7 @@ export const GameIdPage = () => {
         disabled={roomID?.length !== roomIDLength}
         action={() => navigate(`${paths.nicknameForm}/${roomID}`)}
         type="colored"
-        text="Enter"
+        text={translations[locale].Next}
       />
     </div>
   );
