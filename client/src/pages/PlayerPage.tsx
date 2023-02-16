@@ -2,8 +2,9 @@ import { gql, useQuery } from "@apollo/client";
 import { Game } from "@big5ish/types";
 import { faSpinner } from "@fortawesome/free-solid-svg-icons";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
-import { useMemo } from "react";
+import { useContext, useMemo } from "react";
 import { useParams } from "react-router-dom";
+import { LocaleContext } from "../App";
 import { DomainPresentationStep } from "../components/DomainPresentationStep";
 import { DomainScoreGuessStep } from "../components/DomainScoreGuessStep";
 import { DomainSummaryStep } from "../components/DomainSummaryStep";
@@ -20,6 +21,7 @@ import {
   isDomainSummaryStep,
   isQuestionStep,
 } from "../utils/typeGuards";
+import translations from "./PlayerPage.translations.json";
 
 const gameQuery = gql`
   query game($gameId: ID!) {
@@ -77,6 +79,8 @@ const gameQuery = gql`
 `;
 
 export const PlayerPage = () => {
+  const { locale } = useContext(LocaleContext);
+
   const { gameId } = useParams();
 
   const { data, loading, error, stopPolling } = useQuery<{ game: Game }>(gameQuery, {
@@ -101,7 +105,7 @@ export const PlayerPage = () => {
   if (data.game.status === "created")
     return (
       <>
-        <p className="text-xl font-bold text-white">Waiting for the game to start...</p>
+        <p className="text-xl font-bold text-white">{translations[locale].WaitingForGameToStart}</p>
         <PlayerList gameId={gameId} />
       </>
     );
