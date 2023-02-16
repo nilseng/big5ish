@@ -1,5 +1,5 @@
 import { gql, useMutation } from "@apollo/client";
-import { nanoid } from "nanoid";
+import { customAlphabet } from "nanoid";
 import { useContext, useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { LocaleContext } from "../App";
@@ -19,7 +19,7 @@ const createRoomMutation = gql`
 `;
 
 export const LandingPage = () => {
-  const [gameId] = useState<string>(nanoid(roomIDLength));
+  const [gameId] = useState<string>(customAlphabet("1234567890", roomIDLength)());
   const navigate = useNavigate();
 
   const { locale, selectLocale } = useContext(LocaleContext);
