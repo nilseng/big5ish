@@ -1,10 +1,12 @@
 import { gql, useMutation } from "@apollo/client";
 import { Player } from "@big5ish/types";
-import React, { useState } from "react";
+import React, { useContext, useState } from "react";
 import { useNavigate, useParams } from "react-router-dom";
+import { LocaleContext } from "../App";
 import { ErrorMsg } from "../components/ErrorMsg";
 import { NeuButton } from "../components/NeuButton";
 import { paths } from "../config";
+import translations from "./NicknamePage.translations.json";
 
 const addPlayerMutation = gql`
   mutation addPlayer($gameId: ID!, $nickname: String!) {
@@ -15,6 +17,8 @@ const addPlayerMutation = gql`
 `;
 
 export const NicknamePage = () => {
+  const { locale } = useContext(LocaleContext);
+
   const { gameId } = useParams();
   const navigate = useNavigate();
   const [addPlayer, { error }] = useMutation<{ player: Player }>(addPlayerMutation);
@@ -34,14 +38,14 @@ export const NicknamePage = () => {
 
   return (
     <div className="h-full flex flex-col justify-center items-center text-black">
-      <p className="text-gray-200">game id</p>
+      <p className="text-gray-200">{translations[locale].gameId}</p>
       <h1 className="text-3xl text-gray-50 mb-8">
         <code>{gameId}</code>
       </h1>
       <input
         className="rounded-full p-4"
         type="text"
-        placeholder="Name..."
+        placeholder={translations[locale]["Name..."]}
         value={nickname}
         onChange={handleSetNickname}
       />
@@ -50,7 +54,7 @@ export const NicknamePage = () => {
         textClassName={`${nickname ? "text-light" : ""} font-bold`}
         disabled={!nickname}
         type="colored"
-        text="Join game"
+        text={translations[locale].JoinGame}
         asyncAction={joinGame}
         action={() => navigate(`${paths.playerPage}/${gameId}`)}
       />

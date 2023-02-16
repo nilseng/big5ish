@@ -1,0 +1,12 @@
+{
+  "no": {
+    "Name...": "Navn...",
+    "gameId": "spill-id",
+    "JoinGame": "Bli med"
+  },
+  "en": {
+    "Name...": "Navn...",
+    "gameId": "game id",
+    "JoinGame": "Join game"
+  }
+}
